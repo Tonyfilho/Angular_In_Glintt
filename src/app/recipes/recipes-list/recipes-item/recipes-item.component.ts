@@ -3,8 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-recipes-item',
   templateUrl: './recipes-item.component.html',
-  styles: [
-  ]
+  styleUrls: [ './recipes-item.Component.css']
 })
 export class RecipesItemComponent implements OnInit {
 
