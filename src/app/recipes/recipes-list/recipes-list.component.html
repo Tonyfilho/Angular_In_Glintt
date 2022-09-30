@@ -2,16 +2,17 @@
   <div class="col-xs-12">
     <button class="btn btn-success">New Recipe</button>
   </div>
-
-  <div class="row">
+  <div>
     <hr>
+  </div>
+  <div class="row">
     <div class="col-xs-12">
       <div class="card" style="width: 18rem;" *ngFor="let item of recipes">
         <img [src]="item.imagePath" class="card-img-top" alt="{{item.name}}">
         <div class="card-body">
           <h5 class="card-title">{{item.name}}</h5>
           <p class="card-text">{{item.description}}</p>
-          <a  class="btn btn-primary">Go Item</a>
+          <a class="btn btn-primary">Go Item</a>
         </div>
       </div>
       <app-recipes-item></app-recipes-item>
