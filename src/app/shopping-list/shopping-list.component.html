@@ -2,6 +2,19 @@
   <div class="col-xs-10">
     <app-shopping-edit></app-shopping-edit>
     <hr>
-    <p>The List </p>
+    <!-- <ul class="nav navbar-nav ">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Manage</a>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="#">Save Data</a></li>
+          <li><a class="dropdown-item" href="#">Fetch Data</a></li>
+        </ul>
+      </li>
+    </ul> -->
+    <ul class="list-group">
+      <a href="" class="list-group-item" style="cursor: pointer;" *ngFor="let item of ingredients">
+        {{ item.name }} ({{ item.amount }})
+      </a>
+    </ul>
   </div>
 </div>
