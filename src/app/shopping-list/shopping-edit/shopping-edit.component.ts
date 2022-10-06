@@ -23,7 +23,7 @@ export class ShoppingEditComponent implements OnInit {
 
   submitForms(localFormBuilder: FormGroup) {
     this.loadForm.emit({name: localFormBuilder.get("name")?.value, amount: localFormBuilder.get("amount")?.value });
-   
+    this.myFormBuilder.reset();
   }
 
 }
