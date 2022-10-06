@@ -1,5 +1,5 @@
 
-export class Ingredients {
+export class IngredientsModel {
   // Obs: para usar a shortCurt Não temos Atributos, ele já estão no construtor
   // public name: string;
   // public amount: number;

@@ -1,5 +1,5 @@
 <div class="row">
-  <app-shopping-edit></app-shopping-edit>
+  <app-shopping-edit (loadForm)="getIngredients($event)"></app-shopping-edit>
   <div class="col-sm-7">
     <hr>
        <ul class="list-group" *ngFor="let item of ingredients">
