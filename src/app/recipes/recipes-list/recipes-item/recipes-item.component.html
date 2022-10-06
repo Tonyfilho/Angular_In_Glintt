@@ -1,1 +1,8 @@
-<p>recipes-item works!</p>
+<div class="card" style="width: 18rem;">
+  <img [src]="recipesItem?.imagePath" class="card-img-top" alt="{{ recipesItem?.name }}">
+  <div class="card-body">
+    <h5 class="card-title">{{recipesItem?.name}}</h5>
+    <p class="card-text">{{recipesItem?.description}}</p>
+    <a class="btn btn-primary" (click)="getItem(recipesItem)">Load Item</a>
+  </div>
+</div>
