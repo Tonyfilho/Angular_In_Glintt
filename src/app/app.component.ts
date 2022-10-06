@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'AngularGuide2022';
+  loadedFeature: string = 'recipe';
+
+  onNavigateHeader(event: string) {
+    this.loadedFeature = event;
+  }
 }
