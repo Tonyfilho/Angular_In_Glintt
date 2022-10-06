@@ -1,8 +1,11 @@
 <div class="row">
-  <div class="col-md-5">
-    <app-recipes-list (loadItemInList)="loadItemFromList($event)"></app-recipes-list>
-  </div>
   <div class="col-md-7">
-    <app-recipes-detail [loadItemInReceipeCompoment]="loadItemFrom"></app-recipes-detail>
+    <app-recipes-list (loadItemInList)="loadItemFrom=$event"></app-recipes-list>
   </div>
+  <div class="col-md-5">
+    <app-recipes-detail [loadItemInReceipeCompoment]="loadItemFrom"  *ngIf="loadItemFrom; else notHave"></app-recipes-detail>
+  </div>
+  <ng-template #notHave>
+  <h2>Pls load your Recipe</h2>
+</ng-template>
 </div>

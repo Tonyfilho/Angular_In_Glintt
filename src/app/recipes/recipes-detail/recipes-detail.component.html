@@ -1,10 +1,5 @@
 <div class="row">
   <div class="col-xs-12">
-    <img src="#" alt="" class="img-responsive">
-  </div>
-</div>
-<div class="row">
-  <div class="col-xs-12">
     <h1>Recipe Name: {{loadItem?.name}}</h1>
   </div>
 </div>
@@ -26,10 +21,17 @@
 <div class="row">
   <div class="col-xs-12">
     Description: {{ loadItem?.name}}
+    Ingredients: {{ loadItem?.description}}
+    <img [src]="loadItem?.imagePath" alt="{{loadItem?.name}}" class="img-responsive localImg" style="max-height: 45%;">
+  </div>
+</div>
+<!-- <div class="row">
+  <div class="col-xs-12">
+    Description: {{ loadItem?.name}}
   </div>
 </div>
 <div class="row">
   <div class="col-xs-12">
     Ingredients: {{ loadItem?.description}}
   </div>
-</div>
+</div> -->

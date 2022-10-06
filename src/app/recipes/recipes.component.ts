@@ -14,9 +14,10 @@ export class RecipesComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  //Obs: Posso Passar o $EVENT direto no template sem precisar  cria aqui a função loadItemFromList desta forma Ex:(loadItemInList)="loadItemFrom=$event"
 
-  loadItemFromList(event:{name: string, imagePath:string, description:string}) {
-    console.log("In RecipesCompoment", event);
-    this.loadItemFrom = event;
-  }
+  // loadItemFromList(event:{name: string, imagePath:string, description:string}) {
+  //   console.log("In RecipesCompoment", event);
+  //   this.loadItemFrom = event;
+  // }
 }
