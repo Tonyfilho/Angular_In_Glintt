@@ -1,6 +1,8 @@
 <div class="row">
   <div class="col-md-7">
-    <app-recipes-list (loadItemInList)="loadItemFrom=$event"></app-recipes-list>
+    <!-- Substituido pelo Service -->
+    <!-- <app-recipes-list (loadItemInList)="loadItemFrom=$event"></app-recipes-list> -->
+    <app-recipes-list></app-recipes-list>
   </div>
   <div class="col-md-5">
     <app-recipes-detail [loadItemInReceipeCompoment]="loadItemFrom"  *ngIf="loadItemFrom; else notHave"></app-recipes-detail>

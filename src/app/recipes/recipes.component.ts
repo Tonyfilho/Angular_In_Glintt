@@ -1,3 +1,4 @@
+import { RecipesService } from './recipes.service';
 import { RecipesModel } from './../../assets/models/recipes.model';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
@@ -10,9 +11,14 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 export class RecipesComponent implements OnInit {
   loadItemFrom!: RecipesModel;
 
-  constructor() { }
+  constructor(private recipesService: RecipesService) {
+
+   }
 
   ngOnInit(): void {
+    this.recipesService.recipeSelected.subscribe((recipe: RecipesModel) => {
+      this.loadItemFrom = recipe;
+    })
   }
   //Obs: Posso Passar o $EVENT direto no template sem precisar  cria aqui a função loadItemFromList desta forma Ex:(loadItemInList)="loadItemFrom=$event"
 

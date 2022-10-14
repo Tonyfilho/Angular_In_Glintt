@@ -1,3 +1,4 @@
+import { RecipesService } from './../../recipes.service';
 import { RecipesModel } from './../../../../assets/models/recipes.model';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
@@ -8,15 +9,16 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class RecipesItemComponent implements OnInit {
   @Input("items") recipesItem!: RecipesModel ;
-  @Output("loadItem") loadItem = new EventEmitter<{name: string, imagePath:string, description:string}>();
-  constructor() { }
+  // @Output("loadItem") loadItem = new EventEmitter<{name: string, imagePath:string, description:string}>();
+  constructor(private recipesService: RecipesService) { }
 
   ngOnInit(): void {
   }
 
   getItem(oneRecipes:{name: string, imagePath:string, description:string}) {
   console.log("In RecipesItemCompoment: " , oneRecipes);
-  this.loadItem.emit(oneRecipes);
+  this.recipesService.recipeSelected.emit(oneRecipes)
+  // this.loadItem.emit(oneRecipes);
   }
 
 
