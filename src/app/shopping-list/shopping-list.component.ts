@@ -1,5 +1,7 @@
+import { Observable } from 'rxjs';
 import { IngredientsModel } from './../../assets/models/ingredients.model';
 import { Component, OnInit } from '@angular/core';
+import { ShoppingListService } from './shopping-list.service';
 
 @Component({
   selector: 'app-shopping-list',
@@ -8,16 +10,17 @@ import { Component, OnInit } from '@angular/core';
   ]
 })
 export class ShoppingListComponent implements OnInit {
-  ingredients: IngredientsModel[] = [new IngredientsModel("Orages", 10), new IngredientsModel("Tomatoes", 5)];
-  constructor() { }
+  /**Foi Criado o Service, e lá será populado o valor
+   ingredients: IngredientsModel[] = [new IngredientsModel("Orages", 10), new IngredientsModel("Tomatoes", 5)];
+   */
+  ingredients !: Observable<IngredientsModel[]>;
+  constructor(private shopService: ShoppingListService) { }
 
   ngOnInit(): void {
+    this.ingredients = this.shopService.getIngredients();
 
   }
 
-  getIngredients(oneIngridient: IngredientsModel) {
 
-    this.ingredients.push(oneIngridient);
-  }
 
 }
