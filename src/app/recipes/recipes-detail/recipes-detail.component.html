@@ -10,7 +10,7 @@
         <button class="btn btn-primary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
           aria-expanded="false">Manage Recipe</button>
         <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="#">To Shopping List </a></li>
+          <li><a class="dropdown-item" (click)="sendGoodsToshoppingList()">To Shopping List </a></li>
           <li><a class="dropdown-item" href="#">Add Recipe</a></li>
           <li><a class="dropdown-item" href="#">Delete Recipe</a></li>
         </ul>
@@ -22,16 +22,14 @@
   <div class="col-xs-12">
     Description: {{ loadItem?.name}}
     Ingredients: {{ loadItem?.description}}
-    <img [src]="loadItem?.imagePath" alt="{{loadItem?.name}}" class="img-responsive localImg" style="max-height: 45%;">
+    <img [src]="loadItem?.imagePath" alt="{{loadItem?.name}}" class="img-responsive localImg" style="max-height: 40%;">
+    <hr>
+       <ul class="list-group" *ngFor="let item of loadItem.ingredients ">
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        {{ item.name }}
+        <span class="badge bg-primary rounded-pill">{{item.amount}}</span>
+      </li>
+    </ul>
+    <hr>
   </div>
-</div>
-<!-- <div class="row">
-  <div class="col-xs-12">
-    Description: {{ loadItem?.name}}
-  </div>
-</div>
-<div class="row">
-  <div class="col-xs-12">
-    Ingredients: {{ loadItem?.description}}
-  </div>
-</div> -->
+

@@ -27,7 +27,7 @@ export class ShoppingEditComponent implements OnInit {
     this.loadForm.emit({name: localFormBuilder.get("name")?.value, amount: localFormBuilder.get("amount")?.value });
      */
   // this.shopService.addIncredient.emit({name: localFormBuilder.get("name")?.value, amount: localFormBuilder.get("amount")?.value });
-  this.shopService.plusIngredients({name: localFormBuilder.get("name")?.value, amount: localFormBuilder.get("amount")?.value });
+  this.shopService.plusIngredient({name: localFormBuilder.get("name")?.value, amount: localFormBuilder.get("amount")?.value });
 
     this.myFormBuilder.reset();
   }
