@@ -1,1 +1,18 @@
+/* html {
+  margin: 0% !important;
+  padding: 0% !important;
+} */
+.header {
+  width: 100%;
+}
+nav {
+  margin: 0% !important;
+  padding: 0% !important;
 
+}
+.row {
+  padding: 0% !important;
+ }
+.col{
+  padding: 0% !important;
+ }
