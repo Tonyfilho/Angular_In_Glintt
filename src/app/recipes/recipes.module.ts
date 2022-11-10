@@ -22,7 +22,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule,
     RouterModule.forChild([
       {path: '', component: RecipesComponent},
-      {path: 'recipes/:id', component: RecipesItemComponent},
+      // {path: 'recipes/:id', component: RecipesItemComponent},
     ])
   ]
 })
