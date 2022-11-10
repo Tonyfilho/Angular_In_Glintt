@@ -1,10 +1,9 @@
 <div class="row">
-  <div class="col-xs-12">
+  <div class="col">
     <h1>Recipe Name: {{loadItem?.name}}</h1>
   </div>
-</div>
-<div class="row">
-  <div class="col-xs-12">
+  <!-- <div class="row"> -->
+  <div class="col">
     <ul class="nav navbar-nav">
       <li class="nav-item dropdown">
         <button class="btn btn-primary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
@@ -17,14 +16,14 @@
       </li>
     </ul>
   </div>
-</div>
-<div class="row">
-  <div class="col-xs-12">
+  <!-- </div> -->
+  <!-- <div class="row"> -->
+  <div class="col">
     Description: {{ loadItem?.name}}
     Ingredients: {{ loadItem?.description}}
     <img [src]="loadItem?.imagePath" alt="{{loadItem?.name}}" class="img-responsive localImg" style="max-height: 40%;">
     <hr>
-       <ul class="list-group" *ngFor="let item of loadItem.ingredients ">
+    <ul class="list-group" *ngFor="let item of loadItem.ingredients ">
       <li class="list-group-item d-flex justify-content-between align-items-center">
         {{ item.name }}
         <span class="badge bg-primary rounded-pill">{{item.amount}}</span>
@@ -33,3 +32,4 @@
     <hr>
   </div>
 
+</div>
