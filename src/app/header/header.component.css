@@ -11,3 +11,6 @@ nav {
 .col{
   padding: 0% !important;
  }
+ .navbar-brand {
+  padding: 1%;
+ }
