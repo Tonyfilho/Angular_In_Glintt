@@ -8,7 +8,7 @@ import { AfterViewInit, Component, Input, OnInit, Output, EventEmitter } from '@
   styleUrls: [ './recipes-detail.Component.css']
 })
 export class RecipesDetailComponent implements OnInit {
-  @Input("loadItemInReceipeCompoment") loadItem!: RecipesModel;
+  @Input("loadItemInReceipeCompoment") loadItem!: RecipesModel | any ;
   @Output("closeRecipes") closeRecipe = new EventEmitter<boolean>()
   constructor(private shoppingListService: ShoppingListService) { }
 
@@ -24,7 +24,6 @@ export class RecipesDetailComponent implements OnInit {
 
   closeRecipes() {
     this.closeRecipe.emit(true)
-  
 
   }
 

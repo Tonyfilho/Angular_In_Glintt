@@ -9,7 +9,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
   ]
 })
 export class RecipesComponent implements OnInit {
-  loadItemFrom!: RecipesModel;
+  loadItemFrom!: RecipesModel | any;
 
 
   constructor(private recipesService: RecipesService) {
@@ -31,7 +31,7 @@ export class RecipesComponent implements OnInit {
   getClose(event: boolean) {
       if(event) {
         console.log("no evento em recipes");
-        this.loadItemFrom!;
+        this.loadItemFrom = null;
       }
   }
 }
