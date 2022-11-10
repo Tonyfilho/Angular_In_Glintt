@@ -1,12 +1,11 @@
-<div class="row">
-  <div class="col-sm-6">
-    <div class="card" style="width: 18rem;">
-      <img [src]="recipesItem.imagePath" class="card-img-top" alt="{{ recipesItem.name }}">
-      <div class="card-body">
-        <h5 class="card-title">{{recipesItem.name}}</h5>
-        <p class="card-text">{{recipesItem.description}}</p>
-        <a class="btn btn-primary" (click)="getItem(recipesItem)">Load Item</a>
+
+    <div class="card-list">
+      <div class="card" style="width: 17rem;">
+        <img [src]="recipesItem.imagePath" class="card-img-top" alt="{{ recipesItem.name }}" style="height: 9rem;">
+        <div class="card-body">
+          <h5 class="card-title">{{recipesItem.name}}</h5>
+          <p class="card-text">{{recipesItem.description}}</p>
+          <a class="btn btn-primary" (click)="getItem(recipesItem)">Load Item</a>
+        </div>
       </div>
-    </div>
-  </div>
-</div>
+   </div>

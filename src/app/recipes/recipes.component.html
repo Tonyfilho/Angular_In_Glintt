@@ -1,14 +1,14 @@
-<div class="row">
-  <!-- <div class="col col-lg-6"> -->
-  <div class="col-6">
-    <!-- Substituido pelo Service -->
-    <!-- <app-recipes-list (loadItemInList)="loadItemFrom=$event"></app-recipes-list> -->
-    <app-recipes-list></app-recipes-list>
+<div class="container">
+  <div class="row">
+    <div class="col col-list">
+      <app-recipes-list></app-recipes-list>
+    </div>
+    <div class="col">
+      <app-recipes-detail [loadItemInReceipeCompoment]="loadItemFrom"  *ngIf="loadItemFrom; else notHave"></app-recipes-detail>
+      <ng-template #notHave>
+      <h2>Pls load your Recipe</h2>
+    </ng-template>
+    </div>
   </div>
-  <div class="col-6">
-    <app-recipes-detail [loadItemInReceipeCompoment]="loadItemFrom"  *ngIf="loadItemFrom; else notHave"></app-recipes-detail>
-  </div>
-  <ng-template #notHave>
-  <h2>Pls load your Recipe</h2>
-</ng-template>
+
 </div>

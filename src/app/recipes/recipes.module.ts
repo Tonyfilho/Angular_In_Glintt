@@ -1,3 +1,4 @@
+import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RecipesComponent } from './recipes.component';
@@ -19,6 +20,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    RouterModule.forChild([
+      {path: '', component: RecipesComponent},
+      {path: 'recipes/:id', component: RecipesItemComponent},
+    ])
   ]
 })
 export class RecipesModule { }
