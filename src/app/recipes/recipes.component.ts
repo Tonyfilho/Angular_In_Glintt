@@ -11,6 +11,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 export class RecipesComponent implements OnInit {
   loadItemFrom!: RecipesModel;
 
+
   constructor(private recipesService: RecipesService) {
 
    }
@@ -26,4 +27,11 @@ export class RecipesComponent implements OnInit {
   //   console.log("In RecipesCompoment", event);
   //   this.loadItemFrom = event;
   // }
+
+  getClose(event: boolean) {
+      if(event) {
+        console.log("no evento em recipes");
+        this.loadItemFrom!;
+      }
+  }
 }

@@ -1,8 +1,11 @@
 <div class="row">
   <div class="col">
-    <h1>Recipe Name: {{loadItem?.name}}</h1>
+    <h2>Recipe Name: {{loadItem['name']}}</h2>
   </div>
   <!-- <div class="row"> -->
+</div>
+<hr>
+<div class="row">
   <div class="col">
     <ul class="nav navbar-nav">
       <li class="nav-item dropdown">
@@ -15,10 +18,9 @@
         </ul>
       </li>
     </ul>
-
-
   </div>
 </div>
+
 <div class="row">
   <div class="col">
     <div class="card-list">
@@ -27,9 +29,9 @@
         <div class="card-body">
           <h5 class="card-title">{{loadItem.name}}</h5>
           <p class="card-text">{{loadItem.description}}</p>
-          <a class="btn btn-primary" routerLink="/recipes">GoBack to Recipes </a>
+          <a class="btn btn-primary" (click)="closeRecipes()">Close Recipes </a>
         </div>
       </div>
-   </div>
+    </div>
   </div>
 </div>
