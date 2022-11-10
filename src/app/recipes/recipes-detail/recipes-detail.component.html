@@ -15,21 +15,21 @@
         </ul>
       </li>
     </ul>
-  </div>
-  <!-- </div> -->
-  <!-- <div class="row"> -->
-  <div class="col">
-    Description: {{ loadItem?.name}}
-    Ingredients: {{ loadItem?.description}}
-    <img [src]="loadItem?.imagePath" alt="{{loadItem?.name}}" class="img-responsive localImg" style="max-height: 40%;">
-    <hr>
-    <ul class="list-group" *ngFor="let item of loadItem.ingredients ">
-      <li class="list-group-item d-flex justify-content-between align-items-center">
-        {{ item.name }}
-        <span class="badge bg-primary rounded-pill">{{item.amount}}</span>
-      </li>
-    </ul>
-    <hr>
-  </div>
 
+
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <div class="card-list">
+      <div class="card" style="width: 35rem;">
+        <img [src]="loadItem.imagePath" class="card-img-top" alt="{{ loadItem.name }}">
+        <div class="card-body">
+          <h5 class="card-title">{{loadItem.name}}</h5>
+          <p class="card-text">{{loadItem.description}}</p>
+          <a class="btn btn-primary" routerLink="/recipes">GoBack to Recipes </a>
+        </div>
+      </div>
+   </div>
+  </div>
 </div>
