@@ -4,12 +4,14 @@
 .col{
   padding: 0% !important;
  }
-
+span {
+  padding-left: 1%;
+}
 body {
   width: 100%;
   min-height: 88vh;
   height: fit-content;
-  background: linear-gradient(68.15deg, #09031f 16.62%, #e0e2e6 85.61%);
+  background: linear-gradient(68.15deg, #09031f 14.62%, #e0e2e6 85.61%);
   position: relative;
   box-shadow: -1em -1em 25px 0em #0d0d0ea9,
    inset 0 0 25px -0.5em #04040f60,
