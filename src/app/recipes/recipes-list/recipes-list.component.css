@@ -1,7 +1,10 @@
+.first {
+  margin-top: 1.25%;
+}
 .card-list {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
- 
+
 
 }
