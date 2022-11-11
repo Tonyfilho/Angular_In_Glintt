@@ -1,8 +1,9 @@
-<div class="row">
-  <!-- Foi Adcionado um Service, sem precisa mandar dados por OutPut() -->
-  <!-- <app-shopping-edit (loadForm)="getIngredients($event)"></app-shopping-edit> -->
-  <app-shopping-edit></app-shopping-edit>
-  <div class="col-sm-7">
+<div class="row" >
+  <div class="col-sm-9">
+    <app-shopping-edit></app-shopping-edit>
+
+  </div>
+  <div class="col-sm-9">
     <hr>
        <ul class="list-group" *ngFor="let item of ingredients |async ">
       <li class="list-group-item d-flex justify-content-between align-items-center">

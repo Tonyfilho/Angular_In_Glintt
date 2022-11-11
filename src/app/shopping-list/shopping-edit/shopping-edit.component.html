@@ -1,39 +1,30 @@
 <div class="row">
-  <div class="col-xs-12">
-    <form class="form"  [formGroup]="myFormBuilder">
-    <div class="row g-2">
-      <div class="col-sm-5 form-group">
-        <div class="form-floating mb-3">
-          <input type="text" class="form-control" id="name" placeholder="StuffName" formControlName="name">
-          <label for="name">Stuff Name </label>
+  <div class="col">
+    <form class="form" [formGroup]="myFormBuilder">
+      <div class="row g-2">
+        <div class="col-sm-9 form-group">
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="name" placeholder="StuffName" formControlName="name">
+            <label for="name">Stuff Name </label>
+          </div>
+        </div>
+        <div class="col-sm-3 form-group">
+          <div class="form-floating">
+            <input type="number" class="form-control" id="amount" placeholder="amount" formControlName="amount">
+            <label for="amount">Amount</label>
+          </div>
         </div>
       </div>
-      <div class="col-sm-2 form-group">
-        <div class="form-floating">
-          <input type="number" class="form-control" id="amount" placeholder="amount" formControlName="amount">
-          <label for="amount">Amount</label>
-        </div>
-      </div>
-    </div>
-    <div class="row g-2">
-      <div class="col-sm-2 form-group">
-        <div class="form-floating">
-          <button type="submit" class="btn btn-success mb-3" (click)="submitForms(myFormBuilder)">Add Item</button>
-        </div>
-      </div>
-      <div class="col-sm-2 form-group">
-        <div class="form-floating">
-          <button type="button" class="btn btn-danger mb-3">Remove Item</button>
-        </div>
-      </div>
-      <div class="col-sm-2 form-group">
-        <div class="form-floating">
-          <button type="button" class="btn btn-primary mb-3" (click)="myFormBuilder.reset()">Clean Form</button>
-        </div>
-      </div>
-    </div>
     </form>
   </div>
-
 </div>
 
+<div class="row">
+  <div class="col">
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+      <button type="submit" class="btn btn-success" (click)="submitForms(myFormBuilder)">Add Item</button>
+      <button type="button" class="btn btn-danger">Remove Item</button>
+      <button type="button" class="btn btn-primary" (click)="myFormBuilder.reset()">Clean Form</button>
+    </div>
+  </div>
+</div>
