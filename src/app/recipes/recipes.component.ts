@@ -28,10 +28,5 @@ export class RecipesComponent implements OnInit {
   //   this.loadItemFrom = event;
   // }
 
-  getClose(event: boolean) {
-      if(event) {
-        console.log("no evento em recipes");
-        this.loadItemFrom = null;
-      }
-  }
+
 }

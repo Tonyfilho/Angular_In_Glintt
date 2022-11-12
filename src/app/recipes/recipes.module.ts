@@ -31,11 +31,7 @@ import { RecipesStartComponent } from './recipes-start/recipes-start.component';
 
     ])
   ]
-  ,
-  exports: [
-    RecipesListComponent,
-    RecipesDetailComponent,
-    RecipesItemComponent,
-  ]
+  
+
 })
 export class RecipesModule { }

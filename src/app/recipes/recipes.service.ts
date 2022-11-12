@@ -21,14 +21,14 @@ export class RecipesService {
   }
 
   getReceipesById(id: number): Observable<RecipesModel>{
-    let oneRecipe: RecipesModel | any = this.recipes.find(data => id === data.id);
-    console.log("service recipe: ", oneRecipe);
-   return from(oneRecipe) as Observable<RecipesModel>;
+    let oneRecipe:  RecipesModel | any   = this.recipes.find(data => id === data.id);
+   // console.log("service recipe: ", oneRecipe);
+   return of(oneRecipe);
   }
 
   getReceipesByIdWithPartial(id: number): Observable<Partial<RecipesModel>>{
     let oneRecipe: RecipesModel | any = this.recipes.find(data => id === data.id);
-   return from(oneRecipe) as Observable<Partial<RecipesModel>>;
+   return of(oneRecipe) as Observable<Partial<RecipesModel>>;
   }
 
 }

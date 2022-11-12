@@ -1,4 +1,4 @@
-<div *ngIf="this.loadItem |async as localLoadItem">
+<div *ngIf="this.loadItem$ |async as localLoadItem">
   <div class="row">
     <div class="col">
       <h2>Recipe Name: {{localLoadItem?.['name']}}</h2>
@@ -30,11 +30,10 @@
           <div class="card-body">
             <h5 class="card-title">{{localLoadItem?.name}}</h5>
             <p class="card-text">{{localLoadItem?.description}}</p>
-            <a class="btn btn-primary" (click)="closeRecipes()">Close Recipes </a>
+            <a class="btn btn-primary" routerLink="/recipes">Close Recipes </a>
           </div>
         </div>
       </div>
     </div>
   </div>
-  {{localLoadItem + "Localtest" }}
 </div>
