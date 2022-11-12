@@ -6,6 +6,7 @@ import { RecipesListComponent } from './recipes-list/recipes-list.component';
 import { RecipesDetailComponent } from './recipes-detail/recipes-detail.component';
 import { RecipesItemComponent } from './recipes-list/recipes-item/recipes-item.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RecipesStartComponent } from './recipes-start/recipes-start.component';
 
 
 
@@ -15,15 +16,26 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     RecipesListComponent,
     RecipesDetailComponent,
     RecipesItemComponent,
+    RecipesStartComponent,
   ],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forChild([
-      {path: '', component: RecipesComponent},
-      // {path: 'recipes/:id', component: RecipesItemComponent},
+
+      {path: '', component: RecipesComponent , children: [
+         {path: '', component: RecipesStartComponent},
+        {path: ':id', component: RecipesDetailComponent},
+      ]},
+
     ])
+  ]
+  ,
+  exports: [
+    RecipesListComponent,
+    RecipesDetailComponent,
+    RecipesItemComponent,
   ]
 })
 export class RecipesModule { }

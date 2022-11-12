@@ -15,11 +15,11 @@ export class RecipesItemComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  getItem(oneRecipes:{name: string, imagePath:string, description:string, ingredients: []} | any) {
-  console.log("In RecipesItemCompoment: " , oneRecipes);
-  this.recipesService.recipeSelected.emit(oneRecipes)
-  // this.loadItem.emit(oneRecipes);
-  }
+  // getItem(oneRecipes:{name: string, imagePath:string, description:string, ingredients: []} | any) {
+  // console.log("In RecipesItemCompoment: " , oneRecipes);
+  // this.recipesService.recipeSelected.emit(oneRecipes)
+
+  // }
 
 
 }

@@ -4,10 +4,13 @@
       <app-recipes-list></app-recipes-list>
     </div>
     <div class="col">
-      <app-recipes-detail [loadItemInReceipeCompoment]="loadItemFrom"  *ngIf="loadItemFrom; else notHave" (closeRecipes)="getClose($event)" ></app-recipes-detail>
-      <ng-template #notHave>
+      
+      <!-- <app-recipes-detail [loadItemInReceipeCompoment]="loadItemFrom"  *ngIf="loadItemFrom; else notHave" (closeRecipes)="getClose($event)" ></app-recipes-detail> -->
+      <!-- <app-recipes-detail (closeRecipes)="getClose($event)" ></app-recipes-detail> -->
+      <router-outlet></router-outlet>
+      <!-- <ng-template #notHave>
       <h2>Pls load your Recipe</h2>
-    </ng-template>
+    </ng-template> -->
     </div>
   </div>
 

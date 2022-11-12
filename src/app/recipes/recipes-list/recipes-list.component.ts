@@ -10,7 +10,6 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 })
 export class RecipesListComponent implements OnInit {
-  //  @Output("loadItemInList") loadItemInList = new EventEmitter<{name: string, imagePath:string, description:string}>();
   recipes$: Observable<RecipesModel[]>;
 
   constructor(private recipesService: RecipesService) {
