@@ -7,6 +7,7 @@ import { RecipesDetailComponent } from './recipes-detail/recipes-detail.componen
 import { RecipesItemComponent } from './recipes-list/recipes-item/recipes-item.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RecipesStartComponent } from './recipes-start/recipes-start.component';
+import { RecipeEditComponent } from './recipe-edit/recipe-edit.component';
 
 
 
@@ -17,6 +18,7 @@ import { RecipesStartComponent } from './recipes-start/recipes-start.component';
     RecipesDetailComponent,
     RecipesItemComponent,
     RecipesStartComponent,
+    RecipeEditComponent,
   ],
   imports: [
     CommonModule,
@@ -24,14 +26,18 @@ import { RecipesStartComponent } from './recipes-start/recipes-start.component';
     ReactiveFormsModule,
     RouterModule.forChild([
 
-      {path: '', component: RecipesComponent , children: [
-         {path: '', component: RecipesStartComponent},
-        {path: ':id', component: RecipesDetailComponent},
-      ]},
+      {
+        path: '', component: RecipesComponent, children: [
+          { path: '', component: RecipesStartComponent },
+          { path: 'new', component: RecipeEditComponent },/**Toda rota STATICA tem q ser passada ANTES no array das rotas DINAMICAs, caso contrario teremos erros */
+          { path: ':id', component: RecipesDetailComponent },
+          { path: ':id/edit', component: RecipeEditComponent },
+        ]
+      },
 
     ])
   ]
-  
+
 
 })
 export class RecipesModule { }

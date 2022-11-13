@@ -1,0 +1,12 @@
+.card-list {
+  display: grid;
+  justify-content: end;
+
+}
+.col-button {
+  margin-bottom: 5%;
+}
+
+img.card-img-top {
+  height: 25rem !important;
+}

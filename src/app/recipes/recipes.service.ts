@@ -31,4 +31,13 @@ export class RecipesService {
    return of(oneRecipe) as Observable<Partial<RecipesModel>>;
   }
 
+  createRecipesId(): Observable<number> {
+    const arraySize = this.recipes.length + 1;
+    return of (arraySize);
+  }
+
+  addRecipes(recipe: RecipesModel) {
+   this.recipes.push(recipe);
+  }
+
 }

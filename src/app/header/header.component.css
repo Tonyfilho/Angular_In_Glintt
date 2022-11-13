@@ -1,4 +1,6 @@
-
+.header {
+  max-width: 100%;
+}
 
 nav {
   margin: 0% !important;
