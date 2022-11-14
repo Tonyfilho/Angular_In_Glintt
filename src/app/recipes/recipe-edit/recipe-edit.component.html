@@ -1,7 +1,9 @@
-<div class="new-or-edit">
+<!-- *******Esta foi Hack feito por mim, para resolver o problema de Não atualizar a imagem no template no tempo de excução do Angular
+    foi criado uma Propriedade que retorna um Observable*********** -->
+<div class="new-or-edit" *ngIf="changeImage | async as localImage">
   <div class="row">
     <div class="col">
-      <h2> <span>Recipe Name: {{newRecipes?.['name'] ? newRecipes?.['name'] : "New Recipe" }}</span> </h2>
+      <h2> <span>Recipe Name: {{ localImage.title }}</span> </h2>
       <!-- <h2> <span>Recipe Image: {{this.image }}</span> </h2> -->
     </div>
   </div>
@@ -11,10 +13,8 @@
       <form [formGroup]="newOrEditRecipesForm">
         <div class="card-list">
           <div class="card" style="width: 40rem;">
-            <!-- *******Esta foi Hack feito por mim, para resolver o problema de Não atualizar a imagem no template no tempo de excução do Angular
-                foi criado uma Propriedade que retorna um Observable*********** -->
-            <img *ngIf="changeImage | async as local" [src]="local" class="card-img-top"
-              alt="{{ this.newRecipes?.name }}">
+            <img  [src]="localImage.imagePath" class="card-img-top"
+              alt="{{ localImage.title }}">
             <div class="card-body">
               <h5 class="card-title">{{this.newRecipes?.imagePath}}</h5>
               <p class="card-text">{{this.newRecipes?.description}}</p>

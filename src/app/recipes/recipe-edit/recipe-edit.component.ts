@@ -79,10 +79,10 @@ export class RecipeEditComponent implements OnInit {
     });
   }
   /**Esta foi Hack feito por mim, para resolver o problema de Não atualizar a imagem no template no tempo de excução do Angular */
-  get changeImage(): Observable<string> {
-    let localImage: string
-    this.idRecipe ? localImage = this.newOrEditRecipesForm.get("imagePath")?.value : localImage = ' ./../../../../assets/imgs/edite.jpg ';
-    return of(localImage);
+  get changeImage(): Observable<{title: string, imagePath: string}> {
+    let local = {title: '', imagePath: ''};
+    this.idRecipe ? local  = {title : this.newOrEditRecipesForm.get("name")?.value,  imagePath: this.newOrEditRecipesForm.get("imagePath")?.value} : local = {title:'New Recipes', imagePath: ' ./../../../../assets/imgs/edite.jpg '} ;
+    return of(local);
   }
 
 }
