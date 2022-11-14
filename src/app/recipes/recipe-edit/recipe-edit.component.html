@@ -1,46 +1,45 @@
 <div class="new-or-edit">
-  <form [formGroup]="newOrEditRecipesForm">
-
-    <div class="card-list">
-      <div class="card" style="width: 40rem;">
-        <img
-          src="{{ this.newRecipes?.imagePath ? 'this.newRecipes?.imagePath':' ./../../../../assets/imgs/edite.jpg '}}"
-          class="card-img-top" alt="{{ this.newRecipes?.name }}">
-        <div class="card-body">
-          <h5 class="card-title">{{this.newRecipes?.imagePath}}</h5>
-          <p class="card-text">{{this.newRecipes?.description}}</p>
-        </div>
-        <div class="container">
-          <input class="form-control" type="text" placeholder="ID" aria-label="default input example"
-          formControlName="id">
-          <input class="form-control" type="text" placeholder="Name" aria-label="default input example"
-          formControlName="name">
-          <input class="form-control" type="text" placeholder="ImagePath" aria-label="default input example"
-          formControlName="imagePath">
-          <div formGroupName="ingredients">
-            <input class="form-control" type="text" placeholder="IngredientesName" aria-label="default input example"
-            formControlName="ingredientesName">
-            <input class="form-control" type="text" placeholder="Amount" aria-label="default input example"
-            formControlName="amount">
-
-          </div>
-          <!-- <a class="btn btn-primary" routerLink="/recipes">Close Recipes </a> -->
-
-          <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <button class="btn btn-primary me-md-2" type="button">Cancel</button>
-            <button class="btn btn-primary" type="button">Button</button>
-            <button class="btn btn-outline-primary" type="button">{{ nameButton }}</button>
-          </div>
-        </div>
-
-
-      </div>
-
-
-
-
+  <div class="row">
+    <div class="col">
+      <h2> <span>Recipe Name: {{newRecipes?.['name'] ? newRecipes?.['name'] : "New Recipe" }}</span> </h2>
     </div>
-
-
-  </form>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col">
+      <form [formGroup]="newOrEditRecipesForm">
+        <div class="card-list">
+          <div class="card" style="width: 40rem;">
+            <img
+              src="{{ this.newRecipes?.imagePath ? 'this.newRecipes?.imagePath':' ./../../../../assets/imgs/edite.jpg '}}"
+              class="card-img-top" alt="{{ this.newRecipes?.name }}">
+            <div class="card-body">
+              <h5 class="card-title">{{this.newRecipes?.imagePath}}</h5>
+              <p class="card-text">{{this.newRecipes?.description}}</p>
+            </div>
+            <div class="container">
+              <input class="form-control" type="text" placeholder="ID" aria-label="default input example"
+                formControlName="id">
+              <input class="form-control" type="text" placeholder="Name" aria-label="default input example"
+                formControlName="name">
+              <input class="form-control" type="text" placeholder="ImagePath" aria-label="default input example"
+                formControlName="imagePath">
+              <div formGroupName="ingredients">
+                <input class="form-control" type="text" placeholder="IngredientesName" aria-label="default input example"
+                  formControlName="ingredientesName">
+                <input class="form-control" type="text" placeholder="Amount" aria-label="default input example"
+                  formControlName="amount">
+              </div>
+              <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button class="btn btn-outline-danger" routerLink="/recipes" type="button">Cancel</button>
+                <button class="btn btn-outline-warning" type="button" (click)="this.newOrEditRecipesForm.reset()">Clean
+                  Form</button>
+                <button class="btn btn-outline-primary" type="button">{{ nameButton }}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>

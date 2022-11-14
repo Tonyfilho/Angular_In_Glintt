@@ -3,6 +3,7 @@ import { RecipesModel } from './../../../assets/models/recipes.model';
 import { RecipesService } from './../recipes.service';
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { ThisReceiver } from '@angular/compiler';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -34,7 +35,8 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    // this.route.params.subscribe((data:Params) => { return this.changeButtonName(+ data['id']), console.log('nameButton',this.nameButton, 'Id',data['id'])});
+    
+   // this.route.params.subscribe((data:Params) => { return this.changeButtonName(+ data['id'])});
     this.idRecipe = +this.route.snapshot.params['id'];
     console.log('nameButton',this.idRecipe)
     this.changeButtonName(this.idRecipe);

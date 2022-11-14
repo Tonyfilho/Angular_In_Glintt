@@ -10,3 +10,8 @@
 img.card-img-top {
   height: 25rem !important;
 }
+
+.d-grid {
+  margin: 1%;
+  margin-right: 0%;
+}

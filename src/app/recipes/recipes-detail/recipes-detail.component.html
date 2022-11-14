@@ -3,7 +3,6 @@
     <div class="col">
       <h2>Recipe Name: {{localLoadItem?.['name']}}</h2>
     </div>
-    <!-- <div class="row"> -->
   </div>
   <hr>
   <div class="row">
@@ -14,7 +13,7 @@
             aria-expanded="false">Manage Recipe</button>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" (click)="sendGoodsToshoppingList()" routerLink="/shopping">To Shopping List </a></li>
-            <li><a class="dropdown-item" href="#">Add Recipe</a></li>
+            <li><a class="dropdown-item" routerLink="/recipes/{{localLoadItem?.id}}/edit">Update Recipe</a></li>
             <li><a class="dropdown-item" href="#">Delete Recipe</a></li>
           </ul>
         </li>
