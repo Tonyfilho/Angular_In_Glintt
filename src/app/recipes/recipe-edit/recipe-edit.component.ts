@@ -39,7 +39,7 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
 
    // this.route.params.subscribe((data:Params) => { return this.changeButtonName(+ data['id'])});
     this.idRecipe = +this.route.snapshot.params['id'];
-    this.newOrEditRecipesForm.get("id")?.setValue(this.idRecipe);
+
     console.log('nameButton',this.idRecipe)
     this.changeButtonName(this.idRecipe);
 
@@ -54,13 +54,14 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
   }
 
   updateForm(){
+    this.newOrEditRecipesForm.get("id")?.setValue(this.idRecipe);
     this.recipesService.getReceipesById(this.idRecipe).subscribe((recipe: RecipesModel) => {
       this.newOrEditRecipesForm.get("name")?.patchValue(recipe.name);
       this.newOrEditRecipesForm.get("description")?.patchValue(recipe.description);
       this.newOrEditRecipesForm.get("imagePath")?.patchValue(recipe.imagePath);
       recipe.ingredients.map((incredient: IngredientsModel) => {
-        this.newOrEditRecipesForm.get("ingredients:ingredientesName")?.patchValue(incredient.name);
-        this.newOrEditRecipesForm.get("ingredients:amount")?.patchValue(incredient.amount);
+        this.newOrEditRecipesForm.get(['ingredients', 'ingredientesName'])?.patchValue(incredient.name);
+        this.newOrEditRecipesForm.get(["ingredients" ,'amount'])?.patchValue(incredient.amount);
       });
 
     });
