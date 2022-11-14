@@ -2,6 +2,7 @@
   <div class="row">
     <div class="col">
       <h2> <span>Recipe Name: {{newRecipes?.['name'] ? newRecipes?.['name'] : "New Recipe" }}</span> </h2>
+      <!-- <h2> <span>Recipe Image: {{this.image }}</span> </h2> -->
     </div>
   </div>
   <hr>
@@ -10,9 +11,10 @@
       <form [formGroup]="newOrEditRecipesForm">
         <div class="card-list">
           <div class="card" style="width: 40rem;">
-            <img
-              src="{{ this.newRecipes?.imagePath ? 'this.newRecipes?.imagePath':' ./../../../../assets/imgs/edite.jpg '}}"
-              class="card-img-top" alt="{{ this.newRecipes?.name }}">
+            <!-- *******Esta foi Hack feito por mim, para resolver o problema de Não atualizar a imagem no template no tempo de excução do Angular
+                foi criado uma Propriedade que retorna um Observable*********** -->
+            <img *ngIf="changeImage | async as local" [src]="local" class="card-img-top"
+              alt="{{ this.newRecipes?.name }}">
             <div class="card-body">
               <h5 class="card-title">{{this.newRecipes?.imagePath}}</h5>
               <p class="card-text">{{this.newRecipes?.description}}</p>
@@ -25,8 +27,8 @@
               <input class="form-control" type="text" placeholder="ImagePath" aria-label="default input example"
                 formControlName="imagePath">
               <div formGroupName="ingredients">
-                <input class="form-control" type="text" placeholder="IngredientesName" aria-label="default input example"
-                  formControlName="ingredientesName">
+                <input class="form-control" type="text" placeholder="IngredientesName"
+                  aria-label="default input example" formControlName="ingredientesName">
                 <input class="form-control" type="text" placeholder="Amount" aria-label="default input example"
                   formControlName="amount">
               </div>

@@ -1,9 +1,10 @@
+import { Observable, of } from 'rxjs';
 import { IngredientsModel } from './../../../assets/models/ingredients.model';
 import { ActivatedRoute, Params } from '@angular/router';
 import { RecipesModel } from './../../../assets/models/recipes.model';
 import { RecipesService } from './../recipes.service';
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, AfterViewChecked } from '@angular/core';
 import { ThisReceiver } from '@angular/compiler';
 
 @Component({
@@ -11,60 +12,77 @@ import { ThisReceiver } from '@angular/compiler';
   templateUrl: './recipe-edit.component.html',
   styleUrls: ['./recipe-edit.component.css']
 })
-export class RecipeEditComponent implements OnInit, AfterViewInit {
+export class RecipeEditComponent implements OnInit {
 
-  nameButton: string= ''
+  // @ViewChild('localImage') image: string | undefined = "";
+  nameButton: string = ''
   idRecipe!: number;
+  // image$: Observable<string>;
   newOrEditRecipesForm: FormGroup;
-  newRecipes!:  Partial<RecipesModel>;
+  newRecipes!: Partial<RecipesModel>;
   constructor(private fb: FormBuilder, private recipesService: RecipesService, private route: ActivatedRoute) {
-   this.newOrEditRecipesForm = fb.group({
-     id: [{value: '' ,disabled: true}],
-     name: [''],
-     description: [''],
-     imagePath: [''],
-     ingredients:
-      fb.group({
-        ingredientesName: [''],
-        amount: ['']
-      })
-
-
-   });
-   }
-  ngAfterViewInit(): void {
+    // this.image$ = new Observable((subs) => subs.next(' ./../../../../assets/imgs/edite.jpg '));
+    this.route.params.subscribe((data: Params) => { this.idRecipe = +data['id'] }); /**Rotas Asyncronas tem que ser carregadas no CONSTRUTOR */
+    this.newOrEditRecipesForm = fb.group({
+      id: [{ value: '', disabled: true }],
+      name: [''],
+      description: [''],
+      imagePath: [''],
+      ingredients:
+        fb.group({
+          ingredientesName: [''],
+          amount: ['']
+        })
+    });
   }
+  // ngAfterViewChecked(): void {
+  //   console.log(this.newOrEditRecipesForm.get("imagePath")?.value)
+  //   this.newRecipes['imagePath'] = this.newOrEditRecipesForm.get("imagePath")?.value;
+  // }
+  // ngAfterViewInit(): void {
+  //   setTimeout(() => {
+  //     console.log("no after: ", this.newRecipes?.imagePath);
+  //     this.image = this.newRecipes?.imagePath;
+
+  //   },0)
+  // }
 
   ngOnInit(): void {
+    //  this.idRecipe = +this.route.snapshot.params['id'];
 
-   // this.route.params.subscribe((data:Params) => { return this.changeButtonName(+ data['id'])});
-    this.idRecipe = +this.route.snapshot.params['id'];
-
-    console.log('nameButton',this.idRecipe)
+    console.log('nameButton', this.idRecipe)
     this.changeButtonName(this.idRecipe);
 
   }
 
   changeButtonName(id: number): string {
-    if(id) {
+    if (id) {
       this.updateForm();
-      return   this.nameButton = 'Update Recipes' ;
+      return this.nameButton = 'Update Recipes';
     }
-    return  this.nameButton = 'Save a New Recipes';
+    return this.nameButton = 'Save a New Recipes';
   }
 
-  updateForm(){
+  updateForm() {
     this.newOrEditRecipesForm.get("id")?.setValue(this.idRecipe);
     this.recipesService.getReceipesById(this.idRecipe).subscribe((recipe: RecipesModel) => {
-      this.newOrEditRecipesForm.get("name")?.patchValue(recipe.name);
-      this.newOrEditRecipesForm.get("description")?.patchValue(recipe.description);
-      this.newOrEditRecipesForm.get("imagePath")?.patchValue(recipe.imagePath);
-      recipe.ingredients.map((incredient: IngredientsModel) => {
-        this.newOrEditRecipesForm.get(['ingredients', 'ingredientesName'])?.patchValue(incredient.name);
-        this.newOrEditRecipesForm.get(["ingredients" ,'amount'])?.patchValue(incredient.amount);
+      this.newOrEditRecipesForm.get("name")?.patchValue(recipe?.name);
+      this.newOrEditRecipesForm.get("description")?.patchValue(recipe?.description);
+      this.newOrEditRecipesForm.get("imagePath")?.patchValue(recipe?.imagePath);
+
+      recipe?.ingredients.map((incredient: IngredientsModel) => {
+        /**MAPEADO e Pegando dados para o  ARRAY  de Form  */
+        this.newOrEditRecipesForm.get(['ingredients', 'ingredientesName'])?.patchValue(incredient?.name);
+        this.newOrEditRecipesForm.get(["ingredients", 'amount'])?.patchValue(incredient?.amount);
       });
 
     });
+  }
+  /**Esta foi Hack feito por mim, para resolver o problema de Não atualizar a imagem no template no tempo de excução do Angular */
+  get changeImage(): Observable<string> {
+    let localImage: string
+    this.idRecipe ? localImage = this.newOrEditRecipesForm.get("imagePath")?.value : localImage = ' ./../../../../assets/imgs/edite.jpg ';
+    return of(localImage);
   }
 
 }
