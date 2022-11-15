@@ -17,7 +17,7 @@ export class RecipesService {
 
   getRecipes():Observable<RecipesModel[]> {
     /**Retornando o SLICE(), sempre retorno uma NOVA copia da memoria e não o array original */
-    return of (this.recipes.slice());
+    return of (this.recipes);
   }
 
   getReceipesById(id: number): Observable<RecipesModel>{
@@ -31,13 +31,22 @@ export class RecipesService {
    return of(oneRecipe) as Observable<Partial<RecipesModel>>;
   }
 
-  createRecipesId(): Observable<number> {
+ private createRecipesId(): number {
     const arraySize = this.recipes.length + 1;
-    return of (arraySize);
+    return arraySize;
   }
 
-  addRecipes(recipe: RecipesModel) {
-   this.recipes.push(recipe);
+  addOrUpdateRecipes(recipe: RecipesModel) {
+    if(recipe.id) {
+      console.log("dentro ELSE service salvando uma recipe: ", recipe);
+      this.recipes[recipe.id -1] = new RecipesModel(recipe.id,recipe.name, recipe.description, recipe.imagePath, recipe.ingredients);
+    }
+    else {
+      recipe['id'] = this.createRecipesId();
+      console.log("dentro ELSE service salvando uma recipe: ", recipe);
+      this.recipes.push(recipe);
+     }
+    
   }
 
 }

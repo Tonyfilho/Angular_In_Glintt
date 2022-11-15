@@ -4,8 +4,8 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { RecipesModel } from './../../../assets/models/recipes.model';
 import { RecipesService } from './../recipes.service';
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
-import { Component, OnInit, AfterViewInit, ViewChild, AfterViewChecked } from '@angular/core';
-import { ThisReceiver } from '@angular/compiler';
+import { Component, OnInit } from '@angular/core';
+
 
 @Component({
   selector: 'app-recipe-edit',
@@ -14,14 +14,13 @@ import { ThisReceiver } from '@angular/compiler';
 })
 export class RecipeEditComponent implements OnInit {
 
-  // @ViewChild('localImage') image: string | undefined = "";
+
   nameButton: string = ''
   idRecipe!: number;
-  // image$: Observable<string>;
   newOrEditRecipesForm: FormGroup;
   newRecipes!: Partial<RecipesModel>;
   constructor(private fb: FormBuilder, private recipesService: RecipesService, private route: ActivatedRoute) {
-    // this.image$ = new Observable((subs) => subs.next(' ./../../../../assets/imgs/edite.jpg '));
+
     this.route.params.subscribe((data: Params) => { this.idRecipe = +data['id'] }); /**Rotas Asyncronas tem que ser carregadas no CONSTRUTOR */
     this.newOrEditRecipesForm = fb.group({
       id: [{ value: '', disabled: true }],
@@ -35,17 +34,7 @@ export class RecipeEditComponent implements OnInit {
         })
     });
   }
-  // ngAfterViewChecked(): void {
-  //   console.log(this.newOrEditRecipesForm.get("imagePath")?.value)
-  //   this.newRecipes['imagePath'] = this.newOrEditRecipesForm.get("imagePath")?.value;
-  // }
-  // ngAfterViewInit(): void {
-  //   setTimeout(() => {
-  //     console.log("no after: ", this.newRecipes?.imagePath);
-  //     this.image = this.newRecipes?.imagePath;
 
-  //   },0)
-  // }
 
   ngOnInit(): void {
     //  this.idRecipe = +this.route.snapshot.params['id'];
@@ -70,12 +59,13 @@ export class RecipeEditComponent implements OnInit {
       this.newOrEditRecipesForm.get("description")?.patchValue(recipe?.description);
       this.newOrEditRecipesForm.get("imagePath")?.patchValue(recipe?.imagePath);
 
+      /**MAPEADO e Pegando dados para o  ARRAY  de Form ou por direto  */
       recipe?.ingredients.map((incredient: IngredientsModel) => {
-        /**MAPEADO e Pegando dados para o  ARRAY  de Form  */
         this.newOrEditRecipesForm.get(['ingredients', 'ingredientesName'])?.patchValue(incredient?.name);
         this.newOrEditRecipesForm.get(["ingredients", 'amount'])?.patchValue(incredient?.amount);
       });
-
+      // this.newOrEditRecipesForm.get(['ingredients', 'ingredientesName'])?.patchValue(this.recipesService?.incredient?.name);
+      //   this.newOrEditRecipesForm.get(["ingredients", 'amount'])?.patchValue(this.recipesService?incredient?.amount);
     });
   }
   /**Esta foi Hack feito por mim, para resolver o problema de Não atualizar a imagem no template no tempo de excução do Angular */
@@ -85,4 +75,9 @@ export class RecipeEditComponent implements OnInit {
     return of(local);
   }
 
+  saveOrUpdade(templateForm: FormGroup) {
+  console.log( templateForm.value);
+ //   let localRecipe: RecipesModel = {  templateForm.get}
+    this.recipesService.addOrUpdateRecipes(templateForm.value)
+  }
 }

@@ -1,4 +1,4 @@
-<!-- *******Esta foi Hack feito por mim, para resolver o problema de Não atualizar a imagem no template no tempo de excução do Angular
+<!-- *******Esta foi Hack feito por mim, para resolver o problema de Não atualizar a imagem no template no tempo de execução do Angular
     foi criado uma Propriedade que retorna um Observable*********** -->
 <div class="new-or-edit" *ngIf="changeImage | async as localImage">
   <div class="row">
@@ -13,7 +13,7 @@
       <form [formGroup]="newOrEditRecipesForm">
         <div class="card-list">
           <div class="card" style="width: 40rem;">
-            <img  [src]="localImage.imagePath" class="card-img-top"
+            <img  [src]="localImage.imagePath ? localImage.imagePath : './../../../../assets/imgs/edite.jpg' " class="card-img-top"
               alt="{{ localImage.title }}">
             <div class="card-body">
               <h5 class="card-title">{{this.newRecipes?.imagePath}}</h5>
@@ -34,9 +34,9 @@
               </div>
               <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                 <button class="btn btn-outline-danger" routerLink="/recipes" type="button">Cancel</button>
-                <button class="btn btn-outline-warning" type="button" (click)="this.newOrEditRecipesForm.reset()">Clean
+                <button class="btn btn-outline-warning" type="button" (click)="this.newOrEditRecipesForm.reset()" [hidden]="localImage.title !== 'New Recipes'">Clean
                   Form</button>
-                <button class="btn btn-outline-primary" type="button">{{ nameButton }}</button>
+                <button class="btn btn-outline-primary" type="button" (click)="saveOrUpdade(newOrEditRecipesForm)">{{ nameButton }}</button>
               </div>
             </div>
           </div>
