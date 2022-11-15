@@ -17,7 +17,7 @@ export class ShoppingListService {
   }
 
   plusIngredient(localIngridient: IngredientsModel): IngredientsModel[] {
-    let addIngridient = new IngredientsModel(localIngridient.name, localIngridient.amount);
+    let addIngridient = new IngredientsModel(localIngridient.ingred_name, localIngridient.amount);
     this.ingredients.push(addIngridient);
     console.log("foi Adcionado", this.ingredients);
     return  this.ingredients;

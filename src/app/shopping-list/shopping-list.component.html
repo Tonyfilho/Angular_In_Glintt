@@ -7,7 +7,7 @@
     <hr>
        <ul class="list-group" *ngFor="let item of ingredients |async ">
       <li class="list-group-item d-flex justify-content-between align-items-center">
-        {{ item.name }}
+        {{ item.ingred_name}}
         <span class="badge bg-primary rounded-pill">{{item.amount}}</span>
       </li>
     </ul>

@@ -29,7 +29,7 @@ export class RecipeEditComponent implements OnInit {
       imagePath: [''],
       ingredients:
         fb.group({
-          ingredientesName: [''],
+          ingred_name: [''],
           amount: ['']
         })
     });
@@ -38,10 +38,14 @@ export class RecipeEditComponent implements OnInit {
 
   ngOnInit(): void {
     //  this.idRecipe = +this.route.snapshot.params['id'];
-
-    console.log('nameButton', this.idRecipe)
     this.changeButtonName(this.idRecipe);
+  }
 
+  /**Esta foi Hack feito por mim, para resolver o problema de Não atualizar a imagem no template no tempo de excução do Angular */
+  get changeImage(): Observable<{title: string, imagePath: string}> {
+    let local = {title: '', imagePath: ''};
+    this.idRecipe ? local  = {title : this.newOrEditRecipesForm.get("name")?.value,  imagePath: this.newOrEditRecipesForm.get("imagePath")?.value} : local = {title:'New Recipes', imagePath: ' ./../../../../assets/imgs/edite.jpg '} ;
+    return of(local);
   }
 
   changeButtonName(id: number): string {
@@ -55,28 +59,24 @@ export class RecipeEditComponent implements OnInit {
   updateForm() {
     this.newOrEditRecipesForm.get("id")?.setValue(this.idRecipe);
     this.recipesService.getReceipesById(this.idRecipe).subscribe((recipe: RecipesModel) => {
+      console.log("ID", recipe?.id);
       this.newOrEditRecipesForm.get("name")?.patchValue(recipe?.name);
       this.newOrEditRecipesForm.get("description")?.patchValue(recipe?.description);
       this.newOrEditRecipesForm.get("imagePath")?.patchValue(recipe?.imagePath);
 
       /**MAPEADO e Pegando dados para o  ARRAY  de Form ou por direto  */
       recipe?.ingredients.map((incredient: IngredientsModel) => {
-        this.newOrEditRecipesForm.get(['ingredients', 'ingredientesName'])?.patchValue(incredient?.name);
+        this.newOrEditRecipesForm.get(['ingredients', 'ingred_name'])?.patchValue(incredient?.ingred_name);
         this.newOrEditRecipesForm.get(["ingredients", 'amount'])?.patchValue(incredient?.amount);
       });
-      // this.newOrEditRecipesForm.get(['ingredients', 'ingredientesName'])?.patchValue(this.recipesService?.incredient?.name);
-      //   this.newOrEditRecipesForm.get(["ingredients", 'amount'])?.patchValue(this.recipesService?incredient?.amount);
     });
-  }
-  /**Esta foi Hack feito por mim, para resolver o problema de Não atualizar a imagem no template no tempo de excução do Angular */
-  get changeImage(): Observable<{title: string, imagePath: string}> {
-    let local = {title: '', imagePath: ''};
-    this.idRecipe ? local  = {title : this.newOrEditRecipesForm.get("name")?.value,  imagePath: this.newOrEditRecipesForm.get("imagePath")?.value} : local = {title:'New Recipes', imagePath: ' ./../../../../assets/imgs/edite.jpg '} ;
-    return of(local);
   }
 
   saveOrUpdade(templateForm: FormGroup) {
-  console.log( templateForm.value);
+  /**Usando o Destruction */
+  const {id, name, description, imagePath, ingredients: {ingred_name, amount}} = templateForm.value;
+  console.log( 'Com DESTRUCTION',id, name, description, imagePath, ingred_name, amount );
+  console.log("Com o Form", templateForm.value);
  //   let localRecipe: RecipesModel = {  templateForm.get}
     this.recipesService.addOrUpdateRecipes(templateForm.value)
   }

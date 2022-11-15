@@ -9,7 +9,7 @@ export class IngredientsModel {
   //   this.name = Ingredients.name;
   //   this.amount = Ingredients.amount;
   // }
-  constructor(public name: string, public amount: number | string ){
+  constructor(public ingred_name: string, public amount: number | string ){
 
   }
 }

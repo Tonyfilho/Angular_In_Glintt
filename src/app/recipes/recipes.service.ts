@@ -37,16 +37,17 @@ export class RecipesService {
   }
 
   addOrUpdateRecipes(recipe: RecipesModel) {
+    console.log("id: ", typeof(recipe.id) );
+
     if(recipe.id) {
-      console.log("dentro ELSE service salvando uma recipe: ", recipe);
       this.recipes[recipe.id -1] = new RecipesModel(recipe.id,recipe.name, recipe.description, recipe.imagePath, recipe.ingredients);
     }
     else {
       recipe['id'] = this.createRecipesId();
-      console.log("dentro ELSE service salvando uma recipe: ", recipe);
+      // console.log("dentro ELSE service salvando uma recipe: ", recipe);
       this.recipes.push(recipe);
      }
-    
+
   }
 
 }

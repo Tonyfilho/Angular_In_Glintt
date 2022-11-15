@@ -14,7 +14,7 @@ export class ShoppingEditComponent implements OnInit {
   myFormBuilder: FormGroup;
   constructor(private fb: FormBuilder, private shopService: ShoppingListService) {
     this.myFormBuilder = fb.group({
-     name:[''],
+      ingred_name:[''],
      amount:['']
     })
    }
@@ -27,7 +27,7 @@ export class ShoppingEditComponent implements OnInit {
     this.loadForm.emit({name: localFormBuilder.get("name")?.value, amount: localFormBuilder.get("amount")?.value });
      */
   // this.shopService.addIncredient.emit({name: localFormBuilder.get("name")?.value, amount: localFormBuilder.get("amount")?.value });
-  this.shopService.plusIngredient({name: localFormBuilder.get("name")?.value, amount: localFormBuilder.get("amount")?.value });
+  this.shopService.plusIngredient({ingred_name: localFormBuilder.get("ingred_name")?.value, amount: localFormBuilder.get("amount")?.value });
 
     this.myFormBuilder.reset();
   }
