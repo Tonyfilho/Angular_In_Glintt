@@ -13,7 +13,7 @@ export class RecipesListComponent implements OnInit {
   recipes$: Observable<RecipesModel[]>;
 
   constructor(private recipesService: RecipesService) {
-    this.recipes$ = this.recipesService.getRecipes();
+    this.recipes$ = this.recipesService.getRecipesWithOF();
 
 
   }

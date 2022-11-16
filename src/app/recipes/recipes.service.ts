@@ -1,58 +1,97 @@
-import { EventEmitter, Injectable } from '@angular/core';
-import { from, Observable, ObservableInput, of } from 'rxjs';
+import { EventEmitter, Injectable, OnDestroy } from '@angular/core';
+import { filter,  Observable, ObservableInput, of, Subscription, switchMap } from 'rxjs';
 import { IngredientsModel } from 'src/assets/models/ingredients.model';
 import { RecipesModel } from 'src/assets/models/recipes.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class RecipesService {
- private recipes: RecipesModel[]= [ new RecipesModel(1 ,"Pirão", "Feito da Cabeça do Peixe e Farinha de mandioca", "https://cdn.ocp.news/2020/01/pirao-de-peixe.jpg", [new IngredientsModel("coentro", 5)]),
- new RecipesModel(2, "Feijoada", "Feito com Feijão Preto e Parte de carne de Porco e Boi", "https://redesuldenoticias.com.br/content/uploads/2018/05/feijoada-receita.jpg", [new IngredientsModel("Pé de Porco", 2)]),
- new RecipesModel(3, "Moqueca Capixaba", "Feito com um bom peixe e mais  camarão como optional", "https://www.hgnoticias.com.br/wp-content/uploads/2015/07/moqueca-capixaba.jpg",[new IngredientsModel("Camarão", 2)]), ]
+export class RecipesService implements OnDestroy {
+    private unSubscrition!: Subscription;
+    private recipes$: Observable<RecipesModel[]> = new Observable(observer => {
+    observer.next([new RecipesModel(1, "Pirão", "Feito da Cabeça do Peixe e Farinha de mandioca", "https://cdn.ocp.news/2020/01/pirao-de-peixe.jpg", [new IngredientsModel("coentro", 5)]),
+    new RecipesModel(2, "Feijoada", "Feito com Feijão Preto e Parte de carne de Porco e Boi", "https://redesuldenoticias.com.br/content/uploads/2018/05/feijoada-receita.jpg", [new IngredientsModel("Pé de Porco", 2)]),
+    new RecipesModel(3, "Moqueca Capixaba", "Feito com um bom peixe e mais  camarão como optional", "https://www.hgnoticias.com.br/wp-content/uploads/2015/07/moqueca-capixaba.jpg", [new IngredientsModel("Camarão", 2)]),]
+    )
+  });
+  private recipes: RecipesModel[] = [new RecipesModel(1, "Pirão", "Feito da Cabeça do Peixe e Farinha de mandioca", "https://cdn.ocp.news/2020/01/pirao-de-peixe.jpg", [new IngredientsModel("coentro", 5)]),
+  new RecipesModel(2, "Feijoada", "Feito com Feijão Preto e Parte de carne de Porco e Boi", "https://redesuldenoticias.com.br/content/uploads/2018/05/feijoada-receita.jpg", [new IngredientsModel("Pé de Porco", 2)]),
+  new RecipesModel(3, "Moqueca Capixaba", "Feito com um bom peixe e mais  camarão como optional", "https://www.hgnoticias.com.br/wp-content/uploads/2015/07/moqueca-capixaba.jpg", [new IngredientsModel("Camarão", 2)]),]
 
 
- recipeSelected = new EventEmitter<RecipesModel>(); /**Emite o evento na recipe-item , n será mais usado foi substituido pelo getReceipesById  */
+  recipeSelected = new EventEmitter<RecipesModel>(); /**Emite o evento na recipe-item , n será mais usado foi substituido pelo getReceipesById  */
   constructor() { }
 
-  getRecipes():Observable<RecipesModel[]> {
+  getRecipesWithOF(): Observable<RecipesModel[]> {
     /**Retornando o SLICE(), sempre retorno uma NOVA copia da memoria e não o array original */
-    return of (this.recipes);
+    return of(this.recipes);
+  }
+  getRecipes$(): Observable<RecipesModel[]> {
+    /**Retornando o SLICE(), sempre retorno uma NOVA copia da memoria e não o array original */
+    //  return of (this.recipes);
+    return this.recipes$;
   }
 
-  getReceipesById(id: number): Observable<RecipesModel>{
-    let oneRecipe:  RecipesModel | any   = this.recipes.find(data => id === data.id);
-   // console.log("service recipe: ", oneRecipe);
-   return of(oneRecipe);
-  }
-
-  getReceipesByIdWithPartial(id: number): Observable<Partial<RecipesModel>>{
+  getReceipesById(id: number): Observable<RecipesModel> {
     let oneRecipe: RecipesModel | any = this.recipes.find(data => id === data.id);
-   return of(oneRecipe) as Observable<Partial<RecipesModel>>;
+    // console.log("service recipe: ", oneRecipe);
+    return of(oneRecipe);
   }
 
- private createRecipesId(): number {
+  getReceipesByIdWithPartial(id: number): Observable<Partial<RecipesModel>> {
+    let oneRecipe: RecipesModel | any = this.recipes.find(data => id === data.id);
+    return of(oneRecipe) as Observable<Partial<RecipesModel>>;
+  }
+
+  private createRecipesId(): number {
     const arraySize = this.recipes.length + 1;
     return arraySize;
   }
 
-  addOrUpdateRecipes(recipe: RecipesModel) {
-   let localRecipe: RecipesModel[]= [];
-   console.log("recipe no server : ", recipe);
-    if(recipe.id) {
-      localRecipe = [...this.recipes.filter(data => data.id !== recipe.id)];
-      this.recipes = [];
-    //  localRecipe.push(new RecipesModel(recipe.id, recipe.name, recipe.description, recipe.imagePath, [...recipe.ingredients.map(d => { return new IngredientsModel(d.ingred_name,  d.amount)})]));
+  addOrUpdateRecipes$ComObservable(recipe: RecipesModel) {
+    let oneRecipeDummy: Observable<RecipesModel>;/**Var Dummy para teste de usado de Operadores RXJS */
+    oneRecipeDummy = this.recipes$.pipe(switchMap(Sw => Sw.filter((Fi) => Fi.id == recipe.id)));/**è um Dummy q Filtro e pego dentro do ArraY de Observable o ID igual */
+    let localRecipe: RecipesModel[] = [];
+    console.log("recipe no server : ", recipe);
+    if (recipe.id) {
+      this.unSubscrition =  this.recipes$.subscribe((dataArray: RecipesModel[]) => {
+        localRecipe = dataArray.filter(data => data.id !== recipe.id)
+
+      });
+
+      // this.recipes = [];
+
       localRecipe.push(recipe);
-    return  this.recipes = [...localRecipe] ,console.log('recipe updated', this.recipes);
+      return this.recipes = [...localRecipe], console.log('recipe updated', this.recipes);
     }
-    //  if(recipe.id === undefined) {
-      console.log("dentro do else: ", recipe);
-      recipe['id'] = this.createRecipesId();
-      return this.recipes.push(recipe);
-    // }
-    // return this.recipes;
+
+    console.log("dentro do else: ", recipe);
+    recipe['id'] = this.createRecipesId();
+    return this.recipes.push(recipe);
+
 
   }
+  addOrUpdateRecipesSemObservable(recipe: RecipesModel) {
+    let localRecipe: RecipesModel[] = [];
+    console.log("recipe no server : ", recipe);
+    if (recipe.id) {
+      localRecipe = [...this.recipes.filter(data => data.id !== recipe.id)];
+      this.recipes = [];
+      //  localRecipe.push(new RecipesModel(recipe.id, recipe.name, recipe.description, recipe.imagePath, [...recipe.ingredients.map(d => { return new IngredientsModel(d.ingred_name,  d.amount)})]));
+      localRecipe.push(recipe);
+      return this.recipes = [...localRecipe], console.log('recipe updated', this.recipes);
+    }
+
+    console.log("dentro do else: ", recipe);
+    recipe['id'] = this.createRecipesId();
+    return this.recipes.push(recipe);
+
+
+  }
+  ngOnDestroy(): void {
+    this.unSubscrition.unsubscribe();
+  }
+
+
 
 }
