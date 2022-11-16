@@ -42,17 +42,15 @@ export class RecipesService {
     if(recipe.id) {
       localRecipe = [...this.recipes.filter(data => data.id !== recipe.id)];
       this.recipes = [];
-      // localRecipe.push(new RecipesModel(recipe.id, recipe.name, recipe.description, recipe.imagePath, [...recipe.ingredients]));
     //  localRecipe.push(new RecipesModel(recipe.id, recipe.name, recipe.description, recipe.imagePath, [...recipe.ingredients.map(d => { return new IngredientsModel(d.ingred_name,  d.amount)})]));
       localRecipe.push(recipe);
     return  this.recipes = [...localRecipe] ,console.log('recipe updated', this.recipes);
-
-
     }
-    else if(!recipe.id) {
+    //  if(recipe.id === undefined) {
+      console.log("dentro do else: ", recipe);
       recipe['id'] = this.createRecipesId();
       return this.recipes.push(recipe);
-    }
+    // }
     // return this.recipes;
 
   }
