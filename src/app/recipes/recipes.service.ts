@@ -37,16 +37,23 @@ export class RecipesService {
   }
 
   addOrUpdateRecipes(recipe: RecipesModel) {
-    console.log("id: ", typeof(recipe.id) );
-
+   let localRecipe: RecipesModel[]= [];
+   console.log("recipe no server : ", recipe);
     if(recipe.id) {
-      this.recipes[recipe.id -1] = new RecipesModel(recipe.id,recipe.name, recipe.description, recipe.imagePath, recipe.ingredients);
+      localRecipe = [...this.recipes.filter(data => data.id !== recipe.id)];
+      this.recipes = [];
+      // localRecipe.push(new RecipesModel(recipe.id, recipe.name, recipe.description, recipe.imagePath, [...recipe.ingredients]));
+    //  localRecipe.push(new RecipesModel(recipe.id, recipe.name, recipe.description, recipe.imagePath, [...recipe.ingredients.map(d => { return new IngredientsModel(d.ingred_name,  d.amount)})]));
+      localRecipe.push(recipe);
+    return  this.recipes = [...localRecipe] ,console.log('recipe updated', this.recipes);
+
+
     }
-    else {
+    else if(!recipe.id) {
       recipe['id'] = this.createRecipesId();
-      // console.log("dentro ELSE service salvando uma recipe: ", recipe);
-      this.recipes.push(recipe);
-     }
+      return this.recipes.push(recipe);
+    }
+    // return this.recipes;
 
   }
 

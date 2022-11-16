@@ -29,7 +29,7 @@ export class RecipesDetailComponent implements OnInit {
     this.loadTest$ =  this.route.params.pipe(switchMap((data: Params) =>   this.recipeService.getReceipesById(+data['id'])));
     /**Dummy Usando SwitchMap */
     const obs = this.route.params.pipe(switchMap((data:Params) => { console.log(data); return this.recipeService.getReceipesById(+data['id'])}));
-    obs.subscribe((data: RecipesModel) => { this.loadItemObject = data; console.log("LocalItemObject: ", this.loadItemObject) });
+    obs.subscribe((data: RecipesModel) => { this.loadItemObject = data; /*console.log("LocalItemObject: ", this.loadItemObject)*/ });
 
   }
 

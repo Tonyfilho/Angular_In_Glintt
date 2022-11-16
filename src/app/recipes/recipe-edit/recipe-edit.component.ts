@@ -23,7 +23,7 @@ export class RecipeEditComponent implements OnInit {
 
     this.route.params.subscribe((data: Params) => { this.idRecipe = +data['id'] }); /**Rotas Asyncronas tem que ser carregadas no CONSTRUTOR */
     this.newOrEditRecipesForm = fb.group({
-      id: [{ value: '', disabled: true }],
+      id: ['',{ disabled: true }],
       name: [''],
       description: [''],
       imagePath: [''],
@@ -73,11 +73,13 @@ export class RecipeEditComponent implements OnInit {
   }
 
   saveOrUpdade(templateForm: FormGroup) {
+  let localRecipe:RecipesModel;
   /**Usando o Destruction */
-  const {id, name, description, imagePath, ingredients: {ingred_name, amount}} = templateForm.value;
+  const {name, description, imagePath, id, ingredients: {ingred_name, amount}} = templateForm.value;
   console.log( 'Com DESTRUCTION',id, name, description, imagePath, ingred_name, amount );
-  console.log("Com o Form", templateForm.value);
- //   let localRecipe: RecipesModel = {  templateForm.get}
-    this.recipesService.addOrUpdateRecipes(templateForm.value)
+  // console.log("Com o Form", templateForm.value);
+  // this.recipesService.addOrUpdateRecipes(templateForm.value); /**Não podemos mandar uma OBJETO mesmo q tenha as mesma chaves, tem q ser mandado  o RECIPESMODEL */
+  localRecipe = new RecipesModel(id, name, description, imagePath, [new IngredientsModel(ingred_name, amount)]);
+  this.recipesService.addOrUpdateRecipes(localRecipe);
   }
 }
