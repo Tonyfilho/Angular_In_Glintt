@@ -8,35 +8,59 @@
     </div>
   </div>
   <hr>
-  <div class="row">
+  <div class="row row-form">
     <div class="col">
       <form [formGroup]="newOrEditRecipesForm">
         <div class="card-list">
           <div class="card" style="width: 40rem;">
-            <img  [src]="localImage.imagePath ? localImage.imagePath : './../../../../assets/imgs/edite.jpg' " class="card-img-top"
-              alt="{{ localImage.title }}">
+            <img [src]="localImage.imagePath ? localImage.imagePath : './../../../../assets/imgs/edite.jpg' "
+              class="card-img-top" alt="{{ localImage.title }}">
             <div class="card-body">
               <h5 class="card-title">{{this.newRecipes?.imagePath}}</h5>
               <p class="card-text">{{this.newRecipes?.description}}</p>
             </div>
             <div class="container">
-              <input class="form-control" type="text" placeholder="ID" aria-label="default input example"
-                formControlName="id">
-              <input class="form-control" type="text" placeholder="Name" aria-label="default input example"
-                formControlName="name">
-              <input class="form-control" type="text" placeholder="ImagePath" aria-label="default input example"
-                formControlName="imagePath">
+
+              <div class="mb-3">
+                <label for="Id" class="form-label">Id</label>
+                <input class="form-control" type="text" placeholder="ID" aria-label="default input example"
+                  formControlName="id">
+              </div>
+              <div class="mb-3">
+                <label for="name" class="form-label">Recipe Name</label>
+                <input class="form-control" type="text" placeholder="Recipe Name" aria-label="default input example"
+                  formControlName="name">
+              </div>
+              <div class="mb-3">
+                <label for="description" class="form-label">Recipe Description</label>
+                <input class="form-control" type="text" placeholder="Recipe Description"
+                  aria-label="default input example" formControlName="description">
+              </div>
+              <div class="mb-3">
+                <label for="ImagePath" class="form-label">Recipe Image Url</label>
+                <input class="form-control" type="text" placeholder="ImagePath" aria-label="default input example"
+                  formControlName="imagePath">
+              </div>
+
               <div formGroupName="ingredients">
-                <input class="form-control" type="text" placeholder="Ingredientes Name"
-                  aria-label="default input example" formControlName="ingred_name">
-                <input class="form-control" type="text" placeholder="Amount" aria-label="default input example"
-                  formControlName="amount">
+                <div class="mb-3">
+                  <label for="ingred_name" class="form-label">Ingrediente Name</label>
+                  <input class="form-control" type="text" placeholder="Ingrediente Name"
+                    aria-label="default input example" formControlName="ingred_name">
+                </div>
+                <div class="mb-3">
+                  <label for="amount" class="form-label">Amount Value</label>
+                  <input class="form-control" type="text" placeholder="Amount" aria-label="default input example"
+                    formControlName="amount">
+                </div>
               </div>
               <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                 <button class="btn btn-outline-danger" routerLink="/recipes" type="button">Close</button>
-                <button class="btn btn-outline-warning" type="button" (click)="this.newOrEditRecipesForm.reset()" [hidden]="localImage.title !== 'New Recipes'">Clean
+                <button class="btn btn-outline-warning" type="button" (click)="this.newOrEditRecipesForm.reset()"
+                  [hidden]="localImage.title !== 'New Recipes'">Clean
                   Form</button>
-                <button class="btn btn-outline-primary" type="button" (click)="saveOrUpdade(newOrEditRecipesForm)">{{ nameButton }}</button>
+                <button class="btn btn-outline-primary" type="button" (click)="saveOrUpdade(newOrEditRecipesForm)">{{
+                  nameButton }}</button>
               </div>
             </div>
           </div>
