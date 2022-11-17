@@ -9,7 +9,7 @@
     <div class="col">
       <div class="card-list">
         <!-- noss Card -->
-        <!-- <app-recipes-item *ngFor="let item of recipes$$" [items]="item"></app-recipes-item> -->
+        <!-- Foi Usando o Dummy RecipesEmitter para Atualizar o DOM, por que o Observable não fazia mais de 1 vez-->
         <!-- <app-recipes-item *ngFor="let item of recipes$ | async " [items]="item"></app-recipes-item> -->
         <app-recipes-item *ngFor="let item of recipes$Emitted | async " [items]="item"></app-recipes-item>
       </div>

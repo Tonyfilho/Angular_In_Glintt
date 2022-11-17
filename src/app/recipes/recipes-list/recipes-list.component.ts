@@ -17,7 +17,7 @@ export class RecipesListComponent implements OnInit {
 
   constructor(private recipesService: RecipesService) {
     this.recipes$ = this.recipesService.getRecipesWithOF();
-    /* setInterval(() => this.recipes$Emitted = this.recipesService.getRecipesEmitter(),1000);*/
+    
     this.recipes$Emitted = this.recipesService.getRecipesEmitter()
   }
 
