@@ -10,6 +10,7 @@
       <div class="card-list">
         <!-- noss Card -->
         <app-recipes-item *ngFor="let item of recipes$ | async " [items]="item"></app-recipes-item>
+        <!-- <app-recipes-item *ngFor="let item of recipes$$" [items]="item"></app-recipes-item> -->
       </div>
     </div>
   </div>

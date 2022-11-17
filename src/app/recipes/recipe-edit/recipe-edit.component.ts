@@ -59,12 +59,12 @@ export class RecipeEditComponent implements OnInit {
   updateForm() {
     this.newOrEditRecipesForm.get("id")?.setValue(this.idRecipe);
     this.recipesService.getReceipesById(this.idRecipe).subscribe((recipe: RecipesModel) => {
-      console.log("ID", recipe?.id);
+    //  console.log("ID", recipe?.id);
       this.newOrEditRecipesForm.get("name")?.patchValue(recipe?.name);
       this.newOrEditRecipesForm.get("description")?.patchValue(recipe?.description);
       this.newOrEditRecipesForm.get("imagePath")?.patchValue(recipe?.imagePath);
 
-      /**MAPEADO e Pegando dados para o  ARRAY  de Form ou por direto  */
+      /**MAPEADO e Pegando dados para o  ARRAY  */
       recipe?.ingredients.map((incredient: IngredientsModel) => {
         this.newOrEditRecipesForm.get(['ingredients', 'ingred_name'])?.patchValue(incredient?.ingred_name);
         this.newOrEditRecipesForm.get(["ingredients", 'amount'])?.patchValue(incredient?.amount);
@@ -76,10 +76,9 @@ export class RecipeEditComponent implements OnInit {
   let localRecipe:RecipesModel;
   /**Usando o Destruction */
   const {name, description, imagePath, id, ingredients: {ingred_name, amount}} = templateForm.value;
-  console.log( 'Com DESTRUCTION',id, name, description, imagePath, ingred_name, amount );
-  // console.log("Com o Form", templateForm.value);
+ // console.log( 'Com DESTRUCTION',id, name, description, imagePath, ingred_name, amount );
   // this.recipesService.addOrUpdateRecipes(templateForm.value); /**Não podemos mandar uma OBJETO mesmo q tenha as mesma chaves, tem q ser mandado  o RECIPESMODEL */
   localRecipe = new RecipesModel(id, name, description, imagePath, [new IngredientsModel(ingred_name, amount)]);
-  this.recipesService.addOrUpdateRecipesSemObservable(localRecipe);
+  this.recipesService.addOrUpdateRecipes(localRecipe);
   }
 }
