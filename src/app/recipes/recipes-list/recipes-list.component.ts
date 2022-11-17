@@ -11,10 +11,14 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 })
 export class RecipesListComponent implements OnInit {
   recipes$: Observable<RecipesModel[]>;
+  recipes$Emitted!: Observable<RecipesModel[]>;
   recipes$$!: RecipesModel[];
+
 
   constructor(private recipesService: RecipesService) {
     this.recipes$ = this.recipesService.getRecipesWithOF();
+    /* setInterval(() => this.recipes$Emitted = this.recipesService.getRecipesEmitter(),1000);*/
+    this.recipes$Emitted = this.recipesService.getRecipesEmitter()
   }
 
   ngOnInit(): void {

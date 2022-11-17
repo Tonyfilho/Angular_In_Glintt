@@ -1,4 +1,4 @@
-import { EventEmitter, Injectable, OnDestroy } from '@angular/core';
+import {  EventEmitter, Injectable, OnDestroy, Output } from '@angular/core';
 import { filter, Observable, ObservableInput, of, Subscription, switchMap } from 'rxjs';
 import { IngredientsModel } from 'src/assets/models/ingredients.model';
 import { RecipesModel } from 'src/assets/models/recipes.model';
@@ -13,19 +13,23 @@ export class RecipesService implements OnDestroy {
   new RecipesModel(3, "Moqueca Capixaba", "Feito com um bom peixe e mais  camarão como optional", "https://www.hgnoticias.com.br/wp-content/uploads/2015/07/moqueca-capixaba.jpg", [new IngredientsModel("Camarão", 2)]),]
   // private recipes$: Observable<RecipesModel[]> = new Observable(observer => {  observer.next(this.recipes)  });
 
-  recipeChanged = new EventEmitter<RecipesModel[]>(); /**Emite o evento na recipe-item , n será mais usado foi substituido pelo getReceipesById  */
+  recipeChanged = new EventEmitter<RecipesModel[]>(); /**Emite o evento para cada alteração da VAR  */
 
 
   constructor() {
-    this.recipeChanged.emit(this.recipes);
-
+   // this.recipeChanged.emit(this.recipes);
+   setInterval(() => this.recipeChanged.emit(this.recipes), 0);
   }
 
   getRecipesWithOF(): Observable<RecipesModel[]> {
     /**Retornando o SLICE(), sempre retorno uma NOVA copia da memoria e não o array original */
     return of(this.recipes);
   }
- 
+  getRecipesEmitter(): Observable<RecipesModel[]> {
+    console.log("service recipe: ", this.recipeChanged.length, "recipe: ",this.recipes);
+    return this.recipeChanged.asObservable()
+  }
+
 
   getReceipesById(id: number): Observable<RecipesModel> {
     let oneRecipe: RecipesModel | any = this.recipes.find(data => id === data.id);
