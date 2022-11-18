@@ -12,23 +12,24 @@ import { Observable } from 'rxjs';
   styleUrls: ['./../recipes-detail/recipes-detail.component.css']
 })
 export class RemoveRecipeComponent implements OnInit {
+
  loadItem$!: Observable<RecipesModel>;
- deleteById!: number;
 
   constructor(private route: ActivatedRoute, private recipesService: RecipesService) {
         route.params.subscribe((data: Params) => {
-          console.log(data['id'])
           this.loadItem$ = this.recipesService.getReceipesById(+data['id']);
         })
    }
 
   ngOnInit(): void {
+    this.recipesService.hidenButtonRemove.emit({hideButon: true, title: 'Remove Recipe Are Sure?'});
   }
 
 
   deleteRecipe(id: number | undefined) {
        if(id) {
           this.recipesService.deleteOneRecipe(id);
+
        }
   }
 

@@ -39,7 +39,8 @@ import { RemoveRecipeComponent } from './remove-recipe/remove-recipe.component';
       },
 
     ])
-  ]
+  ],
+  exports: [RemoveRecipeComponent]
 
 
 })
