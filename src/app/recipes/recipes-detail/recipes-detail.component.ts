@@ -13,7 +13,7 @@ import { ActivatedRoute, Data, Params } from '@angular/router';
 export class RecipesDetailComponent implements OnInit {
 
   loadItem$!: Observable<RecipesModel>;
-  loadTest$!: Observable<RecipesModel>;
+  loadTest$!: Observable<RecipesModel>; /**Dummy para testar o Switchmap */
   loadItemObject!: RecipesModel;
   loadItemById!: number;
   @Output("closeRecipes") closeRecipe = new EventEmitter<boolean>()
@@ -33,11 +33,7 @@ export class RecipesDetailComponent implements OnInit {
 
   }
 
-  sendGoodsToshoppingList() {
-
-  }
-
-
+ 
 
   closeRecipes() {
     this.closeRecipe.emit(true)
