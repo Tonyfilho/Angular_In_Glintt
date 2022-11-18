@@ -11,7 +11,7 @@ export class RecipesService implements OnDestroy {
   private recipes: RecipesModel[] = [new RecipesModel(1, "Pirão", "Feito da Cabeça do Peixe e Farinha de mandioca", "https://cdn.ocp.news/2020/01/pirao-de-peixe.jpg", [new IngredientsModel("coentro", 5)]),
   new RecipesModel(2, "Feijoada", "Feito com Feijão Preto e Parte de carne de Porco e Boi", "https://redesuldenoticias.com.br/content/uploads/2018/05/feijoada-receita.jpg", [new IngredientsModel("Pé de Porco", 2)]),
   new RecipesModel(3, "Moqueca Capixaba", "Feito com um bom peixe e mais  camarão como optional", "https://www.hgnoticias.com.br/wp-content/uploads/2015/07/moqueca-capixaba.jpg", [new IngredientsModel("Camarão", 2)]),]
-  hidenButtonRemove = new EventEmitter<{hideButon: boolean, title: string}>();
+  hidenButtonRemove = new EventEmitter<{hiddeButon: boolean, title: string}>();
 
   recipeChanged = new EventEmitter<RecipesModel[]>(); /**Emite o evento para cada alteração da VAR  */
 

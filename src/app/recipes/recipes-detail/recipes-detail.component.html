@@ -1,5 +1,9 @@
 <div *ngIf="this.loadItem$ |async as localLoadItem">
   <div class="row">
+
+    <div class="col">
+      <h2>{{ this.hiddenRemoveButton?.title }}</h2>
+    </div>
     <div class="col">
       <h2>Recipe Name: {{localLoadItem?.['name']}}</h2>
     </div>
@@ -37,7 +41,7 @@
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
               <button class="btn btn-outline-danger" routerLink="/recipes" type="button">Close</button>
 
-              <button class="btn btn-outline-primary" type="button" (click)="deleteRecipe(localLoadItem?.id)">Delete</button>
+              <button class="btn btn-outline-primary" type="button" (click)="deleteRecipe(localLoadItem?.id)" [hidden]="!this.hiddenRemoveButton?.hiddeButon">Delete</button>
             </div>
             <!-- <a class="btn btn-primary" routerLink="/recipes">Close Recipes </a> -->
           </div>

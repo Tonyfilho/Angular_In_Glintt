@@ -16,16 +16,27 @@ export class RecipesDetailComponent implements OnInit {
   loadItem$!: Observable<RecipesModel>;
   loadTest$!: Observable<RecipesModel>; /**Dummy para testar o Switchmap */
   loadItemObject!: RecipesModel;
-  hidenRemoveButton: any = {hideButon: false, title: 'Recipe Details?'};
+  hiddenRemoveButton: any = {hiddeButon: false, title: 'Recipe Details?'};
 
-  constructor(private recipeService: RecipesService, private route: ActivatedRoute) { }
+  constructor(private recipeService: RecipesService, private route: ActivatedRoute) {
+    this.recipeService.hidenButtonRemove.subscribe(remove => {
+     this.hiddenRemoveButton['hiddeButon'] = remove['hiddeButon'];
+     this.hiddenRemoveButton['title'] = remove['title'];
+   //  console.log("emited",remove , this.hiddenRemoveButton);
+
+   });
+
+   }
 
   ngOnInit(): void {
-
     this.route.params.subscribe((data: Params) => {
+    //  this.loadItemById = +data['id'],
         this.loadItem$ = this.recipeService.getReceipesById(+data['id']);
+
     });
-    
+
+
+
 
     /**Dummy Usando SwitchMap, e Pipe Async
     this.loadTest$ = this.route.params.pipe(switchMap((data: Params) => this.recipeService.getReceipesById(+data['id'])));

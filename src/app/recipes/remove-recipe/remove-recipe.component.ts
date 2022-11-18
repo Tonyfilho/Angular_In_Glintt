@@ -2,7 +2,7 @@ import { RecipesModel } from './../../../assets/models/recipes.model';
 import { RecipesService } from './../recipes.service';
 import { ActivatedRoute, Params } from '@angular/router';
 
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -13,7 +13,8 @@ import { Observable } from 'rxjs';
 })
 export class RemoveRecipeComponent implements OnInit {
 
- loadItem$!: Observable<RecipesModel>;
+ loadItem$!: Observable<RecipesModel>; /**Variavel que pertence ao Recipes-details por compatilhar o mesmo template.HTML tem que existir em ambos */
+ hiddenRemoveButton: any = {hiddeButon: true, title: 'Remove Recipe Are Sure?'}; /**Variavel que pertence ao Recipes-details por compatilhar o mesmo template.HTML tem que existir em ambos  */
 
   constructor(private route: ActivatedRoute, private recipesService: RecipesService) {
         route.params.subscribe((data: Params) => {
@@ -22,7 +23,8 @@ export class RemoveRecipeComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.recipesService.hidenButtonRemove.emit({hideButon: true, title: 'Remove Recipe Are Sure?'});
+  //  setInterval(() => {this.recipesService.hidenButtonRemove.emit({hiddeButon: false, title: 'Remove Recipe Are Sure?'})}, 0) ;
+  this.recipesService.hidenButtonRemove.emit({hiddeButon: true, title: 'Remove Recipe Are Sure?'});
   }
 
 
