@@ -27,8 +27,13 @@
         <div class="card" style="width: 40rem;">
           <img [src]="localLoadItem?.imagePath" class="card-img-top" alt="{{ localLoadItem?.name }}">
           <div class="card-body">
-            <h5 class="card-title">{{localLoadItem?.name}}</h5>
-            <p class="card-text">{{localLoadItem?.description}}</p>
+            <h5 class="card-title">Recipe Name: {{localLoadItem?.name}}</h5>
+            <p class="card-text">Recipe Description: {{localLoadItem?.description}}</p>
+            <div *ngFor="let item of localLoadItem?.ingredients">
+              <p class="card-text">Recipe Ingredients: {{item['ingred_name']}}</p>
+              <p class="card-text">Recipe Value: {{item['amount']}}</p>
+
+            </div>
             <a class="btn btn-primary" routerLink="/recipes">Close Recipes </a>
           </div>
         </div>

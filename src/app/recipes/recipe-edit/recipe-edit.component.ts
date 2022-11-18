@@ -44,7 +44,7 @@ export class RecipeEditComponent implements OnInit {
   /**Esta foi Hack feito por mim, para resolver o problema de Não atualizar a imagem no template no tempo de excução do Angular */
   get changeImage(): Observable<{title: string, imagePath: string}> {
     let local = {title: '', imagePath: ''};
-    this.idRecipe ? local  = {title : this.newOrEditRecipesForm.get("name")?.value,  imagePath: this.newOrEditRecipesForm.get("imagePath")?.value} : local = {title:'New Recipes', imagePath: ' ./../../../../assets/imgs/edite.jpg '} ;
+    local  = {title : this.newOrEditRecipesForm.get("name")?.value,  imagePath: this.newOrEditRecipesForm.get("imagePath")?.value};
     return of(local);
   }
 
@@ -56,10 +56,10 @@ export class RecipeEditComponent implements OnInit {
     return this.nameButton = 'Save a New Recipes';
   }
 
+
   updateForm() {
     this.newOrEditRecipesForm.get("id")?.setValue(this.idRecipe);
     this.recipesService.getReceipesById(this.idRecipe).subscribe((recipe: RecipesModel) => {
-    //  console.log("ID", recipe?.id);
       this.newOrEditRecipesForm.get("name")?.patchValue(recipe?.name);
       this.newOrEditRecipesForm.get("description")?.patchValue(recipe?.description);
       this.newOrEditRecipesForm.get("imagePath")?.patchValue(recipe?.imagePath);
@@ -76,7 +76,6 @@ export class RecipeEditComponent implements OnInit {
   let localRecipe:RecipesModel;
   /**Usando o Destruction */
   const {name, description, imagePath, id, ingredients: {ingred_name, amount}} = templateForm.value;
- // console.log( 'Com DESTRUCTION',id, name, description, imagePath, ingred_name, amount );
   // this.recipesService.addOrUpdateRecipes(templateForm.value); /**Não podemos mandar uma OBJETO mesmo q tenha as mesma chaves, tem q ser mandado  o RECIPESMODEL */
   localRecipe = new RecipesModel(id, name, description, imagePath, [new IngredientsModel(ingred_name, amount)]);
   this.recipesService.addOrUpdateRecipes(localRecipe);

@@ -16,7 +16,7 @@
             <img [src]="localImage.imagePath ? localImage.imagePath : './../../../../assets/imgs/edite.jpg' "
               class="card-img-top" alt="{{ localImage.title }}">
             <div class="card-body">
-              <h5 class="card-title">{{this.newRecipes?.imagePath}}</h5>
+              <h5 class="card-title">{{this.newRecipes?.name}}</h5>
               <p class="card-text">{{this.newRecipes?.description}}</p>
             </div>
             <div class="container">
@@ -39,7 +39,7 @@
               <div class="mb-3">
                 <label for="ImagePath" class="form-label">Recipe Image Url</label>
                 <input class="form-control" type="text" placeholder="ImagePath" aria-label="default input example"
-                  formControlName="imagePath">
+                  formControlName="imagePath" >
               </div>
 
               <div formGroupName="ingredients">
