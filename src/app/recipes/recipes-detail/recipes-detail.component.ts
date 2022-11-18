@@ -16,13 +16,13 @@ export class RecipesDetailComponent implements OnInit {
   loadItem$!: Observable<RecipesModel>;
   loadTest$!: Observable<RecipesModel>; /**Dummy para testar o Switchmap */
   loadItemObject!: RecipesModel;
-  hiddenRemoveButton: any = {hiddeButon: false, title: 'Recipe Details?'};
+  hiddenRemoveButton: any = {hiddeButon: false, title: 'Recipe Details'};
 
   constructor(private recipeService: RecipesService, private route: ActivatedRoute) {
     this.recipeService.hidenButtonRemove.subscribe(remove => {
      this.hiddenRemoveButton['hiddeButon'] = remove['hiddeButon'];
      this.hiddenRemoveButton['title'] = remove['title'];
-   //  console.log("emited",remove , this.hiddenRemoveButton);
+   
 
    });
 

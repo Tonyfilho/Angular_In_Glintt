@@ -10,3 +10,7 @@
 img.card-img-top {
   height: 25rem !important;
 }
+
+.col-title {
+  white-space: nowrap;
+}
