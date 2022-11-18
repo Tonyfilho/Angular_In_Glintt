@@ -16,31 +16,29 @@ export class RecipesDetailComponent implements OnInit {
   loadTest$!: Observable<RecipesModel>; /**Dummy para testar o Switchmap */
   loadItemObject!: RecipesModel;
   loadItemById!: number;
-  @Output("closeRecipes") closeRecipe = new EventEmitter<boolean>()
-  constructor(private shoppingListService: ShoppingListService, private recipeService: RecipesService, private route: ActivatedRoute) { }
+
+  constructor(private recipeService: RecipesService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.route.params.subscribe((data: Params) => {
       this.loadItemById = +data['id'],
-      this.loadItem$ = this.recipeService.getReceipesById(this.loadItemById);
+        this.loadItem$ = this.recipeService.getReceipesById(+data['id']);
 
     });
-    /**Dummy Usando SwitchMap, e Pipe Async */
-    this.loadTest$ =  this.route.params.pipe(switchMap((data: Params) =>   this.recipeService.getReceipesById(+data['id'])));
-    /**Dummy Usando SwitchMap */
+    /**Dummy Usando SwitchMap, e Pipe Async
+    this.loadTest$ = this.route.params.pipe(switchMap((data: Params) => this.recipeService.getReceipesById(+data['id'])));
+    */
+    /**Dummy Usando SwitchMap
     const obs = this.route.params.pipe(switchMap((data:Params) => { console.log(data); return this.recipeService.getReceipesById(+data['id'])}));
-    obs.subscribe((data: RecipesModel) => { this.loadItemObject = data; /*console.log("LocalItemObject: ", this.loadItemObject)*/ });
-
+    obs.subscribe((data: RecipesModel) => { this.loadItemObject = data;  });
+ */
   }
 
 
 
-  // closeRecipes() {
-  //   this.closeRecipe.emit(true)
 
-  // }
 
-  deleteRecipe(id: number |undefined) {
+  deleteRecipe(id: number | undefined) {
 
   }
 

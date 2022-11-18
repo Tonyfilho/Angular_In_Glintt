@@ -32,7 +32,7 @@ import { RemoveRecipeComponent } from './remove-recipe/remove-recipe.component';
         path: '', component: RecipesComponent, children: [
           { path: '', component: RecipesStartComponent },
           { path: 'new', component: RecipeEditComponent },/**Toda rota STATICA tem q ser passada ANTES no array das rotas DINAMICAs, caso contrario teremos erros */
-          { path: ':id/detail', component: RecipesDetailComponent },
+          { path: ':id', component: RecipesDetailComponent },
           { path: ':id/edit', component: RecipeEditComponent },
           { path: ':id/delete', component: RemoveRecipeComponent },
         ]
