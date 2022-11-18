@@ -1,6 +1,6 @@
 import { RecipesModel } from './../../../assets/models/recipes.model';
 import { RecipesService } from './../recipes.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -14,14 +14,22 @@ import { Observable } from 'rxjs';
 export class RemoveRecipeComponent implements OnInit {
  loadItem$!: Observable<RecipesModel>;
  deleteById!: number;
-  deleteRecipe!: RecipesModel;
+
   constructor(private route: ActivatedRoute, private recipesService: RecipesService) {
-        route.params.subscribe(data => {
+        route.params.subscribe((data: Params) => {
+          console.log(data['id'])
           this.loadItem$ = this.recipesService.getReceipesById(+data['id']);
         })
    }
 
   ngOnInit(): void {
+  }
+
+
+  deleteRecipe(id: number | undefined) {
+       if(id) {
+          this.recipesService.deleteOneRecipe(id);
+       }
   }
 
 }

@@ -17,12 +17,13 @@ export class RecipesListComponent implements OnInit {
 
   constructor(private recipesService: RecipesService) {
     this.recipes$ = this.recipesService.getRecipesWithOF();
-    
+  //  setInterval(() => this.recipes$Emitted = this.recipesService.getRecipesEmitter(),0)
     this.recipes$Emitted = this.recipesService.getRecipesEmitter()
   }
 
   ngOnInit(): void {
-    this.recipesService.recipeChanged.subscribe((recipes:RecipesModel[]) => {  this.recipes$$= recipes, console.log("EventEmitter: ", recipes)}) ;
+   // this.recipesService.recipeChanged.subscribe((recipes:RecipesModel[]) => {  this.recipes$$= recipes, console.log("EventEmitter: ", recipes)}) ;
+
   }
 
   /**Pegaremos o dados direto no compomente pelo service

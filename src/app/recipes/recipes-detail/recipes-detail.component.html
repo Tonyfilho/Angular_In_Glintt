@@ -9,12 +9,12 @@
     <div class="col col-button">
       <ul class="nav navbar-nav">
         <li class="nav-item dropdown d-grid gap-2 d-md-flex justify-content-md-end">
-          <button class="btn btn-primary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-            aria-expanded="false">Manage Recipe</button>
+          <button class="btn btn-primary dropdown-toggle"  role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">Manager Recipe</button>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item"  routerLink="/shopping">To Shopping List </a></li>
             <li><a class="dropdown-item" routerLink="/recipes/{{localLoadItem?.id}}/edit">Update Recipe</a></li>
-            <li><a class="dropdown-item" routerLink="/recipes/delete">Delete Recipe</a></li>
+            <li><a class="dropdown-item" routerLink="/recipes/{{localLoadItem?.id}}/delete">Delete Recipe</a></li>
           </ul>
         </li>
       </ul>
@@ -31,10 +31,15 @@
             <p class="card-text">Recipe Description: {{localLoadItem?.description}}</p>
             <div *ngFor="let item of localLoadItem?.ingredients">
               <p class="card-text">Recipe Ingredients: {{item['ingred_name']}}</p>
-              <p class="card-text">Recipe Value: {{item['amount']}}</p>
+              <p class="card-text">Recipe Value: {{item['amount'] |  currency: 'EU'}}</p>
 
             </div>
-            <a class="btn btn-primary" routerLink="/recipes">Close Recipes </a>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+              <button class="btn btn-outline-danger" routerLink="/recipes" type="button">Close</button>
+
+              <button class="btn btn-outline-primary" type="button" (click)="deleteRecipe(localLoadItem?.id)">Delete</button>
+            </div>
+            <!-- <a class="btn btn-primary" routerLink="/recipes">Close Recipes </a> -->
           </div>
         </div>
       </div>

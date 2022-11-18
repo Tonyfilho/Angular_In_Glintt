@@ -26,8 +26,7 @@ export class RecipesService implements OnDestroy {
     return of(this.recipes);
   }
   getRecipesEmitter(): Observable<RecipesModel[]> {
-    console.log("service recipe: ", this.recipeChanged.length, "recipe: ",this.recipes);
-    return this.recipeChanged.asObservable()
+    return this.recipeChanged.asObservable();
   }
 
 
@@ -63,13 +62,13 @@ export class RecipesService implements OnDestroy {
     return this.recipes.push(recipe);
   }
 
-  deleteOneRecipe(recipe: RecipesModel) {
+  deleteOneRecipe(id: number) {
     let localRecipe: RecipesModel[];
-    if(recipe.id) {
-      localRecipe = this.recipes.filter((recipeDeleted: RecipesModel) => recipe.id !== recipeDeleted.id); /**Quero Todos MENOS oq ue ID igual. */
+    if(id) {
+      localRecipe = this.recipes.filter((recipeDeleted: RecipesModel) => id !== recipeDeleted.id); /**Quero Todos MENOS oq ue ID igual. */
       this.recipes.length = 0;
-      this.recipes = localRecipe;
-      return this.recipes = [...localRecipe];
+      this.recipes = [...localRecipe];
+      return this.recipes;
 
     }
     return window.alert("No have recipe with this Id");

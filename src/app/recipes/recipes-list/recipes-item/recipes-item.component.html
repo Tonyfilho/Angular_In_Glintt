@@ -6,7 +6,7 @@
         <div class="card-body">
           <h5 class="card-title">{{recipesItem?.name}}</h5>
           <p class="card-text">{{recipesItem?.description}}</p>
-          <a class="btn btn-primary" [routerLink]="[recipesItem?.id]" routerLinkActive="router-link-active" >Load Item</a>
+          <a class="btn btn-primary" routerLink="{{recipesItem?.id}}/detail" routerLinkActive="router-link-active" >Load Details</a>
         </div>
       </div>
    </div>

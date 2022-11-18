@@ -33,10 +33,14 @@ export class RecipesDetailComponent implements OnInit {
 
   }
 
- 
 
-  closeRecipes() {
-    this.closeRecipe.emit(true)
+
+  // closeRecipes() {
+  //   this.closeRecipe.emit(true)
+
+  // }
+
+  deleteRecipe(id: number |undefined) {
 
   }
 

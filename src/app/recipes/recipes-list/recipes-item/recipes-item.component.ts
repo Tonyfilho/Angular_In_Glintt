@@ -11,7 +11,7 @@ export class RecipesItemComponent implements OnInit {
   @Input("items") recipesItem!: RecipesModel ;
   // @Output("loadItem") loadItem = new EventEmitter<{name: string, imagePath:string, description:string}>();
   constructor(private recipesService: RecipesService) {
-   
+      console.log(this.recipesItem)
   }
 
   ngOnInit(): void {
