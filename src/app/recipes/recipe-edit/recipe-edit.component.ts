@@ -3,7 +3,7 @@ import { IngredientsModel } from './../../../assets/models/ingredients.model';
 import { ActivatedRoute, Params } from '@angular/router';
 import { RecipesModel } from './../../../assets/models/recipes.model';
 import { RecipesService } from './../recipes.service';
-import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
 
@@ -23,14 +23,14 @@ export class RecipeEditComponent implements OnInit {
 
     this.route.params.subscribe((data: Params) => { this.idRecipe = +data['id'] }); /**Rotas Asyncronas tem que ser carregadas no CONSTRUTOR */
     this.newOrEditRecipesForm = fb.group({
-      id: ['',{ disabled: true }],
-      name: [''],
-      description: [''],
-      imagePath: [''],
+      id: [null],
+      name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
+      description: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
+      imagePath: ['', [Validators.required]],
       ingredients:
         fb.group({
-          ingred_name: [''],
-          amount: ['']
+          ingred_name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
+          amount: ['', [Validators.required, Validators.minLength(1)]]
         })
     });
   }

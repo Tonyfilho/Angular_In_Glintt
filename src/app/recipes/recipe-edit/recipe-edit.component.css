@@ -18,3 +18,8 @@ img.card-img-top {
 .row-form {
   margin-bottom: 1%;
 }
+
+/**css das validações basicas, somente dentro do INPUTS*/
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
+}

@@ -24,7 +24,7 @@ export class RemoveRecipeComponent implements OnInit {
 
   ngOnInit(): void {
   //  setInterval(() => {this.recipesService.hidenButtonRemove.emit({hiddeButon: false, title: 'Remove Recipe Are Sure?'})}, 0) ;
-  this.recipesService.hidenButtonRemove.emit({hiddeButon: true, title: 'Remove Recipe Are Sure?'});
+  this.recipesService.hidenButtonRemove.next({hiddeButon: true, title: 'Remove Recipe Are Sure?'});
   }
 
 
