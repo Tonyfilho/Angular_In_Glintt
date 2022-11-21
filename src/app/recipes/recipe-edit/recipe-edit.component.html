@@ -123,22 +123,22 @@
                   <input class="form-control" type="text" placeholder="Amount" aria-label="default input example"
                     formControlName="amount">
                     <section
-                    *ngIf="!newOrEditRecipesForm.controls['ingredients.amount']?.valid && newOrEditRecipesForm.controls['ingredients.amount']?.touched">
-                    {{'dentro '}}
+                    *ngIf="!newOrEditRecipesForm.controls['ingredients']?.valid && newOrEditRecipesForm.controls['ingredients']?.touched">
                     <small class="warning" style="color: red; padding:1%;"
-                      *ngIf="newOrEditRecipesForm?.hasError('required', 'amount')">
+                      *ngIf="this.newOrEditRecipesForm.hasError('required', 'ingredients.amount')">
                       <p>Field is mandatory</p>
                     </small>
                     <!-- Usando CONTROLS Errors -->
                     <small class="warning" style="color: red; padding:1%;"
-                      *ngIf="newOrEditRecipesForm.controls['amount'].errors?.['minlength']">
-                      <p>Min size are 3 lettlers</p>
+                      *ngIf="newOrEditRecipesForm.hasError('minlength','ingredients.amount')">
+                      <p>Min size are 1 Number</p>
                     </small>
-                    <!-- Usando HASERROR -->
+                    <!-- Usando CUSTON CONTROLS Errors -->
                     <small class="warning" style="color: red; padding:1%;"
-                      *ngIf="newOrEditRecipesForm.hasError('maxlength', 'amount')">
-                      <p>Max Field are 30 lettlers</p>
+                      *ngIf="newOrEditRecipesForm.hasError('justanumber','ingredients.amount')">
+                      <p>Just Number</p>
                     </small>
+
                   </section>
                 </div>
               </div>

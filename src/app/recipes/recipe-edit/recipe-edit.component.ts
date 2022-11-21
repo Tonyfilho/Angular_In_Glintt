@@ -5,6 +5,7 @@ import { RecipesModel } from './../../../assets/models/recipes.model';
 import { RecipesService } from './../recipes.service';
 import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { justanumber } from 'src/app/_share/custom-validators/Custom-Validation';
 
 
 @Component({
@@ -30,7 +31,7 @@ export class RecipeEditComponent implements OnInit {
       ingredients:
         fb.group({
           ingred_name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
-          amount: ['', [Validators.required, Validators.minLength(1)]]
+          amount: ['', [Validators.required, Validators.minLength(1)], {validators: justanumber}]
         })
     });
   }
@@ -39,7 +40,6 @@ export class RecipeEditComponent implements OnInit {
   ngOnInit(): void {
     //  this.idRecipe = +this.route.snapshot.params['id'];
     this.changeButtonName(this.idRecipe);
-    this.newOrEditRecipesForm.controls['ingredients'].get('ingred_name')?.hasError('required', 'ingred_name');
   }
 
   /**Esta foi Hack feito por mim, para resolver o problema de Não atualizar a imagem no template no tempo de excução do Angular */
