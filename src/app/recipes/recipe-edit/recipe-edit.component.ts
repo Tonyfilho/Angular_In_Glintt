@@ -25,7 +25,7 @@ export class RecipeEditComponent implements OnInit {
     this.newOrEditRecipesForm = fb.group({
       id: [null],
       name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
-      description: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
+      description: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(200)]],
       imagePath: ['', [Validators.required]],
       ingredients:
         fb.group({
@@ -39,6 +39,7 @@ export class RecipeEditComponent implements OnInit {
   ngOnInit(): void {
     //  this.idRecipe = +this.route.snapshot.params['id'];
     this.changeButtonName(this.idRecipe);
+    this.newOrEditRecipesForm.controls['ingredients'].get('ingred_name')?.hasError('required', 'ingred_name');
   }
 
   /**Esta foi Hack feito por mim, para resolver o problema de Não atualizar a imagem no template no tempo de excução do Angular */
