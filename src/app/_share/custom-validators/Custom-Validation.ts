@@ -1,12 +1,19 @@
+import { JsonPipe } from "@angular/common";
 import { AbstractControl, ValidationErrors } from "@angular/forms";
 
+export class CustomValidation {
 
 
-export function justanumber(control: AbstractControl): ValidationErrors | null {
-  const value = control.value || '';
- // const re = /^-?[0-9]\d*(\.\d{1,2})?$/;
-  const numericNumberReg= '^-?[0-9]\\d*(\\.\\d{1,2})?$';
-  const valid = value.pattern(numericNumberReg);
-  return valid ? null : {ssn: {description: "Is not a Number"}};
+  /**Custom Validator que chega é um NUMERO ou Não */
+  static justanumber = (control: AbstractControl): ValidationErrors | null => {
+    /**Gerador https://regex-generator.olafneumann.org/ */
+    const numericNumberReg: RegExp = /([+-]?(?=\.\d|\d)(?:\d+)?(?:\.?\d*))(?:[eE]([+-]?\d+))?/i;
+    return numericNumberReg.test(control.value) ? null : { justanumber: { description: "Is not a Number" } };
+  }
+
+
+
+
 }
+
 

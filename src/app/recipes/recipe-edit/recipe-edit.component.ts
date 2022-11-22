@@ -1,3 +1,4 @@
+import { CustomValidation } from './../../_share/custom-validators/Custom-Validation';
 import { Observable, of } from 'rxjs';
 import { IngredientsModel } from './../../../assets/models/ingredients.model';
 import { ActivatedRoute, Params } from '@angular/router';
@@ -5,7 +6,7 @@ import { RecipesModel } from './../../../assets/models/recipes.model';
 import { RecipesService } from './../recipes.service';
 import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { justanumber } from 'src/app/_share/custom-validators/Custom-Validation';
+
 
 
 @Component({
@@ -31,7 +32,7 @@ export class RecipeEditComponent implements OnInit {
       ingredients:
         fb.group({
           ingred_name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
-          amount: ['', [Validators.required, Validators.minLength(1)], {validators: justanumber}]
+          amount: [null, [CustomValidation.justanumber, Validators.required, Validators.minLength(1)]]
         })
     });
   }
