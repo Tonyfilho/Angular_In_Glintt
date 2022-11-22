@@ -140,7 +140,9 @@
                     </small>
 
                   </section>
-                  {{ newOrEditRecipesForm.hasError('justanumber','ingredients.amount') }}
+                  <!-- {{'teste' + newOrEditRecipesForm.get("ingredients.justanumber")?.errors?.['description']}} -->
+                  <!-- {{'teste' + this.newOrEditRecipesForm.get('ingredients')?.getError('justanumber','description')}} -->
+{{'teste: ' + this.newOrEditRecipesForm.get('ingredients')?.getError('justanumber','amount') | json}}
                 </div>
               </div>
               <div class="d-grid gap-2 d-md-flex justify-content-md-end">

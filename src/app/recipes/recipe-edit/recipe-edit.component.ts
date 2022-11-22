@@ -72,6 +72,7 @@ export class RecipeEditComponent implements OnInit {
         this.newOrEditRecipesForm.get(["ingredients", 'amount'])?.patchValue(incredient?.amount);
       });
     });
+    this.newOrEditRecipesForm.get('ingredients')?.getError('justanumber','amount').error['justanumber.description']
   }
 
   saveOrUpdade(templateForm: FormGroup) {
