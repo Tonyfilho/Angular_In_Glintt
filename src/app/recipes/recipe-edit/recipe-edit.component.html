@@ -31,7 +31,7 @@
                 <label for="name" class="form-label">Recipe Name</label>
                 <input class="form-control" type="text" placeholder="Recipe Name" aria-label="default input example"
                   formControlName="name">
-                  <section
+                <section
                   *ngIf="!newOrEditRecipesForm.controls['name']?.valid && newOrEditRecipesForm.controls['name']?.touched">
                   <small class="warning" style="color: red; padding:1%;"
                     *ngIf="newOrEditRecipesForm?.hasError('required', 'name')">
@@ -53,7 +53,7 @@
                 <label for="description" class="form-label">Recipe Description</label>
                 <input class="form-control" type="text" placeholder="Recipe Description"
                   aria-label="default input example" formControlName="description">
-                  <section
+                <section
                   *ngIf="!newOrEditRecipesForm.controls['description']?.valid && newOrEditRecipesForm.controls['description']?.touched">
                   <small class="warning" style="color: red; padding:1%;"
                     *ngIf="newOrEditRecipesForm?.hasError('required', 'description')">
@@ -74,33 +74,34 @@
               <div class="mb-3">
                 <label for="ImagePath" class="form-label">Recipe Image Url</label>
                 <input class="form-control" type="text" placeholder="ImagePath" aria-label="default input example"
-                  formControlName="imagePath" >
+                  formControlName="imagePath">
               </div>
               <section
-              *ngIf="!newOrEditRecipesForm.controls['imagePath']?.valid && newOrEditRecipesForm.controls['imagePath']?.touched">
-              <small class="warning" style="color: red; padding:1%;"
-                *ngIf="newOrEditRecipesForm?.hasError('required', 'imagePath')">
-                <p>Field is mandatory</p>
-              </small>
-              <!-- Usando CONTROLS Errors -->
-              <small class="warning" style="color: red; padding:1%;"
-                *ngIf="newOrEditRecipesForm.controls['imagePath'].errors?.['minlength']">
-                <p>Min size are 3 lettlers</p>
-              </small>
-              <!-- Usando HASERROR -->
-              <small class="warning" style="color: red; padding:1%;"
-                *ngIf="newOrEditRecipesForm.hasError('maxlength', 'imagePath')">
-                <p>Max Field are 30 lettlers</p>
-              </small>
-            </section>
+                *ngIf="!newOrEditRecipesForm.controls['imagePath']?.valid && newOrEditRecipesForm.controls['imagePath']?.touched">
+                <small class="warning" style="color: red; padding:1%;"
+                  *ngIf="newOrEditRecipesForm?.hasError('required', 'imagePath')">
+                  <p>Field is mandatory</p>
+                </small>
+                <!-- Usando CONTROLS Errors -->
+                <small class="warning" style="color: red; padding:1%;"
+                  *ngIf="newOrEditRecipesForm.controls['imagePath'].errors?.['minlength']">
+                  <p>Min size are 3 lettlers</p>
+                </small>
+                <!-- Usando HASERROR -->
+                <small class="warning" style="color: red; padding:1%;"
+                  *ngIf="newOrEditRecipesForm.hasError('maxlength', 'imagePath')">
+                  <p>Max Field are 30 lettlers</p>
+                </small>
+              </section>
 
               <div formGroupName="ingredients">
                 <div class="mb-3">
                   <label for="ingred_name" class="form-label">Ingrediente Name</label>
                   <input class="form-control" type="text" placeholder="Ingrediente Name"
                     aria-label="default input example" formControlName="ingred_name">
-                    <section
-                    *ngIf="!newOrEditRecipesForm.controls['ingredients']?.valid && newOrEditRecipesForm.controls['ingredients']?.touched">
+                       <!-- ------------------------------------Pegando o ERROR do formulario ANINHADO--------------- -->
+                  <section
+                    *ngIf="!newOrEditRecipesForm.get('ingredients.ingred_name')?.valid && newOrEditRecipesForm.get('ingredients.ingred_name')?.touched">
                     <!--  Form NESTED----tem que passar o o Objeto completo ingredients.ingred_name-->
                     <small class="warning" style="color: red; padding:1%;"
                       *ngIf="newOrEditRecipesForm?.hasError('required', 'ingredients.ingred_name')">
@@ -122,8 +123,9 @@
                   <label for="amount" class="form-label">Amount Value</label>
                   <input class="form-control" type="text" placeholder="Amount" aria-label="default input example"
                     formControlName="amount">
-                    <section
-                    *ngIf="!newOrEditRecipesForm.controls['ingredients']?.valid && newOrEditRecipesForm.controls['ingredients']?.touched">
+                    <!-- ------------------------------------Pegando o ERROR do formulario ANINHADO -->
+                  <section
+                    *ngIf="!newOrEditRecipesForm.get('ingredients.amount')?.valid && newOrEditRecipesForm.get('ingredients.amount')?.touched">
                     <small class="warning" style="color: red; padding:1%;"
                       *ngIf="this.newOrEditRecipesForm.hasError('required', 'ingredients.amount')">
                       <p>Field is mandatory</p>
@@ -133,16 +135,13 @@
                       *ngIf="newOrEditRecipesForm.hasError('minlength','ingredients.amount')">
                       <p>Min size are 1 Number</p>
                     </small>
-                    <!-- Usando CUSTON CONTROLS Errors -->
+                    <!-- Usando CUSTON CONTROLS Errors valores DYNAMICOS vindos do CustomValidation -->
                     <small class="warning" style="color: red; padding:1%;"
                       *ngIf="newOrEditRecipesForm.hasError('justanumber','ingredients.amount')">
-                      <p>Just Number</p>
+                      <p>{{ this.newOrEditRecipesForm.get('ingredients.amount')?.errors?.['justanumber']?.['description'] }}</p>
                     </small>
-
                   </section>
-                  <!-- {{'teste' + newOrEditRecipesForm.get("ingredients.justanumber")?.errors?.['description']}} -->
-                  <!-- {{'teste' + this.newOrEditRecipesForm.get('ingredients')?.getError('justanumber','description')}} -->
-{{'teste: ' + this.newOrEditRecipesForm.get('ingredients')?.getError('justanumber','amount') | json}}
+
                 </div>
               </div>
               <div class="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -150,7 +149,8 @@
                 <button class="btn btn-outline-warning" type="button" (click)="this.newOrEditRecipesForm.reset()"
                   [hidden]="localImage.title !== 'New Recipes'">Clean
                   Form</button>
-                <button class="btn btn-outline-primary" type="button" [disabled]="!newOrEditRecipesForm.valid" (click)="saveOrUpdade(newOrEditRecipesForm)">{{
+                <button class="btn btn-outline-primary" type="button" [disabled]="!newOrEditRecipesForm.valid"
+                  (click)="saveOrUpdade(newOrEditRecipesForm)">{{
                   nameButton }}</button>
               </div>
             </div>

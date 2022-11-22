@@ -10,10 +10,6 @@ export class CustomValidation {
     const numericNumberReg: RegExp = /([+-]?(?=\.\d|\d)(?:\d+)?(?:\.?\d*))(?:[eE]([+-]?\d+))?/i;
     return numericNumberReg.test(control.value) ? null : { justanumber: { description: "Is not a Number" } };
   }
-
-
-
-
 }
 
 

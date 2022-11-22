@@ -72,10 +72,11 @@ export class RecipeEditComponent implements OnInit {
         this.newOrEditRecipesForm.get(["ingredients", 'amount'])?.patchValue(incredient?.amount);
       });
     });
-    this.newOrEditRecipesForm.get('ingredients')?.getError('justanumber','amount').error['justanumber.description']
+  
   }
 
   saveOrUpdade(templateForm: FormGroup) {
+    /**É Opcional receber dentro do Submit o paramentro TemplateForm, pois no ReactiveForm ja temos acesso aos dados via FormGroup */
   let localRecipe:RecipesModel;
   /**Usando o Destruction */
   const {name, description, imagePath, id, ingredients: {ingred_name, amount}} = templateForm.value;
