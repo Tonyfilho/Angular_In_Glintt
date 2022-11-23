@@ -7,12 +7,43 @@
             <input type="text" class="form-control" id="name" placeholder="StuffName" formControlName="ingred_name">
             <label for="name">Stuff Name </label>
           </div>
+          <section *ngIf="!myFormBuilder.get('ingred_name')?.valid && myFormBuilder.get('ingred_name')?.touched">
+            <small class="warning" style="color: red; padding:1%;"
+              *ngIf="this.myFormBuilder.get('ingred_name')?.errors?.['required']">
+              <p>Field is mandatory</p>
+            </small>
+            <!-- Usando CONTROLS Errors -->
+            <small class="warning" style="color: red; padding:1%;"
+              *ngIf="this.myFormBuilder.get('ingred_name')?.errors?.['minlength']">
+              <p>Min size are 3 Number</p>
+            </small>
+            <!-- Usando CUSTON CONTROLS Errors valores DYNAMICOS vindos do CustomValidation -->
+            <small class="warning" style="color: red; padding:1%;"
+              *ngIf="this.myFormBuilder.get('ingred_name')?.errors?.['maxlength']">
+              <p>Max size are 50 Numbers</p>
+            </small>
+          </section>
         </div>
         <div class="col-sm-3 form-group">
           <div class="form-floating">
             <input type="number" class="form-control" id="amount" placeholder="amount" formControlName="amount">
             <label for="amount">Amount</label>
           </div>
+          <section *ngIf="!myFormBuilder.get('amount')?.valid && myFormBuilder.get('amount')?.touched">
+            <small class="warning" style="color: red; padding:1%;"
+              *ngIf="this.myFormBuilder.get('amount')?.errors?.['required']">
+              <p>Field is mandatory</p>
+            </small>
+            <!-- Usando CUSTON CONTROLS Errors valores DYNAMICOS vindos do CustomValidation -->
+            <small class="warning" style="color: red; padding:1%;"
+              *ngIf="this.myFormBuilder.get('amount')?.errors?.['justanumber']">
+              <p>{{ this.myFormBuilder.get('amount')?.errors?.['justanumber']?.['description']}}</p>
+            </small>
+            <small class="warning" style="color: red; padding:1%;"
+              *ngIf="this.myFormBuilder.get('amount')?.errors?.['pattern']">
+              <p>Just positive numbers</p>
+            </small>
+          </section>
         </div>
       </div>
     </form>
@@ -22,8 +53,9 @@
 <div class="row">
   <div class="col">
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-      <button type="submit" class="btn btn-success" (click)="submitForms(myFormBuilder)">Add Item</button>
-      <button type="button" class="btn btn-danger">Remove Item</button>
+      <button type="submit" class="btn btn-success" (click)="submitForms()" [disabled]="myFormBuilder.invalid">Add
+        Item</button>
+      <button type="button" class="btn btn-danger" (click)="deleteIngredient()">Remove Item</button>
       <button type="button" class="btn btn-primary" (click)="myFormBuilder.reset()">Clean Form</button>
     </div>
   </div>
