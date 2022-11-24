@@ -14,7 +14,7 @@ export class ShoppingListComponent implements OnInit {
   ingredients: Observable<IngredientsModel[]>;
   constructor(private shopService: ShoppingListService) {
     this.ingredients = this.shopService.getIngredients();
-    console.log('Array de Ingredients',this.ingredients);
+    // console.log('Array de Ingredients',this.ingredients);
 
   }
 

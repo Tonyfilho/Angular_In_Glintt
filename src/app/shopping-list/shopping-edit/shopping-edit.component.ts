@@ -25,7 +25,7 @@ export class ShoppingEditComponent implements OnInit {
   }
 
   submitForms() {
-  this.shopService.updateIngredient({ingred_name: this.myFormBuilder.get("ingred_name")?.value, amount: this.myFormBuilder.get("amount")?.value });
+  this.shopService.newIngredient({ingred_name: this.myFormBuilder.get("ingred_name")?.value, amount: this.myFormBuilder.get("amount")?.value });
     this.myFormBuilder.reset();
   }
 
