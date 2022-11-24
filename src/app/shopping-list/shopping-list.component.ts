@@ -10,14 +10,15 @@ import { ShoppingListService } from './shopping-list.service';
   ]
 })
 export class ShoppingListComponent implements OnInit {
-  /**Foi Criado o Service, e lá será populado o valor
-   ingredients: IngredientsModel[] = [new IngredientsModel("Orages", 10), new IngredientsModel("Tomatoes", 5)];
-   */
-  ingredients !: Observable<IngredientsModel[]>;
-  constructor(private shopService: ShoppingListService) { }
+
+  ingredients: Observable<IngredientsModel[]>;
+  constructor(private shopService: ShoppingListService) {
+    this.ingredients = this.shopService.getIngredients();
+    console.log('Array de Ingredients',this.ingredients);
+
+  }
 
   ngOnInit(): void {
-    this.ingredients = this.shopService.getIngredients();
 
   }
 
