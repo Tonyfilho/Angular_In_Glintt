@@ -33,4 +33,8 @@ export class ShoppingEditComponent implements OnInit {
 
 
   }
+
+  updateFormByClick(event: {ingred_name: string, amount: number | string, id: number | undefined}) {
+
+  }
 }
