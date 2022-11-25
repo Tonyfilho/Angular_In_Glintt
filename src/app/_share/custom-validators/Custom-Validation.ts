@@ -5,10 +5,10 @@ import { of } from 'rxjs';
 
 export class CustomValidation {
 
- static  shoppingList = new ShoppingListService();
+  static shoppingList = new ShoppingListService();
 
- /**Staticos não aceita construtor */
-   constructor( private shoppingListService: ShoppingListService) {}
+  /**Staticos não aceita construtor */
+  constructor(private shoppingListService: ShoppingListService) { }
 
 
   /**Custom Validator que chega é um NUMERO ou Não */
@@ -21,9 +21,10 @@ export class CustomValidation {
 
 
   /**Static Variable and AsyncValidators */
-    static isRepeated = (control: AbstractControl): ValidationErrors | null => {
+  static isRepeated = (control: AbstractControl): ValidationErrors | null => {
     CustomValidation.shoppingList.getIngredients().subscribe((data: IngredientsModel[]) => {
-      data.filter(ingredient => ingredient.ingred_name.toLowerCase() === control.value).map(() =>  control.setErrors({repeated: { descrition: " Item already exist in your list "}}))
+      data.filter(ingredient => ingredient.ingred_name.toLowerCase() === control.value).map(() =>
+        control.setErrors({ repeated: { descrition: " Item already exist in your list " } }))
     })
     return null
 

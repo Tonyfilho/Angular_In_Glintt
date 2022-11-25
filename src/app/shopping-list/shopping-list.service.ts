@@ -8,7 +8,7 @@ import { IngredientsModel } from 'src/assets/models/ingredients.model';
 
 /**Usei a Opção de SUJECT no lugar de EventEmitter ou OF */
 export class ShoppingListService {
- private ingredients: IngredientsModel[] = [new IngredientsModel("Orages", 10,2), new IngredientsModel("Tomatoes", 5,3)];
+ private ingredients: IngredientsModel[] = [new IngredientsModel("Oranges", 10,2), new IngredientsModel("Tomatoes", 5,3)];
  private ingredientsChanged: Subject<IngredientsModel[]>= new Subject<IngredientsModel[]>();
 
 
