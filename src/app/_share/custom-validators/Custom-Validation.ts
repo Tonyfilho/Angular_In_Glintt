@@ -22,9 +22,8 @@ export class CustomValidation {
 
   /**Static Variable and AsyncValidators */
     static isRepeated = (control: AbstractControl): ValidationErrors | null => {
-    // let repeated = {};
     CustomValidation.shoppingList.getIngredients().subscribe((data: IngredientsModel[]) => {
-      data.filter(ingredient => ingredient.ingred_name.toLowerCase() === control.value).map(() =>  control.setErrors({repeated: { descrition: " Item already exist in you list "}}))
+      data.filter(ingredient => ingredient.ingred_name.toLowerCase() === control.value).map(() =>  control.setErrors({repeated: { descrition: " Item already exist in your list "}}))
     })
     return null
 
