@@ -16,9 +16,9 @@ export class ShoppingEditComponent implements OnInit {
   myFormBuilder: FormGroup;
   constructor(private fb: FormBuilder, private shopService: ShoppingListService) {
     this.myFormBuilder = fb.group({
-      ingred_name:['',[Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
+      ingred_name:['',[Validators.required, Validators.minLength(2), Validators.maxLength(50), CustomValidation.isRepeated]],
      amount:['', [Validators.required, CustomValidation.justanumber, Validators.pattern(this.localPattern)]]
-    })
+    },/* {validators: [CustomValidation.isRepeated]}*/)
    }
 
   ngOnInit(): void {

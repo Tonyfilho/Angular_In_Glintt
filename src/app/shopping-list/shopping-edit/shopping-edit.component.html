@@ -22,9 +22,15 @@
               *ngIf="this.myFormBuilder.get('ingred_name')?.errors?.['maxlength']">
               <p>Max size are 50 Numbers</p>
             </small>
+            <small class="warning" style="color: red; padding:1%;"
+              *ngIf="this.myFormBuilder.get('ingred_name')?.errors?.['repeated']">
+              <p> {{'Isrepeated ' + this.myFormBuilder.get('ingred_name')?.errors?.['repeated']?.['descrition'] }}</p>
+            </small>
           </section>
         </div>
         <div class="col-sm-3 form-group">
+          {{'Isrepeated ' + this.myFormBuilder.get('ingred_name')?.errors?.['repeated']?.['descrition'] }}
+          {{'Isrepeated ' + this.myFormBuilder.get('ingred_name')?.errors?.['repeated'] }}
           <div class="form-floating">
             <input type="number" class="form-control" id="amount" placeholder="amount" formControlName="amount">
             <label for="amount">Amount</label>
