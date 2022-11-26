@@ -10,7 +10,7 @@ import { ShoppingListService } from './shopping-list.service';
   ]
 })
 export class ShoppingListComponent implements OnInit {
-  @Output("fields") fields: EventEmitter<{ingred_name: string, amount: number | string, id: number | undefined}> = new EventEmitter();
+  fields!: IngredientsModel;
   ingredients: Observable<IngredientsModel[]>;
   constructor(private shopService: ShoppingListService) {
     this.ingredients = this.shopService.getIngredients();
@@ -23,7 +23,8 @@ export class ShoppingListComponent implements OnInit {
   }
 
   updateFieldOtherCompoment(ingredient: IngredientsModel) {
-       this.fields.emit({ingred_name: ingredient.ingred_name, amount: ingredient.amount, id: ingredient.ingred_id});
+
+     this.shopService.shareIngredient.emit(ingredient);
   }
 
 

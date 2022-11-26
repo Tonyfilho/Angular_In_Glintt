@@ -1,5 +1,5 @@
 import { Observable,  Subject, } from 'rxjs';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { IngredientsModel } from 'src/assets/models/ingredients.model';
 
 @Injectable({
@@ -8,6 +8,7 @@ import { IngredientsModel } from 'src/assets/models/ingredients.model';
 
 /**Usei a Opção de SUJECT no lugar de EventEmitter ou OF */
 export class ShoppingListService {
+ shareIngredient: EventEmitter<IngredientsModel> = new EventEmitter<IngredientsModel>();
  private ingredients: IngredientsModel[] = [new IngredientsModel("Oranges", 10,2), new IngredientsModel("Tomatoes", 5,3)];
  private ingredientsChanged: Subject<IngredientsModel[]>= new Subject<IngredientsModel[]>();
 

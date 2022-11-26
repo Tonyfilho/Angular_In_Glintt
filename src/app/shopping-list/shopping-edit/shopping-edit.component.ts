@@ -1,6 +1,6 @@
 import { CustomValidation } from './../../_share/custom-validators/Custom-Validation';
 import { ShoppingListService } from './../shopping-list.service';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IngredientsModel } from 'src/assets/models/ingredients.model';
 
@@ -11,7 +11,8 @@ import { IngredientsModel } from 'src/assets/models/ingredients.model';
   ]
 })
 export class ShoppingEditComponent implements OnInit {
-  @Output("loadForm") loadForm = new EventEmitter<IngredientsModel>()
+
+
   localPattern= "^[1-9]+[0-9]*$";
   myFormBuilder: FormGroup;
   constructor(private fb: FormBuilder, private shopService: ShoppingListService) {
@@ -22,6 +23,16 @@ export class ShoppingEditComponent implements OnInit {
    }
 
   ngOnInit(): void {
+
+    this.shopService.shareIngredient.subscribe((localFields: IngredientsModel) =>  {
+      this.myFormBuilder.get("ingred_name")?.patchValue(localFields?.ingred_name);
+      this.myFormBuilder.get("amount")?.patchValue(localFields?.ingred_name);
+      this.myFormBuilder.get("id")?.patchValue(localFields?.ingred_name);
+
+
+    })
+
+
   }
 
   submitForms() {
@@ -31,10 +42,13 @@ export class ShoppingEditComponent implements OnInit {
 
   deleteIngredient() {
 
-
   }
 
-  updateFormByClick(event: {ingred_name: string, amount: number | string, id: number | undefined}) {
 
-  }
+
+
+
+
+
+
 }

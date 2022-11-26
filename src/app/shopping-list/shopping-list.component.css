@@ -5,3 +5,10 @@
   margin-top: 5%;
 
 }
+
+
+
+.list-group-item {
+  cursor: pointer;
+  margin-bottom: 0.2%;
+}
