@@ -24,7 +24,7 @@ export class ShoppingListComponent implements OnInit {
 
   updateFieldOtherCompoment(ingredient: IngredientsModel) {
 
-     this.shopService.shareIngredient.emit(ingredient);
+     this.shopService.shareIngredientBetweenCompoments.emit(ingredient);
   }
 
 

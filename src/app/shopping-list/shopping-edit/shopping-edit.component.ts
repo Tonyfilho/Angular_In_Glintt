@@ -18,30 +18,40 @@ export class ShoppingEditComponent implements OnInit {
   constructor(private fb: FormBuilder, private shopService: ShoppingListService) {
     this.myFormBuilder = fb.group({
       ingred_name:['',[Validators.required, Validators.minLength(2), Validators.maxLength(50), CustomValidation.isRepeated]],
-     amount:['', [Validators.required, CustomValidation.justanumber, Validators.pattern(this.localPattern)]]
+     amount:['', [Validators.required, CustomValidation.justanumber, Validators.pattern(this.localPattern)]],
+     id:[null]
     },/* {validators: [CustomValidation.isRepeated]}*/)
    }
 
   ngOnInit(): void {
 
-    this.shopService.shareIngredient.subscribe((localFields: IngredientsModel) =>  {
-      this.myFormBuilder.get("ingred_name")?.patchValue(localFields?.ingred_name);
-      this.myFormBuilder.get("amount")?.patchValue(localFields?.ingred_name);
-      this.myFormBuilder.get("id")?.patchValue(localFields?.ingred_name);
+    this.shopService.shareIngredientBetweenCompoments.subscribe((localFields: IngredientsModel) =>  {
 
-
-    })
+     /* posso setar item a item  */
+     /*  this.myFormBuilder.get("ingred_name")?.patchValue(localFields?.ingred_name);
+      this.myFormBuilder.get("amount")?.patchValue(localFields?.amount);
+      this.myFormBuilder.get("id")?.patchValue(localFields?.ingred_id); */
+      
+    /** Ou Passo Setar todo Objeto  */
+     this.myFormBuilder.setValue({
+      ingred_name: localFields.ingred_name,
+      amount: localFields.amount,
+      id: localFields.ingred_id
+     });
+    });
 
 
   }
 
   submitForms() {
-  this.shopService.newIngredient({ingred_name: this.myFormBuilder.get("ingred_name")?.value, amount: this.myFormBuilder.get("amount")?.value });
+
+  this.shopService.addOrUpdateIngredients(new IngredientsModel( this.myFormBuilder.get("ingred_name")?.value,  this.myFormBuilder.get("amount")?.value , this.myFormBuilder.get("id")?.value));
     this.myFormBuilder.reset();
   }
 
   deleteIngredient() {
-
+   this.shopService.removeIngredient(this.myFormBuilder.get("id")?.value);
+   this.myFormBuilder.reset();
   }
 
 

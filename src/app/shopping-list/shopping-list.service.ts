@@ -8,7 +8,7 @@ import { IngredientsModel } from 'src/assets/models/ingredients.model';
 
 /**Usei a Opção de SUJECT no lugar de EventEmitter ou OF */
 export class ShoppingListService {
- shareIngredient: EventEmitter<IngredientsModel> = new EventEmitter<IngredientsModel>();
+ shareIngredientBetweenCompoments: EventEmitter<IngredientsModel> = new EventEmitter<IngredientsModel>();
  private ingredients: IngredientsModel[] = [new IngredientsModel("Oranges", 10,2), new IngredientsModel("Tomatoes", 5,3)];
  private ingredientsChanged: Subject<IngredientsModel[]>= new Subject<IngredientsModel[]>();
 
@@ -28,34 +28,34 @@ export class ShoppingListService {
 
   }
 
-  newIngredient(localIngridient: IngredientsModel) {
-    let addIngridient = new IngredientsModel(localIngridient.ingred_name, localIngridient.amount);
-    this.ingredients.push(addIngridient);
-    console.log("foi Adcionado", this.ingredients);
 
-  }
 
- addOrUpdateIngredients(oneIngredient: IngredientsModel):IngredientsModel[] | undefined {
+ addOrUpdateIngredients(oneIngredient: IngredientsModel): IngredientsModel[] {
+   // let removeDuplicate: IngredientsModel[]= manyIngridients?.filter((este, i) => manyIngridients.indexOf(este) === i); /**Remove itens duplicados */
+ console.log("no service ", oneIngredient)
   let localIngredients: IngredientsModel[] = [];
   if (oneIngredient.ingred_id) {
      localIngredients = this.ingredients.filter(dataIngredients => dataIngredients.ingred_id !== oneIngredient.ingred_id);
      this.ingredients = [];
      localIngredients.push(oneIngredient);
-     this.ingredients = localIngredients;
+     this.ingredients = [...localIngredients];
      return this.ingredients;
-
   }
-  if (oneIngredient.ingred_name && oneIngredient.ingred_id == null) {
-
-  }
-
-  // let removeDuplicate: IngredientsModel[]= manyIngridients?.filter((este, i) => manyIngridients.indexOf(este) === i); /**Remove itens duplicados */
-  //  this.ingredients = removeDuplicate ;
-   /**Uso do SPREAD para disoulver o ARRAY para dentro do outro */
-   return localIngredients;
-
+  oneIngredient.ingred_id = this.createIngredientId();
+    this.ingredients.push(oneIngredient);
+   return this.ingredients;
  }
 
+ removeIngredient(id: number): IngredientsModel[] {
+  if (id) {
+    const  localIngredients:IngredientsModel[] = this.ingredients.filter(dataIngredient => dataIngredient.ingred_id !== id);
+    this.ingredients.length = 0;
+    return this.ingredients = localIngredients;
+
+  }
+   alert("The ingredients does not exist or: " + id)
+  return this.ingredients;
+ }
 
 }
 
