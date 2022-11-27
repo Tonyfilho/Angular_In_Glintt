@@ -179,7 +179,7 @@
                   </div> -->
                   <label class="form-label">Remove</label>
                   <div class="btn-group" role="group" aria-label="Third group">
-                    <button type="button" class="btn btn-danger">
+                    <button type="button" class="btn btn-danger"  [disabled]="localImage.title === '' ? true: false">
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-trash" viewBox="0 0 16 16">
                         <path
