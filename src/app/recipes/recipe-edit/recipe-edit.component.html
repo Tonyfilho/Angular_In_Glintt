@@ -95,56 +95,72 @@
                 </small>
               </section>
 
-              <div formGroupName="ingredients">
-                <div class="mb-3">
-                  <label for="ingred_name" class="form-label">Ingrediente Name</label>
-                  <input class="form-control" type="text" placeholder="Ingrediente Name"
-                    aria-label="default input example" formControlName="ingred_name">
-                       <!-- ------------------------------------Pegando o ERROR do formulario ANINHADO--------------- -->
-                  <section
-                    *ngIf="!newOrEditRecipesForm.get('ingredients.ingred_name')?.valid && newOrEditRecipesForm.get('ingredients.ingred_name')?.touched">
-                    <!--  Form NESTED----tem que passar o o Objeto completo ingredients.ingred_name-->
-                    <small class="warning" style="color: red; padding:1%;"
-                      *ngIf="newOrEditRecipesForm?.hasError('required', 'ingredients.ingred_name')">
-                      <p>Field is mandatory</p>
-                    </small>
-                    <!-- Usando CONTROLS Errors-------------------------------------------- -->
-                    <small class="warning" style="color: red; padding:1%;"
-                      *ngIf=" this.newOrEditRecipesForm.hasError('minlength', 'ingredients.ingred_name')">
-                      <p>Min size are 3 lettlers</p>
-                    </small>
-                    <!-- Usando HASERROR -->
-                    <small class="warning" style="color: red; padding:1%;"
-                      *ngIf="newOrEditRecipesForm.hasError('maxlength', 'ingredients.ingred_name')">
-                      <p>Max Field are 30 lettlers</p>
-                    </small>
-                  </section>
-                </div>
-                <div class="mb-3">
-                  <label for="amount" class="form-label">Amount Value</label>
-                  <input class="form-control" type="number" placeholder="Amount" aria-label="default input example"
-                    formControlName="amount">
-                    <!-- ------------------------------------Pegando o ERROR do formulario ANINHADO -->
-                  <section
-                    *ngIf="!newOrEditRecipesForm.get('ingredients.amount')?.valid && newOrEditRecipesForm.get('ingredients.amount')?.touched">
-                    <small class="warning" style="color: red; padding:1%;"
-                      *ngIf="this.newOrEditRecipesForm.hasError('required', 'ingredients.amount')">
-                      <p>Field is mandatory</p>
-                    </small>
-                    <!-- Usando CONTROLS Errors -->
-                    <small class="warning" style="color: red; padding:1%;"
-                      *ngIf="newOrEditRecipesForm.hasError('minlength','ingredients.amount')">
-                      <p>Min size are 1 Number</p>
-                    </small>
-                    <!-- Usando CUSTON CONTROLS Errors valores DYNAMICOS vindos do CustomValidation -->
-                    <small class="warning" style="color: red; padding:1%;"
-                      *ngIf="newOrEditRecipesForm.hasError('justanumber','ingredients.amount')">
-                      <p>{{ this.newOrEditRecipesForm.get('ingredients.amount')?.errors?.['justanumber']?.['description'] }}</p>
-                    </small>
-                  </section>
 
+
+              <!--  fixing form -------------------------------------------->
+              <div class="row">
+                <div class="col-6">
+
+                  <div formGroupName="ingredients">
+                    <div class="mb-3">
+                      <label for="ingred_name" class="form-label">Ingrediente Name</label>
+                      <input class="form-control" type="text" placeholder="Ingrediente Name"
+                        aria-label="default input example" formControlName="ingred_name">
+                      <!-- ------------------------------------Pegando o ERROR do formulario ANINHADO--------------- -->
+                      <section
+                        *ngIf="!newOrEditRecipesForm.get('ingredients.ingred_name')?.valid && newOrEditRecipesForm.get('ingredients.ingred_name')?.touched">
+                        <!--  Form NESTED----tem que passar o o Objeto completo ingredients.ingred_name-->
+                        <small class="warning" style="color: red; padding:1%;"
+                          *ngIf="newOrEditRecipesForm?.hasError('required', 'ingredients.ingred_name')">
+                          <p>Field is mandatory</p>
+                        </small>
+                        <!-- Usando CONTROLS Errors-------------------------------------------- -->
+                        <small class="warning" style="color: red; padding:1%;"
+                          *ngIf=" this.newOrEditRecipesForm.hasError('minlength', 'ingredients.ingred_name')">
+                          <p>Min size are 3 lettlers</p>
+                        </small>
+                        <!-- Usando HASERROR -->
+                        <small class="warning" style="color: red; padding:1%;"
+                          *ngIf="newOrEditRecipesForm.hasError('maxlength', 'ingredients.ingred_name')">
+                          <p>Max Field are 30 lettlers</p>
+                        </small>
+                      </section>
+                    </div>
+                  </div>
                 </div>
+                <div class="col-3">
+                  <div class="mb-3">
+                    <label for="amount" class="form-label">Amount Value</label>
+                    <input class="form-control" type="number" placeholder="Amount" formControlName="amount">
+                    <!-- ------------------------------------Pegando o ERROR do formulario ANINHADO -->
+                    <section
+                      *ngIf="!newOrEditRecipesForm.get('ingredients.amount')?.valid && newOrEditRecipesForm.get('ingredients.amount')?.touched">
+                      <small class="warning" style="color: red; padding:1%;"
+                        *ngIf="this.newOrEditRecipesForm.hasError('required', 'ingredients.amount')">
+                        <p>Field is mandatory</p>
+                      </small>
+                      <!-- Usando CONTROLS Errors -->
+                      <small class="warning" style="color: red; padding:1%;"
+                        *ngIf="newOrEditRecipesForm.hasError('minlength','ingredients.amount')">
+                        <p>Min size are 1 Number</p>
+                      </small>
+                      <!-- Usando CUSTON CONTROLS Errors valores DYNAMICOS vindos do CustomValidation -->
+                      <small class="warning" style="color: red; padding:1%;"
+                        *ngIf="newOrEditRecipesForm.hasError('justanumber','ingredients.amount')">
+                        <p>{{
+                          this.newOrEditRecipesForm.get('ingredients.amount')?.errors?.['justanumber']?.['description']
+                          }}</p>
+                      </small>
+                    </section>
+
+                  </div>
+                </div>
+
               </div>
+
+
+
+              <!-- end---------------------------------- -->
               <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                 <button class="btn btn-outline-danger" routerLink="/recipes" type="button">Close</button>
                 <button class="btn btn-outline-warning" type="button" (click)="this.newOrEditRecipesForm.reset()"
