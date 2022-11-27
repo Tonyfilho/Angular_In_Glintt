@@ -23,3 +23,7 @@ img.card-img-top {
 input.ng-invalid.ng-touched {
   border: 1px solid red;
 }
+
+.form-label.add {
+  width: 4rem !important;
+}
