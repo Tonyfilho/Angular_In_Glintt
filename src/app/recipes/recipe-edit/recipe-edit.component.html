@@ -51,8 +51,9 @@
               </div>
               <div class="mb-3">
                 <label for="description" class="form-label">Recipe Description</label>
-                <input class="form-control" type="text" placeholder="Recipe Description"
+                <textarea class="form-control" type="text" placeholder="Recipe Description"
                   aria-label="default input example" formControlName="description">
+                </textarea>
                 <section
                   *ngIf="!newOrEditRecipesForm.controls['description']?.valid && newOrEditRecipesForm.controls['description']?.touched">
                   <small class="warning" style="color: red; padding:1%;"
