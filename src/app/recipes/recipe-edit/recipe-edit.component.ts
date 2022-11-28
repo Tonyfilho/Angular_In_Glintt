@@ -43,6 +43,7 @@ export class RecipeEditComponent implements OnInit {
     //  this.idRecipe = +this.route.snapshot.params['id'];
     this.changeButtonName(this.idRecipe);
 
+
   }
 
   /**Pegando o array do form para passar no template */
@@ -76,12 +77,11 @@ export class RecipeEditComponent implements OnInit {
       this.newOrEditRecipesForm.get("name")?.patchValue(recipe?.name);
       this.newOrEditRecipesForm.get("description")?.patchValue(recipe?.description);
       this.newOrEditRecipesForm.get("imagePath")?.patchValue(recipe?.imagePath);
+     recipe?.ingredients.map((incredient: IngredientsModel, index: number | any) => {
+      /*************Mapeando e passando INDEX para dentro FormARRAY********************************************************* */
+      this.ingredientsArray.controls[index].patchValue({ ingred_name: incredient?.ingred_name, amount: incredient?.amount })
+    });
 
-      /**MAPEADO e Pegando dados para o  ARRAY  */
-      recipe?.ingredients.map((incredient: IngredientsModel) => {
-        this.newOrEditRecipesForm.get(['ingredients', 'ingred_name'])?.patchValue(incredient?.ingred_name);
-        this.newOrEditRecipesForm.get(["ingredients", 'amount'])?.patchValue(incredient?.amount);
-      });
     });
 
   }

@@ -106,7 +106,7 @@
                       <div class="mb-3">
                         <label for="ingred_name" class="form-label">Ingrediente Name</label>
                         <input class="form-control" type="text" placeholder="Ingrediente Name"
-                          aria-label="default input example" [formControlName]=" 'item[{{i}}].ingred_name' ">
+                          aria-label="default input example" formControlName="ingred_name">
                         <!-- ------------------------------------Pegando o ERROR do formulario ANINHADO--------------- -->
                         <section
                           *ngIf="!newOrEditRecipesForm.get('ingredients.ingred_name')?.valid && newOrEditRecipesForm.get('ingredients.ingred_name')?.touched">
