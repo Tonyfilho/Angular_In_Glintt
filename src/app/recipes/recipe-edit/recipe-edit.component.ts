@@ -29,11 +29,12 @@ export class RecipeEditComponent implements OnInit {
       name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
       description: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(200)]],
       imagePath: ['', [Validators.required]],
-      ingredients:
+      ingredients: fb.array([
         fb.group({
           ingred_name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
           amount: [null, [CustomValidation.justanumber, Validators.required, Validators.minLength(1)]]
         })
+      ])
     });
   }
 
@@ -41,6 +42,16 @@ export class RecipeEditComponent implements OnInit {
   ngOnInit(): void {
     //  this.idRecipe = +this.route.snapshot.params['id'];
     this.changeButtonName(this.idRecipe);
+
+  }
+
+  /**Pegando o array do form para passar no template */
+  get ingredientsArray() : FormArray {
+    return this.newOrEditRecipesForm.get('ingredients') as FormArray;
+  }
+
+  addIngredient() {
+    this.ingredientsArray.push(this.fb.group({}));
   }
 
   /**Esta foi Hack feito por mim, para resolver o problema de Não atualizar a imagem no template no tempo de excução do Angular */
@@ -72,7 +83,7 @@ export class RecipeEditComponent implements OnInit {
         this.newOrEditRecipesForm.get(["ingredients", 'amount'])?.patchValue(incredient?.amount);
       });
     });
-  
+
   }
 
   saveOrUpdade(templateForm: FormGroup) {
