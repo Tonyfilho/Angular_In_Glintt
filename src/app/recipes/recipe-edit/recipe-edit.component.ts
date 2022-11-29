@@ -88,11 +88,11 @@ export class RecipeEditComponent implements OnInit {
 
   saveOrUpdade(templateForm: FormGroup) {
     /**É Opcional receber dentro do Submit o paramentro TemplateForm, pois no ReactiveForm ja temos acesso aos dados via FormGroup */
-  let localRecipe:RecipesModel;
+ let localRecipe:RecipesModel;
   /**Usando o Destruction */
-  const {name, description, imagePath, id, ingredients: {ingred_name, amount}} = templateForm.value;
+ const {name, description, imagePath, id, ingredients: [{ingred_name, amount}]} = templateForm.value;
   // this.recipesService.addOrUpdateRecipes(templateForm.value); /**Não podemos mandar uma OBJETO mesmo q tenha as mesma chaves, tem q ser mandado  o RECIPESMODEL */
-  localRecipe = new RecipesModel(id, name, description, imagePath, [new IngredientsModel(ingred_name, amount)]);
+ localRecipe = new RecipesModel(id, name, description, imagePath, [new IngredientsModel(ingred_name, amount)]);
   this.recipesService.addOrUpdateRecipes(localRecipe);
   }
 }
