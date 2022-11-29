@@ -9,7 +9,6 @@ import { IngredientsModel } from 'src/assets/models/ingredients.model';
 /**Usei a Opção de SUJECT no lugar de EventEmitter ou OF */
 export class ShoppingListService {
  shareIngredientBetweenCompoments: EventEmitter<IngredientsModel> = new EventEmitter<IngredientsModel>();
- shareIDsBetweenCompoments: EventEmitter<number> = new EventEmitter<number>();
  private ingredients: IngredientsModel[] = [new IngredientsModel("Oranges", 10,2), new IngredientsModel("Tomatoes", 5,3)];
  private ingredientsChanged: Subject<IngredientsModel[]>= new Subject<IngredientsModel[]>();
 
@@ -20,7 +19,6 @@ export class ShoppingListService {
 
    createIngredientId(): number {
     const arraySize = this.ingredients.length + 1;
-    this.shareIDsBetweenCompoments.emit(arraySize);
     return arraySize;
   }
 

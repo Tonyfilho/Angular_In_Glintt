@@ -33,7 +33,8 @@ export class RecipeEditComponent implements OnInit {
       ingredients: fb.array([
         fb.group({
           ingred_name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
-          amount: [null, [CustomValidation.justanumber, Validators.required, Validators.minLength(1)]]
+          amount: [null, [CustomValidation.justanumber, Validators.required, Validators.minLength(1)]],
+          ingred_id: []
         })
       ])
     });
@@ -53,7 +54,13 @@ export class RecipeEditComponent implements OnInit {
   }
 
   addIngredient() {
-    this.ingredientsArray.push(this.fb.group({}));
+    this.ingredientsArray.push(this.fb.group({
+      ingred_name: [],
+      amount: [],
+      ingred_id: [this.shoppingListService.createIngredientId()]
+
+
+    }));
   }
 
   /**Esta foi Hack feito por mim, para resolver o problema de Não atualizar a imagem no template no tempo de excução do Angular */
@@ -88,13 +95,14 @@ export class RecipeEditComponent implements OnInit {
   }
 
   saveOrUpdade(templateForm: FormGroup) {
+    console.log("templateForm: ", templateForm);
     /**É Opcional receber dentro do Submit o paramentro TemplateForm, pois no ReactiveForm ja temos acesso aos dados via FormGroup */
  let localRecipe:RecipesModel;
 
-  /**Usando o Destruction */
- const {name, description, imagePath, id, ingredients: [{ingred_name, amount}]} = templateForm.value;
+  /**Usando o Destruction com array */
+ const {name, description, imagePath, id, ingredients: [{ingred_name, amount, ingred_id}]} = templateForm.value;
   // this.recipesService.addOrUpdateRecipes(templateForm.value); /**Não podemos mandar uma OBJETO mesmo q tenha as mesma chaves, tem q ser mandado  o RECIPESMODEL */
- localRecipe = new RecipesModel(id, name, description, imagePath, [new IngredientsModel(ingred_name, amount, this.shoppingListService.createIngredientId())]);
+ localRecipe = new RecipesModel(id, name, description, imagePath, [new IngredientsModel(ingred_name, amount, ingred_id)]);
   this.recipesService.addOrUpdateRecipes(localRecipe);
   }
 }
