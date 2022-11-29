@@ -6,6 +6,7 @@ import { RecipesModel } from './../../../assets/models/recipes.model';
 import { RecipesService } from './../recipes.service';
 import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { ShoppingListService } from 'src/app/shopping-list/shopping-list.service';
 
 
 
@@ -21,7 +22,7 @@ export class RecipeEditComponent implements OnInit {
   idRecipe!: number;
   newOrEditRecipesForm: FormGroup;
   newRecipes!: Partial<RecipesModel>;
-  constructor(private fb: FormBuilder, private recipesService: RecipesService, private route: ActivatedRoute) {
+  constructor(private fb: FormBuilder, private recipesService: RecipesService, private route: ActivatedRoute, private shoppingListService: ShoppingListService) {
 
     this.route.params.subscribe((data: Params) => { this.idRecipe = +data['id'] }); /**Rotas Asyncronas tem que ser carregadas no CONSTRUTOR */
     this.newOrEditRecipesForm = fb.group({
@@ -89,10 +90,11 @@ export class RecipeEditComponent implements OnInit {
   saveOrUpdade(templateForm: FormGroup) {
     /**É Opcional receber dentro do Submit o paramentro TemplateForm, pois no ReactiveForm ja temos acesso aos dados via FormGroup */
  let localRecipe:RecipesModel;
+
   /**Usando o Destruction */
  const {name, description, imagePath, id, ingredients: [{ingred_name, amount}]} = templateForm.value;
   // this.recipesService.addOrUpdateRecipes(templateForm.value); /**Não podemos mandar uma OBJETO mesmo q tenha as mesma chaves, tem q ser mandado  o RECIPESMODEL */
- localRecipe = new RecipesModel(id, name, description, imagePath, [new IngredientsModel(ingred_name, amount)]);
+ localRecipe = new RecipesModel(id, name, description, imagePath, [new IngredientsModel(ingred_name, amount, this.shoppingListService.createIngredientId())]);
   this.recipesService.addOrUpdateRecipes(localRecipe);
   }
 }

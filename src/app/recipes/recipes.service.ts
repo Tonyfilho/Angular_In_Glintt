@@ -1,3 +1,4 @@
+import { ShoppingListService } from './../shopping-list/shopping-list.service';
 import {  EventEmitter, Injectable, OnDestroy,  } from '@angular/core';
 import {  Observable,  of, Subject, Subscription } from 'rxjs';
 import { IngredientsModel } from 'src/assets/models/ingredients.model';
@@ -16,7 +17,7 @@ export class RecipesService implements OnDestroy {
   recipeChanged = new EventEmitter<RecipesModel[]>(); /**Emite o evento para cada alteração da VAR  */
 
 
-  constructor() {
+  constructor(private shoppingListService: ShoppingListService) {
    /*******************Foi posto este SteInterval para evitar que EventEmitter retorne UNDEFINE */
    setInterval(() => this.recipeChanged.emit(this.recipes), 0);
   }
@@ -55,6 +56,7 @@ export class RecipesService implements OnDestroy {
       localRecipe.push(recipe);
       return this.recipes = [...localRecipe];
     }
+   
     recipe['id'] = this.createRecipesId();
     return this.recipes.push(recipe);
   }
