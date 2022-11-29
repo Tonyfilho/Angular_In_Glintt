@@ -77,8 +77,8 @@ export class RecipeEditComponent implements OnInit {
       this.newOrEditRecipesForm.get("name")?.patchValue(recipe?.name);
       this.newOrEditRecipesForm.get("description")?.patchValue(recipe?.description);
       this.newOrEditRecipesForm.get("imagePath")?.patchValue(recipe?.imagePath);
-     recipe?.ingredients.map((incredient: IngredientsModel, index: number | any) => {
       /*************Mapeando e passando INDEX para dentro FormARRAY********************************************************* */
+     recipe?.ingredients.map((incredient: IngredientsModel, index: number) => {
       this.ingredientsArray.controls[index].patchValue({ ingred_name: incredient?.ingred_name, amount: incredient?.amount })
     });
 
