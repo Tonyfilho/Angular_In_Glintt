@@ -74,9 +74,12 @@ export class RecipesService implements OnDestroy {
 
 
   removeIngredient(id: number) {
-    let localIngredients: IngredientsModel[];
-   localIngredients = [...this.shoppingListService.removeIngredient(id)];
-   
+    let localIngredients: RecipesModel[];
+
+   this.recipes.filter((recipe: RecipesModel) => {recipe.ingredients.map((ingredient: IngredientsModel) => ingredient.ingred_id === id)})
+   .map(d => d.ingredients.reduce());
+
+
 
   }
 
