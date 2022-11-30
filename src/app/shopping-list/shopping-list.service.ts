@@ -50,7 +50,8 @@ export class ShoppingListService {
   if (id) {
     const  localIngredients:IngredientsModel[] = this.ingredients.filter(dataIngredient => dataIngredient.ingred_id !== id);
     this.ingredients.length = 0;
-    return this.ingredients = localIngredients;
+     this.ingredients = localIngredients;
+     return this.ingredients;
 
   }
    alert("The ingredients does not exist or: " + id)

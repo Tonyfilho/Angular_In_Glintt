@@ -56,7 +56,7 @@ export class RecipesService implements OnDestroy {
       localRecipe.push(recipe);
       return this.recipes = [...localRecipe];
     }
-   
+
     recipe['id'] = this.createRecipesId();
     return this.recipes.push(recipe);
   }
@@ -71,6 +71,16 @@ export class RecipesService implements OnDestroy {
     }
     return window.alert("No have recipe with this Id");
   }
+
+
+  removeIngredient(id: number) {
+    let localIngredients: IngredientsModel[];
+   localIngredients = [...this.shoppingListService.removeIngredient(id)];
+   
+
+  }
+
+
 
   ngOnDestroy(): void {
     this.unSubscrition.unsubscribe();

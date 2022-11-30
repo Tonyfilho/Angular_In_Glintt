@@ -49,7 +49,7 @@ export class RecipeEditComponent implements OnInit {
   }
 
   /**Pegando o array do form para passar no template */
-  get ingredientsArray() : FormArray {
+  get ingredientsArray(): FormArray {
     return this.newOrEditRecipesForm.get('ingredients') as FormArray;
   }
 
@@ -64,9 +64,9 @@ export class RecipeEditComponent implements OnInit {
   }
 
   /**Esta foi Hack feito por mim, para resolver o problema de Não atualizar a imagem no template no tempo de excução do Angular */
-  get changeImage(): Observable<{title: string, imagePath: string}> {
-    let local = {title: '', imagePath: ''};
-    local  = {title : this.newOrEditRecipesForm.get("name")?.value,  imagePath: this.newOrEditRecipesForm.get("imagePath")?.value};
+  get changeImage(): Observable<{ title: string, imagePath: string }> {
+    let local = { title: '', imagePath: '' };
+    local = { title: this.newOrEditRecipesForm.get("name")?.value, imagePath: this.newOrEditRecipesForm.get("imagePath")?.value };
     return of(local);
   }
 
@@ -86,23 +86,32 @@ export class RecipeEditComponent implements OnInit {
       this.newOrEditRecipesForm.get("description")?.patchValue(recipe?.description);
       this.newOrEditRecipesForm.get("imagePath")?.patchValue(recipe?.imagePath);
       /*************Mapeando e passando INDEX para dentro FormARRAY********************************************************* */
-     recipe?.ingredients.map((incredient: IngredientsModel, index: number) => {
-      this.ingredientsArray.controls[index].patchValue({ ingred_name: incredient?.ingred_name, amount: incredient?.amount })
-    });
+      recipe?.ingredients.map((incredient: IngredientsModel, index: number) => {
+        this.ingredientsArray.controls[index].patchValue({ ingred_name: incredient?.ingred_name, amount: incredient?.amount, ingred_id: incredient.ingred_id })
+      });
 
     });
 
   }
 
   saveOrUpdade(templateForm: FormGroup) {
-    console.log("templateForm: ", templateForm);
+    console.log(templateForm);
     /**É Opcional receber dentro do Submit o paramentro TemplateForm, pois no ReactiveForm ja temos acesso aos dados via FormGroup */
- let localRecipe:RecipesModel;
+    let dummyWithDestruction: RecipesModel;
+    /**Usando o Destruction com array funciona somente no index 0 , os NOVOS itens do array não atualizam*/
+    const { name, description, imagePath, id, ingredients: [{ ingred_name, amount, ingred_id }] } = templateForm.value;
+    dummyWithDestruction = new RecipesModel(id, name, description, imagePath, [new IngredientsModel(ingred_name, amount, ingred_id)]);
 
-  /**Usando o Destruction com array */
- const {name, description, imagePath, id, ingredients: [{ingred_name, amount, ingred_id}]} = templateForm.value;
-  // this.recipesService.addOrUpdateRecipes(templateForm.value); /**Não podemos mandar uma OBJETO mesmo q tenha as mesma chaves, tem q ser mandado  o RECIPESMODEL */
- localRecipe = new RecipesModel(id, name, description, imagePath, [new IngredientsModel(ingred_name, amount, ingred_id)]);
-  this.recipesService.addOrUpdateRecipes(localRecipe);
+
+    let localRecipe: RecipesModel;
+    localRecipe = new RecipesModel(templateForm.value['id'], templateForm.value['name'], templateForm.value['description'], templateForm.value['imagePath'], templateForm.value['ingredients']);
+    this.recipesService.addOrUpdateRecipes(localRecipe);
+  }
+
+
+  removeIngredient(id: number) {
+    let localIngredients: IngredientsModel[];
+   localIngredients = [...this.shoppingListService.removeIngredient(id)];
+  
   }
 }

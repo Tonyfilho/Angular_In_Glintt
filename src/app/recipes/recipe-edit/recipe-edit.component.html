@@ -101,7 +101,7 @@
               <hr>
               <div class="row" formArrayName="ingredients">
                 <div class="row" *ngFor="let item of ingredientsArray.controls; let i = index" formGroupName="{{ i }}">
-                  <div class="col-md-7">
+                  <div class="col-md-5">
 
                     <div>
                       <div class="mb-3">
@@ -162,11 +162,11 @@
 
                     </div>
                   </div>
-                  <div class="col-sm-2">
-                    <label class="form-label">Remove</label>
+                  <div class="col-sm-4">
+                    <label class="form-label">Remove Ingrediente</label>
                     <div class="btn-group" role="group" aria-label="Third group">
                       <button type="button" class="btn btn-danger"
-                        [disabled]="localImage.title === '' ? true: false && !newOrEditRecipesForm.valid">
+                        [disabled]="localImage.title === '' ? true: false && !newOrEditRecipesForm.valid" (click)="removeIngredient(ingredientsArray.controls[i].get('ingred_id')?.value)">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                           class="bi bi-trash" viewBox="0 0 16 16">
                           <path
