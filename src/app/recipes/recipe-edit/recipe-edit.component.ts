@@ -87,7 +87,8 @@ export class RecipeEditComponent implements OnInit {
       this.newOrEditRecipesForm.get("imagePath")?.patchValue(recipe?.imagePath);
       /*************Mapeando e passando INDEX para dentro FormARRAY********************************************************* */
       recipe?.ingredients.map((incredient: IngredientsModel, index: number) => {
-        this.ingredientsArray.controls[index].patchValue({ ingred_name: incredient?.ingred_name, amount: incredient?.amount, ingred_id: incredient.ingred_id })
+        // this.ingredientsArray.controls[index]?.patchValue({ ingred_name: incredient?.ingred_name, amount: incredient?.amount, ingred_id: incredient.ingred_id })
+        this.ingredientsArray.push(this.fb.group({ ingred_name: incredient?.ingred_name, amount: incredient?.amount, ingred_id: incredient.ingred_id }))
       });
 
     });
@@ -101,7 +102,7 @@ export class RecipeEditComponent implements OnInit {
     /**Usando o Destruction com array funciona somente no index 0 , os NOVOS itens do array não atualizam*/
     const { name, description, imagePath, id, ingredients: [{ ingred_name, amount, ingred_id }] } = templateForm.value;
     dummyWithDestruction = new RecipesModel(id, name, description, imagePath, [new IngredientsModel(ingred_name, amount, ingred_id)]);
-
+    /****************************** fim do Dummy************************************ */
 
     let localRecipe: RecipesModel;
     localRecipe = new RecipesModel(templateForm.value['id'], templateForm.value['name'], templateForm.value['description'], templateForm.value['imagePath'], templateForm.value['ingredients']);
@@ -110,8 +111,7 @@ export class RecipeEditComponent implements OnInit {
 
 
   removeIngredient(id: number) {
-    let localIngredients: IngredientsModel[];
-   localIngredients = [...this.shoppingListService.removeIngredient(id)];
-  
+   this.recipesService.removeIngredient(id);
+
   }
 }
