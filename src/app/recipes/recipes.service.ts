@@ -74,11 +74,16 @@ export class RecipesService implements OnDestroy {
 
 
   removeIngredient(id: number) {
-    let localRecipe: RecipesModel[];
-    localRecipe = this.recipes.filter((recipe: RecipesModel) => {recipe.ingredients.map((ingredient: IngredientsModel) => ingredient.ingred_id !== id)})
+   console.log("ID:", id);
+
+   let LocalIngredient: IngredientsModel[];
+   let localRecipe: RecipesModel[];
+
+    // localRecipe = this.recipes.filter((recipe: RecipesModel) =>  recipe.ingredients.map((ingredient: IngredientsModel) => {return ingredient.ingred_id !== id}))
+    LocalIngredient =  this.recipes.flatMap((recipe: RecipesModel) => recipe.ingredients.filter((ingred: IngredientsModel) => ingred.ingred_id !== id))
 
   // nomes.splice(nomes.indexOf("Paulo"), 1);
-    console.log(localRecipe);
+    console.log(LocalIngredient);
 
 
   }
