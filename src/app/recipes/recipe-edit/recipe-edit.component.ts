@@ -112,10 +112,12 @@ export class RecipeEditComponent implements OnInit {
 
 
   removeIngredient(id: number) {
- //  this.recipesService.removeIngredient(id); ire ser removido pelo Form, é mais pratico eo proprio update ja atualiza
-  let removeIngredientArray = [...this.ingredientsArray.controls].includes(this.fb.group({ ingred_id: id}));
-// this.ingredientsArray.removeAt();
-  console.log(removeIngredientArray);
+ //  this.recipesService.removeIngredient(id); ire ser removido pelo Form, é mais pratico eo proprio removeAT(idex) e depois update ja ira atualiza o form no server
+ /**Pegando o index do array e  */
+  let indexArrayToRemove = this.ingredientsArray.controls.findIndex(item => item.value['ingred_id'] == id);
+  /**A melhor opção é pegar o Index e usar RemoveAt(Index), pois desta forma usamos a mesma Logica de Adcionar*/
+ this.ingredientsArray.removeAt(indexArrayToRemove);
+
 
   }
 }
