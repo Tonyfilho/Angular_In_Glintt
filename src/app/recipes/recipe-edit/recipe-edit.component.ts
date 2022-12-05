@@ -117,7 +117,7 @@ export class RecipeEditComponent implements OnInit {
   let indexArrayToRemove = this.ingredientsArray.controls.findIndex(item => item.value['ingred_id'] == id);
   /**A melhor opção é pegar o Index e usar RemoveAt(Index), pois desta forma usamos a mesma Logica de Adcionar*/
  this.ingredientsArray.removeAt(indexArrayToRemove);
-
-
   }
+
+  
 }
