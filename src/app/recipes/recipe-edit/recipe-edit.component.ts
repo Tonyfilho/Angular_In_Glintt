@@ -32,7 +32,7 @@ export class RecipeEditComponent implements OnInit {
       imagePath: ['', [Validators.required]],
       ingredients: fb.array([
         fb.group({
-          ingred_name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
+          ingred_name: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
           amount: [null, [CustomValidation.justanumber, Validators.required, Validators.minLength(1)]],
           ingred_id: []
         })
@@ -87,8 +87,9 @@ export class RecipeEditComponent implements OnInit {
       this.newOrEditRecipesForm.get("imagePath")?.patchValue(recipe?.imagePath);
       /*************Mapeando e passando INDEX para dentro FormARRAY********************************************************* */
       recipe?.ingredients.map((incredient: IngredientsModel, index: number) => {
-        // this.ingredientsArray.controls[index]?.patchValue({ ingred_name: incredient?.ingred_name, amount: incredient?.amount, ingred_id: incredient.ingred_id })
-        this.ingredientsArray.push(this.fb.group({ ingred_name: incredient?.ingred_name, amount: incredient?.amount, ingred_id: incredient.ingred_id }))
+        // this.ingredientsArray.controls[index]?.patchValue({ ingred_name: incredient?.ingred_name, amount: incredient?.amount, ingred_id: incredient.ingred_id }) somente p 1
+          this.ingredientsArray.push(this.fb.group({ ingred_name: incredient?.ingred_name, amount: incredient?.amount, ingred_id: incredient.ingred_id }))
+
       });
 
     });
@@ -111,7 +112,10 @@ export class RecipeEditComponent implements OnInit {
 
 
   removeIngredient(id: number) {
-   this.recipesService.removeIngredient(id);
+ //  this.recipesService.removeIngredient(id); ire ser removido pelo Form, é mais pratico eo proprio update ja atualiza
+  let removeIngredientArray = [...this.ingredientsArray.controls].includes(this.fb.group({ ingred_id: id}));
+// this.ingredientsArray.removeAt();
+  console.log(removeIngredientArray);
 
   }
 }
