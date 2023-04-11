@@ -1,4 +1,6 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, OnDestroy } from '@angular/core';
+import { DataStorageService } from '../_share/services/data-storage.service';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -6,9 +8,10 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   @Output("featureSelected") featureSelected = new EventEmitter<string>();
-  constructor() { }
+  subsc!: Subscription;
+  constructor(private dataStorage: DataStorageService) { }
 
   ngOnInit(): void {
   }
@@ -17,4 +20,13 @@ export class HeaderComponent implements OnInit {
     this.featureSelected.emit(feature);
 
   }
+
+  saveRecipes(){
+    this.subsc = this.dataStorage.saveRecipes()
+  }
+
+  ngOnDestroy(): void {
+    this.subsc.unsubscribe();
+  }
+
 }

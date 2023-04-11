@@ -1,4 +1,9 @@
 .container {
+  width: fit-content;
   margin-top: 1%;
+}
+
+div.row {
+  --bs-gutter-x: 0% !important;
 }
 

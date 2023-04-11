@@ -1,7 +1,12 @@
 .header {
-  max-width: 100%;
+  width: 100%;
 }
-
+.bg-light {
+  width: 100%
+}
+.container-fluid {
+  width: 93%
+}
 nav {
   margin: 0% !important;
   padding: 0% !important;
@@ -15,4 +20,8 @@ nav {
  }
  .navbar-brand {
   padding: 1%;
+ }
+
+ .navbar-collapse {
+  width: fit-content;
  }
