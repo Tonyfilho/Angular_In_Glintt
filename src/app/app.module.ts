@@ -8,11 +8,13 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RecipesModule } from './recipes/recipes.module';
+import { HeaderButtonsComponent } from './header/header-buttons/header-buttons.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
+    HeaderButtonsComponent,
 
 
 

@@ -8,10 +8,10 @@ import { Subscription } from 'rxjs';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit, OnDestroy {
+export class HeaderComponent implements OnInit{
   @Output("featureSelected") featureSelected = new EventEmitter<string>();
-  subsc!: Subscription;
-  constructor(private dataStorage: DataStorageService) { }
+
+  constructor() { }
 
   ngOnInit(): void {
   }
@@ -21,12 +21,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   }
 
-  saveRecipes(){
-    this.subsc = this.dataStorage.saveRecipes()
-  }
 
-  ngOnDestroy(): void {
-    this.subsc.unsubscribe();
-  }
+
 
 }
