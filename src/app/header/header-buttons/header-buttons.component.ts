@@ -12,11 +12,17 @@ export class HeaderButtonsComponent implements OnInit, OnDestroy {
   constructor(private dataStorage: DataStorageService) { }
 
   ngOnInit(): void {
+    this.fetchRecipes();
   }
 
 
   saveRecipes(){
     this.subsc = this.dataStorage.saveRecipes()
+  }
+
+  fetchRecipes() {
+    /**Aqui esta sendo feito a subscrição vazia, pois os dados são passado lá no Service, dentro TAP() */
+   this.dataStorage.fetchRecipes().subscribe();
   }
 
 

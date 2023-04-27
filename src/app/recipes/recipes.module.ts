@@ -6,9 +6,9 @@ import { RecipesListComponent } from './recipes-list/recipes-list.component';
 import { RecipesDetailComponent } from './recipes-detail/recipes-detail.component';
 import { RecipesItemComponent } from './recipes-list/recipes-item/recipes-item.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RecipesStartComponent } from './recipes-start/recipes-start.component';
 import { RecipeEditComponent } from './recipe-edit/recipe-edit.component';
 import { RemoveRecipeComponent } from './remove-recipe/remove-recipe.component';
+import { RecipesResolverService } from './recipes-resolver.service';
 
 
 
@@ -18,7 +18,6 @@ import { RemoveRecipeComponent } from './remove-recipe/remove-recipe.component';
     RecipesListComponent,
     RecipesDetailComponent,
     RecipesItemComponent,
-    RecipesStartComponent,
     RecipeEditComponent,
     RemoveRecipeComponent,
   ],
@@ -30,10 +29,10 @@ import { RemoveRecipeComponent } from './remove-recipe/remove-recipe.component';
 
       {
         path: '', component: RecipesComponent, children: [
-          { path: '', component: RecipesStartComponent },
+
           { path: 'new', component: RecipeEditComponent },/**Toda rota STATICA tem q ser passada ANTES no array das rotas DINAMICAs, caso contrario teremos erros */
-          { path: ':id', component: RecipesDetailComponent },
-          { path: ':id/edit', component: RecipeEditComponent },
+          { path: ':id', component: RecipesDetailComponent , resolve: [RecipesResolverService]},
+          { path: ':id/edit', component: RecipeEditComponent, resolve: [RecipesResolverService] },
           { path: ':id/delete', component: RemoveRecipeComponent },
         ]
       },
