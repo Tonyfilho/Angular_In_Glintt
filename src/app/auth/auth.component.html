@@ -1,18 +1,23 @@
 <div class="container">
   <div class="row">
     <div class="container col-6">
+      <form [formGroup]="authenticationForm" >
       <div class="mb-4">
         <label for="email" class="form-label">Email address</label>
-        <input type="email" class="form-control" id="email" placeholder="name@example.com">
+        <input type="email" class="form-control" id="email" placeholder="name@example.com"
+        formArrayName="email">
       </div>
       <div class="mb-4">
         <label for="password" class="form-label">Password</label>
-        <input type="password" class="form-control" id="password" placeholder="Min 8 dig with 1 special caracter">
+        <input type="password" class="form-control" id="password" placeholder="Min 8 dig with 1 special caracter"
+        formArrayName="password"
+        >
       </div>
       <div class="mb-4">
-        <button type="submit" class="btn btn-primary">{{ isLoginMode ? "  Login  " : " Sign Up "}}</button> |
-        <button type="button" class="btn btn-secondary" (click)="onSwitchMode()">Switch to {{ isLoginMode ? " Sign Up " : "  Login  "}}</button>
+        <button type="submit" class="btn btn-primary" [disabled]="!authenticationForm.valid">{{ isLoginMode ? "  Login  " : " Sign Up "}}</button> |
+        <button type="button" class="btn btn-secondary" [disabled]="!authenticationForm.valid" (click)="onSwitchMode()">Switch to {{ isLoginMode ? " Sign Up " : "  Login  "}}</button>
       </div>
+    </form>
     </div>
 
   </div>
