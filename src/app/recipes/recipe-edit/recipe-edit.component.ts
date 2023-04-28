@@ -87,8 +87,10 @@ export class RecipeEditComponent implements OnInit {
       this.newOrEditRecipesForm.get("imagePath")?.patchValue(recipe?.imagePath);
       /*************Mapeando e passando INDEX para dentro FormARRAY********************************************************* */
       recipe?.ingredients.map((incredient: IngredientsModel, index: number) => {
-        // this.ingredientsArray.controls[index]?.patchValue({ ingred_name: incredient?.ingred_name, amount: incredient?.amount, ingred_id: incredient.ingred_id }) somente p 1
-          this.ingredientsArray.push(this.fb.group({ ingred_name: incredient?.ingred_name, amount: incredient?.amount, ingred_id: incredient.ingred_id }))
+         if (incredient?.ingred_id) {
+           // this.ingredientsArray.controls[index]?.patchValue({ ingred_name: incredient?.ingred_name, amount: incredient?.amount, ingred_id: incredient.ingred_id }) somente p 1
+             this.ingredientsArray.push(this.fb.group({ ingred_name: incredient?.ingred_name, amount: incredient?.amount, ingred_id: incredient.ingred_id }))
+         }
 
       });
 
@@ -119,5 +121,5 @@ export class RecipeEditComponent implements OnInit {
  this.ingredientsArray.removeAt(indexArrayToRemove);
   }
 
-  
+
 }
