@@ -1,6 +1,5 @@
 <div *ngIf="this.loadItem$ |async as localLoadItem">
   <div class="row">
-
     <div class="col">
       <h2>Recipe Name: {{localLoadItem?.['name']}}</h2>
     </div>
@@ -34,8 +33,11 @@
             <h5 class="card-title">Recipe Name: {{localLoadItem?.name}}</h5>
             <p class="card-text">Recipe Description: {{localLoadItem?.description}}</p>
             <div *ngFor="let item of localLoadItem?.ingredients">
-              <p class="card-text">Recipe Ingredients: {{item['ingred_name']}}</p>
-              <p class="card-text">Recipe Value: {{item['amount'] |  currency: 'EU'}}</p>
+              <div *ngIf="item">
+                <p class="card-text">Recipe Ingredients: {{item['ingred_name']}}</p>
+                <p class="card-text">Recipe Value: {{item['amount'] |  currency: 'EU'}}</p>
+
+              </div>
 
             </div>
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
