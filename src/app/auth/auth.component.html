@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="row">
+    <div class="container col-6">
+      <div class="mb-4">
+        <label for="email" class="form-label">Email address</label>
+        <input type="email" class="form-control" id="email" placeholder="name@example.com">
+      </div>
+      <div class="mb-4">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password" placeholder="Min 8 dig with 1 special caracter">
+      </div>
+      <div class="mb-4">
+        <button type="submit" class="btn btn-primary">{{ isLoginMode ? "  Login  " : " Sign Up "}}</button> |
+        <button type="button" class="btn btn-secondary" (click)="onSwitchMode()">Switch to {{ isLoginMode ? " Sign Up " : "  Login  "}}</button>
+      </div>
+    </div>
+
+  </div>

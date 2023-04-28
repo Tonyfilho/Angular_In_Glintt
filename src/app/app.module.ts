@@ -9,12 +9,14 @@ import { HeaderComponent } from './header/header.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RecipesModule } from './recipes/recipes.module';
 import { HeaderButtonsComponent } from './header/header-buttons/header-buttons.component';
+import { AuthComponent } from './auth/auth.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     HeaderButtonsComponent,
+    AuthComponent,
 
 
 

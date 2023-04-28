@@ -5,7 +5,7 @@ import { DataStorageService } from 'src/app/_share/services/data-storage.service
 @Component({
   selector: 'app-header-buttons',
   templateUrl: './header-buttons.component.html',
-  styleUrls: ['./header-buttons.component.css']
+ 
 })
 export class HeaderButtonsComponent implements OnInit, OnDestroy {
   subsc!: Subscription;
