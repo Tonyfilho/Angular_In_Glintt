@@ -11,8 +11,8 @@ export class AuthComponent implements OnInit {
   authenticationForm!: FormGroup;
   constructor(private fb: FormBuilder) {
     this.authenticationForm = fb.group({
-      email: [ Validators.required, Validators.email],
-      password: [ Validators.required, Validators.min(8)],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['',[ Validators.required, Validators.min(8)]],
     })
   }
 
@@ -21,6 +21,12 @@ export class AuthComponent implements OnInit {
 
   onSwitchMode(){
     this.isLoginMode = !this.isLoginMode;
+   // console.log(this.authenticationForm.valid, this.authenticationForm.controls['email'].value);
+  }
+
+  onSubmit(){
+    console.log(this.authenticationForm.value);
+    this.authenticationForm.reset();
   }
 
 }
