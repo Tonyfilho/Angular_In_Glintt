@@ -1,3 +1,13 @@
 .container {
   margin-top: 1%;
 }
+
+.alert {
+  text-align: center !important;
+  color: black !important;
+  --bs-alert-margin-bottom: 0 !important;
+}
+
+
+
+

@@ -10,6 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RecipesModule } from './recipes/recipes.module';
 import { HeaderButtonsComponent } from './header/header-buttons/header-buttons.component';
 import { AuthComponent } from './auth/auth.component';
+import { SpinnersComponent } from './_share/spinners/spinners.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { AuthComponent } from './auth/auth.component';
     HeaderComponent,
     HeaderButtonsComponent,
     AuthComponent,
+    SpinnersComponent,
 
 
 

@@ -10,9 +10,10 @@ import { IAuthResponsePayload } from 'src/assets/models/iAuthResponsePayload';
 })
 export class AuthComponent implements OnInit {
   isLoginMode = true;
+  isLodingSpinner = false;
   authenticationForm!: FormGroup;
-  displayStyle = "none";
-  localError: { status: string, statusText: string, name: string } | any = {}
+  displayStyle = {displayBlock:  "none", displayStyle: ''};
+  localModal: { status: string, statusText: string, name: string } | any = {}
 
   constructor(private fb: FormBuilder, private authService: AuthService) {
     this.authenticationForm = fb.group({
@@ -34,29 +35,44 @@ export class AuthComponent implements OnInit {
     if (this.isLoginMode) {
 
     } else {
+      this.isLodingSpinner = true;
       this.authService.signUpNewUser(this.authenticationForm.get('email')?.value, this.authenticationForm.get('password')?.value).subscribe(
         {
-          next: (data: IAuthResponsePayload) => { console.log(data) },
+          next: (data: IAuthResponsePayload) => {
+            this.isLodingSpinner = false;
+            console.log(data)
+            this.localModal.name = 'All Right!!! ';
+            this.localModal['status'] = '201';
+            this.localModal['statusText'] = 'You create a new user, congratulation';
+            this.displayStyle.displayStyle = 'alert-success';
+            this.openModal();
+
+          },
           error: (e: any) => {
-            console.error(e?.error.error['message']);
-            this.localError.name = e?.error.error['message'] ;
-            this.localError['status'] = e?.status;
-            this.localError['statusText'] = e?.message;
+            this.isLodingSpinner = false;
+           // console.error(e?.error.error['message']);
+            this.localModal.name = 'Ops... Some thing Wrong :'+ e?.error.error['message'];
+            this.localModal['status'] = e?.name + ' ' +e?.status;
+            this.localModal['statusText'] = 'Looks like the email already been in using';
+            this.displayStyle.displayStyle = 'alert-danger';
             this.openModal();
           },
-          complete: () => console.info("fim do Observable"),
+          complete: () => {console.info("fim do Observable")},
         }
       );
     }
     //console.log(this.authenticationForm.value);
-    this.authenticationForm.reset();
   }
 
   openModal() {
-    this.displayStyle = "block";
+    this.displayStyle.displayBlock = "block";
+    this.authenticationForm.reset();
+
   }
   closeModal() {
-    this.displayStyle = "none";
+    this.displayStyle.displayBlock = "none";
+    this.displayStyle.displayStyle= "";
+
     this.authenticationForm.reset()
   }
 
