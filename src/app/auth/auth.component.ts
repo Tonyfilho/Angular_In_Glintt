@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from './auth.service';
-import { IAuthResponsePayload } from 'src/assets/models/iAuthResponsePayload';
+import { IAuthResponsePayloadSign } from 'src/assets/models/iAuthResponsePayload';
+import { Router, Routes } from '@angular/router';
 
 @Component({
   selector: 'app-auth',
@@ -15,7 +16,7 @@ export class AuthComponent implements OnInit {
   displayStyle = {displayBlock:  "none", displayStyle: ''};
   localModal: { status: string, statusText: string, name: string } | any = {}
 
-  constructor(private fb: FormBuilder, private authService: AuthService) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.authenticationForm = fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.min(8)]],
@@ -33,14 +34,40 @@ export class AuthComponent implements OnInit {
   onSubmit() {
 
     if (this.isLoginMode) {
+      this.isLodingSpinner = true;
+      this.authService.signInUser(this.authenticationForm.get('email')?.value, this.authenticationForm.get('password')?.value).subscribe(
+        {
+          next: (data: IAuthResponsePayloadSign) => {
+            this.isLodingSpinner = false;
+           // console.log(data)
+            this.localModal.name = 'All Right!!! ';
+            this.localModal['status'] = 'Welcome';
+            this.localModal['statusText'] = 'You are Login';
+            this.displayStyle.displayStyle = 'alert-success';
+            this.openModal();
+            this.router.navigateByUrl('/recipes');
+
+          },
+          error: (e: any) => {
+            this.isLodingSpinner = false;
+           // console.error(e?.error.error['message']);
+           this.errorFireBaseSignUp(e?.error.error['message']);
+            this.localModal.name = 'Ops... Some thing Wrong :';
+            this.localModal['status'] = e?.name + ' ' +e?.status;
+            this.displayStyle.displayStyle = 'alert-danger';
+            this.openModal();
+          },
+          complete: () => {console.info("fim do Observable")},
+        }
+      );
 
     } else {
       this.isLodingSpinner = true;
       this.authService.signUpNewUser(this.authenticationForm.get('email')?.value, this.authenticationForm.get('password')?.value).subscribe(
         {
-          next: (data: IAuthResponsePayload) => {
+          next: (data: IAuthResponsePayloadSign) => {
             this.isLodingSpinner = false;
-            console.log(data)
+           // console.log(data)
             this.localModal.name = 'All Right!!! ';
             this.localModal['status'] = '201';
             this.localModal['statusText'] = 'You create a new user, congratulation';
@@ -51,9 +78,9 @@ export class AuthComponent implements OnInit {
           error: (e: any) => {
             this.isLodingSpinner = false;
            // console.error(e?.error.error['message']);
-            this.localModal.name = 'Ops... Some thing Wrong :'+ e?.error.error['message'];
+           this.errorFireBaseSignUp(e?.error.error['message']);
+            this.localModal.name = 'Ops... Some thing Wrong :';
             this.localModal['status'] = e?.name + ' ' +e?.status;
-            this.localModal['statusText'] = 'Looks like the email already been in using';
             this.displayStyle.displayStyle = 'alert-danger';
             this.openModal();
           },
@@ -61,7 +88,7 @@ export class AuthComponent implements OnInit {
         }
       );
     }
-    //console.log(this.authenticationForm.value);
+
   }
 
   openModal() {
@@ -75,5 +102,37 @@ export class AuthComponent implements OnInit {
 
     this.authenticationForm.reset()
   }
+
+  errorFireBaseSignUp(error: string) {
+    switch (error) {
+      case 'EMAIL_EXISTS':
+       this.localModal.statusText = 'The email address is already in use by another account.';
+        break;
+      case 'OPERATION_NOT_ALLOWED':
+       this.localModal.statusText = 'Password sign-in is disabled for this project.';
+        break;
+      case 'TOO_MANY_ATTEMPTS_TRY_LATER':
+       this.localModal.statusText = 'There is no user record corresponding to this identifier. The user may have been deleted.';
+        break;
+      case 'EMAIL_NOT_FOUND':
+       this.localModal.statusText = 'We have blocked all requests from this device due to unusual activity. Try again later.';
+        break;
+      case 'INVALID_PASSWORD':
+       this.localModal.statusText = 'The password is invalid or the user does not have a password.';
+        break;
+      case 'USER_DISABLED':
+       this.localModal.statusText = 'The user account has been disabled by an administrator.';
+        break;
+
+      default:
+        this.localModal.statusText = 'An unkown error occurred!. ';
+        break;
+    }
+
+  }
+
+
+
+
 
 }
