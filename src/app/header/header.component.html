@@ -1,15 +1,19 @@
-
 <div class="header">
   <nav class="navbar navbar-expand-lg bg-light">
     <div class="container-fluid">
-      <a class="navbar-brand"  routerLinkActive="active" routerLink="/">Recipe Book</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <a class="navbar-brand" routerLinkActive="active" routerLink="/">Recipe Book</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-          <li class="nav-item"><a   class="nav-link" routerLink="/recipes"  >Recipes</a></li>
-          <li class="nav-item" ><a  class="nav-link" routerLink="/shopping" >Shopping List</a></li>
+          <li class="nav-item" *ngIf="!isAuthenticated else yesIsLoginLink"></li>
+          <ng-template #yesIsLoginLink>
+            <li class="nav-item"><a class="nav-link" routerLink="/recipes">Recipes</a></li>
+            <li class="nav-item"><a class="nav-link" routerLink="/shopping">Shopping List</a></li>
+
+          </ng-template>
         </ul>
       </div>
       <div>
@@ -18,7 +22,11 @@
       </div>
       <div>
         <ul class="navbar-nav">
-          <li class="nav-item" ><a  class="nav-link" routerLink="/auth" routerLinkActive="active" >Authentication</a></li>
+          <li class="nav-item"><a class="nav-link" routerLink="/auth" routerLinkActive="active"
+              *ngIf="!isAuthenticated else yesIsLogin">Authentication</a></li>
+          <ng-template #yesIsLogin>
+            <li class="nav-item"><a class="nav-link" routerLink="/auth" (click)="logOut()">LogOut</a></li>
+          </ng-template>
 
         </ul>
 
@@ -27,5 +35,3 @@
   </nav>
 
 </div>
-
-

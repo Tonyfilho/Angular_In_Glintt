@@ -4,6 +4,7 @@ import { AuthService } from './auth.service';
 import { IAuthResponsePayloadSign } from 'src/assets/models/iAuthResponsePayload';
 import { Router, Routes } from '@angular/router';
 
+
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
@@ -14,7 +15,8 @@ export class AuthComponent implements OnInit {
   isLodingSpinner = false;
   authenticationForm!: FormGroup;
   displayStyle = { displayBlock: "none", displayStyle: '' };
-  localModal: { status: string, statusText: string, name: string } | any = {}
+  localModal: { status: string, statusText: string, name: string } | any = {};
+
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.authenticationForm = fb.group({
@@ -39,7 +41,7 @@ export class AuthComponent implements OnInit {
         {
           next: (data: IAuthResponsePayloadSign) => {
             this.isLodingSpinner = false;
-            // console.log(data)
+            console.log(data)
             this.localModal.name = 'All Right!!! ';
             this.localModal['status'] = 'Welcome';
             this.localModal['statusText'] = 'You are Login';
@@ -56,6 +58,7 @@ export class AuthComponent implements OnInit {
             this.localModal['status'] = e + '401'
             this.displayStyle.displayStyle = 'alert-danger';
             this.openModal();
+
           },
           complete: () => { console.info("fim do Observable") },
         }
@@ -67,12 +70,13 @@ export class AuthComponent implements OnInit {
         {
           next: (data: IAuthResponsePayloadSign) => {
             this.isLodingSpinner = false;
-            // console.log(data)
+            console.log(data)
             this.localModal.name = 'All Right!!! ';
             this.localModal['status'] = '201';
             this.localModal['statusText'] = 'You create a new user, congratulation';
             this.displayStyle.displayStyle = 'alert-success';
             this.openModal();
+            this.router.navigateByUrl('/recipes');
 
           },
           error: (e: any) => {
