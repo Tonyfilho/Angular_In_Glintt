@@ -13,7 +13,7 @@ export class AuthComponent implements OnInit {
   isLoginMode = true;
   isLodingSpinner = false;
   authenticationForm!: FormGroup;
-  displayStyle = {displayBlock:  "none", displayStyle: ''};
+  displayStyle = { displayBlock: "none", displayStyle: '' };
   localModal: { status: string, statusText: string, name: string } | any = {}
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
@@ -39,7 +39,7 @@ export class AuthComponent implements OnInit {
         {
           next: (data: IAuthResponsePayloadSign) => {
             this.isLodingSpinner = false;
-           // console.log(data)
+            // console.log(data)
             this.localModal.name = 'All Right!!! ';
             this.localModal['status'] = 'Welcome';
             this.localModal['statusText'] = 'You are Login';
@@ -50,14 +50,14 @@ export class AuthComponent implements OnInit {
           },
           error: (e: any) => {
             this.isLodingSpinner = false;
-           // console.error(e?.error.error['message']);
-           this.errorFireBaseSignUp(e?.error.error['message']);
+           //o erro vem pelo Subscribe
+           // console.log('error do e: ', e);
             this.localModal.name = 'Ops... Some thing Wrong :';
-            this.localModal['status'] = e?.name + ' ' +e?.status;
+            this.localModal['status'] = e + '401'
             this.displayStyle.displayStyle = 'alert-danger';
             this.openModal();
           },
-          complete: () => {console.info("fim do Observable")},
+          complete: () => { console.info("fim do Observable") },
         }
       );
 
@@ -67,7 +67,7 @@ export class AuthComponent implements OnInit {
         {
           next: (data: IAuthResponsePayloadSign) => {
             this.isLodingSpinner = false;
-           // console.log(data)
+            // console.log(data)
             this.localModal.name = 'All Right!!! ';
             this.localModal['status'] = '201';
             this.localModal['statusText'] = 'You create a new user, congratulation';
@@ -77,14 +77,16 @@ export class AuthComponent implements OnInit {
           },
           error: (e: any) => {
             this.isLodingSpinner = false;
-           // console.error(e?.error.error['message']);
-           this.errorFireBaseSignUp(e?.error.error['message']);
+            // console.error(e?.error.error['message']);
+            this.errorFireBaseSignUp(e?.error.error['message']);
+            console.log('error do e: ', e);
+            this.localModal.statusText = e;
             this.localModal.name = 'Ops... Some thing Wrong :';
-            this.localModal['status'] = e?.name + ' ' +e?.status;
+            this.localModal['status'] = e?.name + ' ' + e?.status;
             this.displayStyle.displayStyle = 'alert-danger';
             this.openModal();
           },
-          complete: () => {console.info("fim do Observable")},
+          complete: () => { console.info("fim do Observable") },
         }
       );
     }
@@ -98,8 +100,7 @@ export class AuthComponent implements OnInit {
   }
   closeModal() {
     this.displayStyle.displayBlock = "none";
-    this.displayStyle.displayStyle= "";
-
+    this.displayStyle.displayStyle = "";
     this.authenticationForm.reset()
   }
 
@@ -114,22 +115,13 @@ export class AuthComponent implements OnInit {
       case 'TOO_MANY_ATTEMPTS_TRY_LATER':
        this.localModal.statusText = 'There is no user record corresponding to this identifier. The user may have been deleted.';
         break;
-      case 'EMAIL_NOT_FOUND':
-       this.localModal.statusText = 'We have blocked all requests from this device due to unusual activity. Try again later.';
-        break;
-      case 'INVALID_PASSWORD':
-       this.localModal.statusText = 'The password is invalid or the user does not have a password.';
-        break;
-      case 'USER_DISABLED':
-       this.localModal.statusText = 'The user account has been disabled by an administrator.';
-        break;
 
       default:
         this.localModal.statusText = 'An unkown error occurred!. ';
         break;
     }
 
-  }
+   }
 
 
 

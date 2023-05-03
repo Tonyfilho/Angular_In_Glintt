@@ -35,22 +35,13 @@ export class AuthService {
       email: email,
       password: password,
       returnSecureToken: true //sempre tem q ser envia TRUE
-    }).pipe(catchError(this.handleError));
+    }).pipe(catchError(this.handleError)); // foi criado observable de erro, para fins laborais
   }
 
 
   private handleError(errorRes: HttpErrorResponse) {
     let localErrorResponse = { statusText: '' };
     switch (errorRes?.error.error['message']) {
-      case 'EMAIL_EXISTS':
-        localErrorResponse.statusText = 'The email address is already in use by another account.';
-        break;
-      case 'OPERATION_NOT_ALLOWED':
-        localErrorResponse.statusText = 'Password sign-in is disabled for this project.';
-        break;
-      case 'TOO_MANY_ATTEMPTS_TRY_LATER':
-        localErrorResponse.statusText = 'There is no user record corresponding to this identifier. The user may have been deleted.';
-        break;
       case 'EMAIL_NOT_FOUND':
         localErrorResponse.statusText = 'We have blocked all requests from this device due to unusual activity. Try again later.';
         break;
