@@ -18,7 +18,7 @@ export class RecipesResolverService  implements Resolve<RecipesModel[]> {
     // if () {
 
     // }
-    return this.dataStorageService.fetchRecipes();
+    return this.dataStorageService.fetchRecipesWithAuthAndInterceptor();
   }
 
 

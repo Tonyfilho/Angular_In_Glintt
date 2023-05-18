@@ -34,7 +34,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     const localUser = new UserLoginModel(' ',' ', ' ', new Date(new Date().getTime()))
     this.authService.localUserLogin.next(localUser);
     this.isAuthenticated = false;
-    this.route.navigateByUrl('/');
+    this.route.navigateByUrl('/auth');
 
   }
 

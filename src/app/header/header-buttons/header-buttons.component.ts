@@ -5,7 +5,7 @@ import { DataStorageService } from 'src/app/_share/services/data-storage.service
 @Component({
   selector: 'app-header-buttons',
   templateUrl: './header-buttons.component.html',
- 
+
 })
 export class HeaderButtonsComponent implements OnInit, OnDestroy {
   subsc!: Subscription;
@@ -22,7 +22,7 @@ export class HeaderButtonsComponent implements OnInit, OnDestroy {
 
   fetchRecipes() {
     /**Aqui esta sendo feito a subscrição vazia, pois os dados são passado lá no Service, dentro TAP() */
-   this.dataStorage.fetchRecipes().subscribe();
+   this.dataStorage.fetchRecipesWithAuthAndInterceptor().subscribe();
   }
 
 
