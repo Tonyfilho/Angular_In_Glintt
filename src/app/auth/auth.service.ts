@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Subject, catchError, tap, throwError } from "rxjs";
+import { BehaviorSubject, Subject, catchError, tap, throwError } from "rxjs";
 import { IAuthResponsePayloadSign } from "src/assets/models/iAuthResponsePayload";
 import { UserLoginModel } from "./userLoginModel";
 
@@ -18,11 +18,13 @@ export class AuthService {
    * 6º Salvar os dados de SIGNUP e SIGIN, usando TAP depois do CatchError, o TAP é um operador que PEMITE EXECULTAR ou Realizar outra ação sem mudar um RESPONSE
    * e dentro do bloco do TAP será onde criaremos a Instancia do USER que foi logado, ou criado.
    * 7º Gerar o token de expiração ,s erá criado por nos, dentro do bloco do TAP
+   * 8º Pegar o Token que vem do AuthService para ter acesso aos dados que temos na no realtime database
    */
   private API_KEY: string = `AIzaSyC6LRdGCj8YBK3WljfBqffJtzQx07128GI`;
   private AUTHSIGN_UP_NEW_USER: string = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${this.API_KEY}`;
   private AUTHSIGN_IN_USERS: string = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${this.API_KEY}`;
-  localUserLogin: Subject<UserLoginModel> = new Subject<UserLoginModel>(); /**Salvando o Token no model */
+ // localUserLogin: Subject<UserLoginModel> = new Subject<UserLoginModel>(); /**Salvando o Token no model */
+  localUserLogin: BehaviorSubject<UserLoginModel> = new BehaviorSubject<UserLoginModel | any>(null); /**Salvando o Token no model */
   constructor(private http: HttpClient) {
 
   }

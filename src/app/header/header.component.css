@@ -25,3 +25,7 @@ nav {
  .navbar-collapse {
   width: fit-content;
  }
+
+ .logout {
+  cursor: pointer;
+ }

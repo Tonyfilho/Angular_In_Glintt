@@ -25,7 +25,7 @@
           <li class="nav-item"><a class="nav-link" routerLink="/auth" routerLinkActive="active"
               *ngIf="!isAuthenticated else yesIsLogin">Authentication</a></li>
           <ng-template #yesIsLogin>
-            <li class="nav-item"><a class="nav-link" routerLink="/auth" (click)="logOut()">LogOut</a></li>
+            <li class="nav-item logout"><a class="nav-link" (click)="logOut()">LogOut</a></li>
           </ng-template>
 
         </ul>
