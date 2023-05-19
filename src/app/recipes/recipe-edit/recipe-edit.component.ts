@@ -54,6 +54,7 @@ export class RecipeEditComponent implements OnInit {
   }
 
   addIngredient() {
+    console.log('no add');
     this.ingredientsArray.push(this.fb.group({
       ingred_name: [],
       amount: [],

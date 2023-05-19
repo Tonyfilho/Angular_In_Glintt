@@ -69,7 +69,7 @@ export class DataStorageService {
    * por pelo Objeto Params
    */
   fetchRecipesWithAuth() {
-    return this.auth.localUserLogin.pipe(take(1), exhaustMap(user => {
+    return this.auth.isUserLogin.pipe(take(1), exhaustMap(user => {
       return this.httpClient.get<RecipesModel[]>(this.FIREBASELINK + this.RECIPES + '?auth=' + user.token, {
         params: new HttpParams().set('auth', user.token)
       });
@@ -98,7 +98,8 @@ export class DataStorageService {
     return this.httpClient.get<RecipesModel[]>(this.FIREBASELINK + this.RECIPES).pipe(
       map(recipesRXJS => {
         return recipesRXJS.map(recipeJSArray => {
-          return { ...recipeJSArray, ingredients: recipeJSArray.ingredients ? recipeJSArray.ingredients : [] }
+          //return { ...recipeJSArray, ingredients: recipeJSArray.ingredients ? recipeJSArray.ingredients : [] }
+          return { ...recipeJSArray, ingredients: recipeJSArray.ingredients }
         })
       })
       , tap(data => { console.log('fetchData: ', data); this.recipeService.setRecipes(data) })

@@ -24,7 +24,7 @@ export class AuthService {
   private AUTHSIGN_UP_NEW_USER: string = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${this.API_KEY}`;
   private AUTHSIGN_IN_USERS: string = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${this.API_KEY}`;
  // localUserLogin: Subject<UserLoginModel> = new Subject<UserLoginModel>(); /**Salvando o Token no model */
-  localUserLogin: BehaviorSubject<UserLoginModel | any > = new BehaviorSubject<UserLoginModel| any >(''); /**Salvando o Token no model */
+  isUserLogin: BehaviorSubject<UserLoginModel | any > = new BehaviorSubject<UserLoginModel| any >(''); /**Salvando o Token no model */
   constructor(private http: HttpClient) {
 
   }
@@ -55,7 +55,7 @@ export class AuthService {
     /**Criando o token de expiração  ,e mutiplicar por 1000, pois getTime é Segundos e ExpereIN é em milisegundo*/
     const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
     const localUser = new UserLoginModel(email, userId, token, expirationDate);
-    this.localUserLogin.next(localUser);
+    this.isUserLogin.next(localUser);
   }
   private handleError(errorRes: HttpErrorResponse) {
     let localErrorResponse = { statusText: '' };

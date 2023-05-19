@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from './auth.service';
 import { IAuthResponsePayloadSign } from 'src/assets/models/iAuthResponsePayload';
 import { Router, Routes } from '@angular/router';
+import { DataStorageService } from '../_share/services/data-storage.service';
 
 
 @Component({
@@ -18,7 +19,7 @@ export class AuthComponent implements OnInit {
   localModal: { status: string, statusText: string, name: string } | any = {};
 
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, private dataStorage : DataStorageService) {
     this.authenticationForm = fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.min(8)]],
@@ -48,6 +49,7 @@ export class AuthComponent implements OnInit {
             this.displayStyle.displayStyle = 'alert-success';
             this.openModal();
             this.router.navigateByUrl('/recipes');
+            this.dataStorage.fetchRecipesWithAuthAndInterceptor().subscribe(); // carregando o Fetch, 
 
           },
           error: (e: any) => {
@@ -77,6 +79,7 @@ export class AuthComponent implements OnInit {
             this.displayStyle.displayStyle = 'alert-success';
             this.openModal();
             this.router.navigateByUrl('/recipes');
+
 
           },
           error: (e: any) => {

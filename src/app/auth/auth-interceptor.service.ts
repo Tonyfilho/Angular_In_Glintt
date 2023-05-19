@@ -21,7 +21,7 @@ export class AuthInterceptorService implements HttpInterceptor {
   constructor(private auth: AuthService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-  return this.auth.localUserLogin.pipe(
+  return this.auth.isUserLogin.pipe(
     take(1),
     exhaustMap(user => {
       if (!user) {

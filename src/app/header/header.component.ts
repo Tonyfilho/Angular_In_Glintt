@@ -22,7 +22,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(private authService: AuthService, private route: Router) { }
 
   ngOnInit(): void {
-    this.userSubs = this.authService.localUserLogin.subscribe(user => {
+    this.userSubs = this.authService.isUserLogin.subscribe(user => {
       this.isAuthenticated = user ? true : false;   // vendo se estou Autenticado
      // console.log(this.isAuthenticated);
 
@@ -32,7 +32,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   logOut() {
     const localUser = new UserLoginModel(' ',' ', ' ', new Date(new Date().getTime()))
-    this.authService.localUserLogin.next(localUser);
+    this.authService.isUserLogin.next(localUser);
     this.isAuthenticated = false;
     this.route.navigateByUrl('/auth');
 
