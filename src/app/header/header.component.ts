@@ -1,9 +1,9 @@
 import { Router } from '@angular/router';
-import { Component, OnInit, EventEmitter, Output, OnDestroy } from '@angular/core';
-import { DataStorageService } from '../_share/services/data-storage.service';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+
 import { Subscription } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
-import { UserLoginModel } from '../auth/userLoginModel';
+
 
 
 @Component({
@@ -19,7 +19,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   isAuthenticated: boolean = false;
   private userSubs!: Subscription;
 
-  constructor(private authService: AuthService, private route: Router) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     this.userSubs = this.authService.isUserLogin.subscribe(user => {
@@ -31,10 +31,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   logOut() {
-    const localUser = new UserLoginModel(' ',' ', ' ', new Date(new Date().getTime()))
-    this.authService.isUserLogin.next(localUser);
+    this.authService.logOut();
     this.isAuthenticated = false;
-    this.route.navigateByUrl('/auth');
+    this.router.navigateByUrl('/auth');
 
   }
 

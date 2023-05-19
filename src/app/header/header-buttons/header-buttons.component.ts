@@ -7,7 +7,7 @@ import { DataStorageService } from 'src/app/_share/services/data-storage.service
   templateUrl: './header-buttons.component.html',
 
 })
-export class HeaderButtonsComponent implements OnInit, OnDestroy {
+export class HeaderButtonsComponent implements OnInit {
   subsc!: Subscription;
   constructor(private dataStorage: DataStorageService) { }
 
@@ -17,7 +17,7 @@ export class HeaderButtonsComponent implements OnInit, OnDestroy {
 
 
   saveRecipes(){
-    this.subsc = this.dataStorage.saveRecipes()
+   this.dataStorage.saveRecipes()
   }
 
   fetchRecipes() {
@@ -26,7 +26,5 @@ export class HeaderButtonsComponent implements OnInit, OnDestroy {
   }
 
 
-  ngOnDestroy(): void {
-    this.subsc.unsubscribe();
-  }
+
 }

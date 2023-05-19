@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Subject, catchError, tap, throwError } from "rxjs";
@@ -10,22 +11,26 @@ import { UserLoginModel } from "./userLoginModel";
 })
 export class AuthService {
   /**
-   * 1º Pegar api do seu projeto https://console.firebase.google.com/u/0/project/ng-course-recipe-book-aa8c0/settings/general
-   * 2º Fazer o Sign_Up pegar o endpoint da Api rest do Auth https://firebase.google.com/docs/reference/rest/auth#section-create-email-password
-   * 3º passar os Request Body Payload dentro de um Objeto {email:,  password:, returnSecureToken:}, no metodo Post,
-   * 4º Fazer o Cast do dados para interface que criamops no asset IAuthResponsePayload
-   * 5ª Fazer o SIGN_IN, pegar o end point https://firebase.google.com/docs/reference/rest/auth#section-sign-in-email-password
+   * 1º Pegar api do seu projeto https://console.firebase.google.com/u/0/project/ng-course-recipe-book-aa8c0/settings/general;
+   * 2º Fazer o Sign_Up pegar o endpoint da Api rest do Auth https://firebase.google.com/docs/reference/rest/auth#section-create-email-password;
+   * 3º passar os Request Body Payload dentro de um Objeto {email:,  password:, returnSecureToken:}, no metodo Post;
+   * 4º Fazer o Cast do dados para interface que criamops no asset IAuthResponsePayload;
+   * 5ª Fazer o SIGN_IN, pegar o end point https://firebase.google.com/docs/reference/rest/auth#section-sign-in-email-password;
    * 6º Salvar os dados de SIGNUP e SIGIN, usando TAP depois do CatchError, o TAP é um operador que PEMITE EXECULTAR ou Realizar outra ação sem mudar um RESPONSE
-   * e dentro do bloco do TAP será onde criaremos a Instancia do USER que foi logado, ou criado.
-   * 7º Gerar o token de expiração ,s erá criado por nos, dentro do bloco do TAP
-   * 8º Pegar o Token que vem do AuthService para ter acesso aos dados que temos na no realtime database,mas lá mp DATA-STORAGE-SERVICE
+   * e dentro do bloco do TAP será onde criaremos a Instancia do USER que foi logado, ou criado;
+   * 7º Gerar o token de expiração ,s erá criado por nos, dentro do bloco do TAP;
+   * 8º Pegar o Token que vem do AuthService para ter acesso aos dados que temos na no realtime database,mas lá mp DATA-STORAGE-SERVICE;
+   * 9º No handleAuthentication Guardando autenticação no LOCALSTORAGE do browser, Lembrando q não será um Objeto JS, mas um string que precisa ser convertida
+   * usando JSON.stringify;
+   * 10º  Cria um Metodo que conte o tempo do Token para o invalidar o time do localStorage chama-lo no logout;
    */
   private API_KEY: string = `AIzaSyC6LRdGCj8YBK3WljfBqffJtzQx07128GI`;
   private AUTHSIGN_UP_NEW_USER: string = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${this.API_KEY}`;
   private AUTHSIGN_IN_USERS: string = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${this.API_KEY}`;
- // localUserLogin: Subject<UserLoginModel> = new Subject<UserLoginModel>(); /**Salvando o Token no model */
-  isUserLogin: BehaviorSubject<UserLoginModel | any > = new BehaviorSubject<UserLoginModel| any >(''); /**Salvando o Token no model */
-  constructor(private http: HttpClient) {
+  // localUserLogin: Subject<UserLoginModel> = new Subject<UserLoginModel>(); /**Salvando o Token no model */
+  isUserLogin: BehaviorSubject<UserLoginModel | any> = new BehaviorSubject<UserLoginModel | any>(null); /**Salvando o Token no model */
+  private tokenExpirationTimer: any;
+  constructor(private http: HttpClient, private router: Router) {
 
   }
 
@@ -51,11 +56,59 @@ export class AuthService {
       })); // foi criado observable de erro, para fins laborais
   }
 
+  /**
+   * 1º fazer um destruction hja tipando os dados;
+   * 2º ver se existem dados na Var localUserStorage;
+   * 3º cria o novo Objeto do modelo USERLOGINMODEL;
+   * 4º verificar se exitem 1 token lá no Objeto;
+   * 5º Emitir o USER caso ja exista o Token;
+   * 6º Injetar este metodo no compomente PAI o APP.Compoment;
+   *
+   */
+  autoLoginWithLocalStorage() {
+    const localUserStorage: { email: string; id: string; _token: string; _tokenExpirationDate: string; } = JSON.parse(localStorage.getItem('userData') as string);
+    if (!localUserStorage) {
+      return;
+    }
+    const localUserLogin = new UserLoginModel(localUserStorage.email, localUserStorage.id, localUserStorage._token, new Date(localUserStorage._tokenExpirationDate));
+    if (localUserLogin.token) {
+      this.isUserLogin.next(localUserLogin);
+      /**
+       * aqui precisamos calcular o tempo restante do TOKEN
+       */
+      const expirationDuration = new Date(localUserStorage._tokenExpirationDate).getTime() - new Date().getTime();
+    //  this.autoLogoutWithLocalStorage(expirationDuration);******************************** tem que corrigir**********************************
+      console.log('expirationDuration: ', expirationDuration);
+
+    }
+
+  }
+  autoLogoutWithLocalStorage(expirationDate: number) {
+    console.log('expirationDate: ',expirationDate);
+    this.tokenExpirationTimer = setTimeout(() => {
+      this.logOut();
+    }, expirationDate);
+  }
+
+  logOut() {
+    this.isUserLogin.next(null);
+    localStorage.removeItem('userData');
+    this.router.navigate(['/auth']);
+    if (this.tokenExpirationTimer) {
+      clearTimeout(this.tokenExpirationTimer);
+    }
+    this.tokenExpirationTimer = null;
+  }
+
+
+
   private handleAuthentication(email: string, userId: string, token: string, expiresIn: number) {
     /**Criando o token de expiração  ,e mutiplicar por 1000, pois getTime é Segundos e ExpereIN é em milisegundo*/
     const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
     const localUser = new UserLoginModel(email, userId, token, expirationDate);
     this.isUserLogin.next(localUser);
+    this.autoLogoutWithLocalStorage(expiresIn * 1000); //tranformando em Milisegundo
+    localStorage.setItem('userData', JSON.stringify(localUser)); //Quardaremos em LocalStorage um String com todos os Dados.
   }
   private handleError(errorRes: HttpErrorResponse) {
     let localErrorResponse = { statusText: '' };
