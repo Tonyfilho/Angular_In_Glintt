@@ -109,6 +109,8 @@ export class AuthService {
     this.autoLogoutWithLocalStorage(expiresIn * 1000); //tranformando em Milisegundo
     localStorage.setItem('userData', JSON.stringify(localUser)); //Quardaremos em LocalStorage um String com todos os Dados.
   }
+
+  
   private handleError(errorRes: HttpErrorResponse) {
     let localErrorResponse = { statusText: '' };
     switch (errorRes?.error.error['message']) {

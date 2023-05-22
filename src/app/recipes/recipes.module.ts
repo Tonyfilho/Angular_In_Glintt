@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RecipeEditComponent } from './recipe-edit/recipe-edit.component';
 import { RemoveRecipeComponent } from './remove-recipe/remove-recipe.component';
 import { RecipesResolverService } from './recipes-resolver.service';
+import { AuthGuard } from '../auth/auth-guard';
 
 
 
@@ -28,7 +29,7 @@ import { RecipesResolverService } from './recipes-resolver.service';
     RouterModule.forChild([
 
       {
-        path: '', component: RecipesComponent, children: [
+        path: '', component: RecipesComponent, canActivate: [AuthGuard], children: [
 
           { path: 'new', component: RecipeEditComponent },/**Toda rota STATICA tem q ser passada ANTES no array das rotas DINAMICAs, caso contrario teremos erros */
           { path: ':id', component: RecipesDetailComponent , resolve: [RecipesResolverService]},
