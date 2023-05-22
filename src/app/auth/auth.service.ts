@@ -67,6 +67,7 @@ export class AuthService {
    */
   autoLoginWithLocalStorage() {
     const localUserStorage: { email: string; id: string; _token: string; _tokenExpirationDate: string; } = JSON.parse(localStorage.getItem('userData') as string);
+    //console.log('no autologin: ', JSON.parse(localStorage.getItem('userData') as string))
     if (!localUserStorage) {
       return;
     }
@@ -77,14 +78,12 @@ export class AuthService {
        * aqui precisamos calcular o tempo restante do TOKEN
        */
       const expirationDuration = new Date(localUserStorage._tokenExpirationDate).getTime() - new Date().getTime();
-    //  this.autoLogoutWithLocalStorage(expirationDuration);******************************** tem que corrigir**********************************
-      console.log('expirationDuration: ', expirationDuration);
-
+      this.autoLogoutWithLocalStorage(expirationDuration);
     }
 
   }
   autoLogoutWithLocalStorage(expirationDate: number) {
-    console.log('expirationDate: ',expirationDate);
+    console.log('expirationDate: ', expirationDate);
     this.tokenExpirationTimer = setTimeout(() => {
       this.logOut();
     }, expirationDate);
