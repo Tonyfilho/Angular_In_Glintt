@@ -3,7 +3,7 @@ import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Subject, catchError, tap, throwError } from "rxjs";
 import { IAuthResponsePayloadSign } from "src/assets/models/iAuthResponsePayload";
-import { UserLoginModel } from "./userLoginModel";
+import { UserTokenModel } from "./userLoginModel";
 
 
 @Injectable({
@@ -28,7 +28,7 @@ export class AuthService {
   private AUTHSIGN_UP_NEW_USER: string = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${this.API_KEY}`;
   private AUTHSIGN_IN_USERS: string = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${this.API_KEY}`;
   // localUserLogin: Subject<UserLoginModel> = new Subject<UserLoginModel>(); /**Salvando o Token no model */
-  isUserLogin: BehaviorSubject<UserLoginModel | any> = new BehaviorSubject<UserLoginModel | any>(null); /**Salvando o Token no model */
+  isUserLogin: BehaviorSubject<UserTokenModel | any> = new BehaviorSubject<UserTokenModel | any>(null); /**Salvando o Token no model */
   private tokenExpirationTimer: any;
   constructor(private http: HttpClient, private router: Router) {
 
@@ -71,7 +71,7 @@ export class AuthService {
     if (!localUserStorage) {
       return;
     }
-    const localUserLogin = new UserLoginModel(localUserStorage.email, localUserStorage.id, localUserStorage._token, new Date(localUserStorage._tokenExpirationDate));
+    const localUserLogin = new UserTokenModel(localUserStorage.email, localUserStorage.id, localUserStorage._token, new Date(localUserStorage._tokenExpirationDate));
     if (localUserLogin.token) {
       this.isUserLogin.next(localUserLogin);
       /**
@@ -83,7 +83,6 @@ export class AuthService {
 
   }
   autoLogoutWithLocalStorage(expirationDate: number) {
-    console.log('expirationDate: ', expirationDate);
     this.tokenExpirationTimer = setTimeout(() => {
       this.logOut();
     }, expirationDate);
@@ -104,13 +103,13 @@ export class AuthService {
   private handleAuthentication(email: string, userId: string, token: string, expiresIn: number) {
     /**Criando o token de expiração  ,e mutiplicar por 1000, pois getTime é Segundos e ExpereIN é em milisegundo*/
     const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
-    const localUser = new UserLoginModel(email, userId, token, expirationDate);
-    this.isUserLogin.next(localUser);
+    const localUserToken = new UserTokenModel(email, userId, token, expirationDate);
+    this.isUserLogin.next(localUserToken);
     this.autoLogoutWithLocalStorage(expiresIn * 1000); //tranformando em Milisegundo
-    localStorage.setItem('userData', JSON.stringify(localUser)); //Quardaremos em LocalStorage um String com todos os Dados.
+    localStorage.setItem('userData', JSON.stringify(localUserToken)); //Quardaremos em LocalStorage um String com todos os Dados.
   }
 
-  
+
   private handleError(errorRes: HttpErrorResponse) {
     let localErrorResponse = { statusText: '' };
     switch (errorRes?.error.error['message']) {

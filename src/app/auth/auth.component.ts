@@ -31,7 +31,6 @@ export class AuthComponent implements OnInit {
 
   onSwitchMode() {
     this.isLoginMode = !this.isLoginMode;
-    // console.log(this.authenticationForm.valid, this.authenticationForm.controls['email'].value);
   }
 
   onSubmit() {
@@ -42,14 +41,14 @@ export class AuthComponent implements OnInit {
         {
           next: (data: IAuthResponsePayloadSign) => {
             this.isLodingSpinner = false;
-            console.log(data)
+            console.log('Response Data: ',data)
             this.localModal.name = 'All Right!!! ';
             this.localModal['status'] = 'Welcome';
             this.localModal['statusText'] = 'You are Login';
             this.displayStyle.displayStyle = 'alert-success';
             this.openModal();
             this.router.navigateByUrl('/recipes');
-            this.dataStorage.fetchRecipesWithAuthAndInterceptor().subscribe(); // carregando o Fetch, 
+            this.dataStorage.fetchRecipesWithAuthAndInterceptor().subscribe(); // carregando o Fetch,
 
           },
           error: (e: any) => {
