@@ -9,7 +9,7 @@ import { RecipesService } from "./recipes.service";
 @Injectable({
   providedIn: 'root'
 })
-export class RecipesResolverService  implements Resolve<RecipesModel[]> {
+export class RecipesResolverService  {
  constructor(private dataStorageService: DataStorageService, private recipesService: RecipesService){}
 
  /** no data-storage, iremos fazzer aqui, para protejer a rota */

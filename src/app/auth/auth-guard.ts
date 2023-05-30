@@ -1,10 +1,10 @@
 import { Injectable } from "@angular/core";
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from "@angular/router";
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from "@angular/router";
 import { Observable, map, take } from "rxjs";
 import { AuthService } from "./auth.service";
 
 @Injectable({ providedIn: 'root' })
-export class AuthGuard implements CanActivate {
+export class AuthGuard {
   /**
    *1º Injetaremos o serviço, mas ele retorna um BehaSubject e não 1 Observable, com isto daremos um MAP do RXJS q retorna um Observable;
    *2º Take(1) para termos certeza que iremos fazer 1 só subscrição no observable, visto que estamos usando um BehaviorSubject
