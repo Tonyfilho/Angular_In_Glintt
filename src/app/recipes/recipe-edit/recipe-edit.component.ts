@@ -4,7 +4,7 @@ import { IngredientsModel } from './../../../assets/models/ingredients.model';
 import { ActivatedRoute, Params } from '@angular/router';
 import { RecipesModel } from './../../../assets/models/recipes.model';
 import { RecipesService } from './../recipes.service';
-import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, UntypedFormArray, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { ShoppingListService } from 'src/app/shopping-list/shopping-list.service';
 
@@ -20,9 +20,9 @@ export class RecipeEditComponent implements OnInit {
 
   nameButton: string = ''
   idRecipe!: number;
-  newOrEditRecipesForm: FormGroup;
+  newOrEditRecipesForm: UntypedFormGroup;
   newRecipes!: Partial<RecipesModel>;
-  constructor(private fb: FormBuilder, private recipesService: RecipesService, private route: ActivatedRoute, private shoppingListService: ShoppingListService) {
+  constructor(private fb: UntypedFormBuilder, private recipesService: RecipesService, private route: ActivatedRoute, private shoppingListService: ShoppingListService) {
 
     this.route.params.subscribe((data: Params) => { this.idRecipe = +data['id'] }); /**Rotas Asyncronas tem que ser carregadas no CONSTRUTOR */
     this.newOrEditRecipesForm = fb.group({
@@ -49,8 +49,8 @@ export class RecipeEditComponent implements OnInit {
   }
 
   /**Pegando o array do form para passar no template */
-  get ingredientsArray(): FormArray {
-    return this.newOrEditRecipesForm.get('ingredients') as FormArray;
+  get ingredientsArray(): UntypedFormArray {
+    return this.newOrEditRecipesForm.get('ingredients') as UntypedFormArray;
   }
 
   addIngredient() {
@@ -99,7 +99,7 @@ export class RecipeEditComponent implements OnInit {
 
   }
 
-  saveOrUpdade(templateForm: FormGroup) {
+  saveOrUpdade(templateForm: UntypedFormGroup) {
     console.log(templateForm);
     /**É Opcional receber dentro do Submit o paramentro TemplateForm, pois no ReactiveForm ja temos acesso aos dados via FormGroup */
     let dummyWithDestruction: RecipesModel;

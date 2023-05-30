@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { AuthService } from './auth.service';
 import { IAuthResponsePayloadSign } from 'src/assets/models/iAuthResponsePayload';
 import { Router, Routes } from '@angular/router';
@@ -14,12 +14,12 @@ import { DataStorageService } from '../_share/services/data-storage.service';
 export class AuthComponent implements OnInit {
   isLoginMode = true;
   isLodingSpinner = false;
-  authenticationForm!: FormGroup;
+  authenticationForm!: UntypedFormGroup;
   displayStyle = { displayBlock: "none", displayStyle: '' };
   localModal: { status: string, statusText: string, name: string } | any = {};
 
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, private dataStorage : DataStorageService) {
+  constructor(private fb: UntypedFormBuilder, private authService: AuthService, private router: Router, private dataStorage : DataStorageService) {
     this.authenticationForm = fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.min(8)]],

@@ -2,11 +2,11 @@
     <div class="card-list">
       <!-- <div class="card" style="width: 17rem;"> -->
       <div class="card">
-        <img [src]="recipesItem?.imagePath" class="card-img-top" alt="{{ recipesItem?.name }}" style="height: 9rem;">
+        <img [src]="recipesItem.imagePath" class="card-img-top" alt="{{ recipesItem.name }}" style="height: 9rem;">
         <div class="card-body">
-          <h5 class="card-title">{{recipesItem?.name}}</h5>
-          <p class="card-text">{{recipesItem?.description}}</p>
-          <a class="btn btn-primary" routerLink="{{recipesItem?.id}}" routerLinkActive="router-link-active" >Load Details</a>
+          <h5 class="card-title">{{recipesItem.name}}</h5>
+          <p class="card-text">{{recipesItem.description}}</p>
+          <a class="btn btn-primary" routerLink="{{recipesItem.id}}" routerLinkActive="router-link-active" >Load Details</a>
         </div>
       </div>
    </div>
