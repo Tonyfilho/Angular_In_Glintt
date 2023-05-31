@@ -1,6 +1,7 @@
 export interface IModal {
-  Message:string;
+  message:string;
   kind:string;
+  statusText:string;
 
 
 }

@@ -5,11 +5,11 @@ import { AuthService } from 'src/app/auth/auth.service';
 import { RecipesService } from 'src/app/recipes/recipes.service';
 import { RecipesModel } from 'src/app/_share/models/recipes.model';
 
+const FIREBASELINK: string = "https://ng-course-recipe-book-aa8c0-default-rtdb.europe-west1.firebasedatabase.app";
+const RECIPES: string = "/recipes.json"
 
 @Injectable({ providedIn: 'root' })
 export class DataStorageService {
-  FIREBASELINK: string = "https://ng-course-recipe-book-aa8c0-default-rtdb.europe-west1.firebasedatabase.app";
-  RECIPES: string = "/recipes.json"
   recipes: Observable<RecipesModel[]>;
   /**
    * 1º temos que pegar o TOKEN do Usuario para mandar para Realtime para termos acesso aos dados
@@ -32,7 +32,7 @@ export class DataStorageService {
 
     /**Usaremos o metodo PUT para sobre escrever qualquer dado anterior, no lugar do POST */
     return this.recipes.subscribe((data: RecipesModel[]) => {
-      this.httpClient.put(this.FIREBASELINK + this.RECIPES, data).subscribe(response => console.log("Our Response: ", response));
+      this.httpClient.put(FIREBASELINK + RECIPES, data).subscribe(response => console.log("Our Response: ", response));
     })
   }
 
@@ -48,7 +48,7 @@ export class DataStorageService {
    *
    */
   fetchRecipes() {
-    return this.httpClient.get<RecipesModel[]>(this.FIREBASELINK + this.RECIPES).pipe(map(recipesRXJS => {
+    return this.httpClient.get<RecipesModel[]>(FIREBASELINK + RECIPES).pipe(map(recipesRXJS => {
       return recipesRXJS.map(recipeJSArray => {
         return { ...recipeJSArray, ingredients: recipeJSArray.ingredients ? recipeJSArray.ingredients : [] }
       })
@@ -70,7 +70,7 @@ export class DataStorageService {
    */
   fetchRecipesWithAuth() {
     return this.auth.isUserLogin.pipe(take(1), exhaustMap(user => {
-      return this.httpClient.get<RecipesModel[]>(this.FIREBASELINK + this.RECIPES + '?auth=' + user.token, {
+      return this.httpClient.get<RecipesModel[]>(FIREBASELINK + RECIPES + '?auth=' + user.token, {
         params: new HttpParams().set('auth', user.token)
       });
     }),
@@ -95,7 +95,7 @@ export class DataStorageService {
  */
   fetchRecipesWithAuthAndInterceptor() {
 
-    return this.httpClient.get<RecipesModel[]>(this.FIREBASELINK + this.RECIPES).pipe(
+    return this.httpClient.get<RecipesModel[]>(FIREBASELINK + RECIPES).pipe(
       map(recipesRXJS => {
         return recipesRXJS.map(recipeJSArray => {
           //return { ...recipeJSArray, ingredients: recipeJSArray.ingredients ? recipeJSArray.ingredients : [] }

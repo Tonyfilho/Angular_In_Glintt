@@ -5,28 +5,28 @@ import { BehaviorSubject, Subject, catchError, tap, throwError } from "rxjs";
 import { IAuthResponsePayloadSign } from "src/app/_share/models/iAuthResponsePayload";
 import { UserTokenModel } from "./userLoginModel";
 
+/**
+ * 1º Pegar api do seu projeto https://console.firebase.google.com/u/0/project/ng-course-recipe-book-aa8c0/settings/general;
+ * 2º Fazer o Sign_Up pegar o endpoint da Api rest do Auth https://firebase.google.com/docs/reference/rest/auth#section-create-email-password;
+ * 3º passar os Request Body Payload dentro de um Objeto {email:,  password:, returnSecureToken:}, no metodo Post;
+ * 4º Fazer o Cast do dados para interface que criamops no asset IAuthResponsePayload;
+ * 5ª Fazer o SIGN_IN, pegar o end point https://firebase.google.com/docs/reference/rest/auth#section-sign-in-email-password;
+ * 6º Salvar os dados de SIGNUP e SIGIN, usando TAP depois do CatchError, o TAP é um operador que PEMITE EXECULTAR ou Realizar outra ação sem mudar um RESPONSE
+ * e dentro do bloco do TAP será onde criaremos a Instancia do USER que foi logado, ou criado;
+ * 7º Gerar o token de expiração ,s erá criado por nos, dentro do bloco do TAP;
+ * 8º Pegar o Token que vem do AuthService para ter acesso aos dados que temos na no realtime database,mas lá mp DATA-STORAGE-SERVICE;
+ * 9º No handleAuthentication Guardando autenticação no LOCALSTORAGE do browser, Lembrando q não será um Objeto JS, mas um string que precisa ser convertida
+ * usando JSON.stringify;
+ * 10º  Cria um Metodo que conte o tempo do Token para o invalidar o time do localStorage chama-lo no logout;
+ */
+const  API_KEY: string = `AIzaSyC6LRdGCj8YBK3WljfBqffJtzQx07128GI`;
+const  AUTHSIGN_UP_NEW_USER: string = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${API_KEY}`;
+const  AUTHSIGN_IN_USERS: string = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${API_KEY}`;
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  /**
-   * 1º Pegar api do seu projeto https://console.firebase.google.com/u/0/project/ng-course-recipe-book-aa8c0/settings/general;
-   * 2º Fazer o Sign_Up pegar o endpoint da Api rest do Auth https://firebase.google.com/docs/reference/rest/auth#section-create-email-password;
-   * 3º passar os Request Body Payload dentro de um Objeto {email:,  password:, returnSecureToken:}, no metodo Post;
-   * 4º Fazer o Cast do dados para interface que criamops no asset IAuthResponsePayload;
-   * 5ª Fazer o SIGN_IN, pegar o end point https://firebase.google.com/docs/reference/rest/auth#section-sign-in-email-password;
-   * 6º Salvar os dados de SIGNUP e SIGIN, usando TAP depois do CatchError, o TAP é um operador que PEMITE EXECULTAR ou Realizar outra ação sem mudar um RESPONSE
-   * e dentro do bloco do TAP será onde criaremos a Instancia do USER que foi logado, ou criado;
-   * 7º Gerar o token de expiração ,s erá criado por nos, dentro do bloco do TAP;
-   * 8º Pegar o Token que vem do AuthService para ter acesso aos dados que temos na no realtime database,mas lá mp DATA-STORAGE-SERVICE;
-   * 9º No handleAuthentication Guardando autenticação no LOCALSTORAGE do browser, Lembrando q não será um Objeto JS, mas um string que precisa ser convertida
-   * usando JSON.stringify;
-   * 10º  Cria um Metodo que conte o tempo do Token para o invalidar o time do localStorage chama-lo no logout;
-   */
-  private API_KEY: string = `AIzaSyC6LRdGCj8YBK3WljfBqffJtzQx07128GI`;
-  private AUTHSIGN_UP_NEW_USER: string = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${this.API_KEY}`;
-  private AUTHSIGN_IN_USERS: string = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${this.API_KEY}`;
   // localUserLogin: Subject<UserLoginModel> = new Subject<UserLoginModel>(); /**Salvando o Token no model */
   isUserLogin: BehaviorSubject<UserTokenModel | any> = new BehaviorSubject<UserTokenModel | any>(null); /**Salvando o Token no model */
   private tokenExpirationTimer: any;
@@ -35,7 +35,7 @@ export class AuthService {
   }
 
   signUpNewUser(email: string, password: string) {
-    return this.http.post<IAuthResponsePayloadSign>(this.AUTHSIGN_UP_NEW_USER, {
+    return this.http.post<IAuthResponsePayloadSign>(AUTHSIGN_UP_NEW_USER, {
       email: email,
       password: password,
       returnSecureToken: true //sempre tem q ser envia TRUE
@@ -46,7 +46,7 @@ export class AuthService {
   }
 
   signInUser(email: string, password: string) {
-    return this.http.post<IAuthResponsePayloadSign>(this.AUTHSIGN_IN_USERS, {
+    return this.http.post<IAuthResponsePayloadSign>(AUTHSIGN_IN_USERS, {
       email: email,
       password: password,
       returnSecureToken: true //sempre tem q ser envia TRUE
@@ -79,6 +79,7 @@ export class AuthService {
        */
       const expirationDuration = new Date(localUserStorage._tokenExpirationDate).getTime() - new Date().getTime();
       this.autoLogoutWithLocalStorage(expirationDuration);
+      this.router.navigate(['/body']);
     }
 
   }

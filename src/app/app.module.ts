@@ -33,8 +33,8 @@ import { AuthModule } from './auth/auth.module';
     ReactiveFormsModule,
     RecipesModule,
     ShoppingListModule,
-    AuthModule,
     ShareModule,
+    AuthModule,
     HttpClientModule
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}],

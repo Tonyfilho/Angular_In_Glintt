@@ -1,1 +1,9 @@
-<p>modal works!</p>
+<div class="backdrop" (click)="closeModal()"></div>
+<div class="alertbox">
+  <span class="message">{{ modal['message'] }}</span>
+  <p class="statusText">{{ modal['statusText'] }}</p>
+  <div class="alert-box-actions" [ngStyle]="{background: this.changeBackGroudColor}">
+    <button class="btn btn-primary" (click)="closeModal()">Close</button>
+  </div>
+</div>
+

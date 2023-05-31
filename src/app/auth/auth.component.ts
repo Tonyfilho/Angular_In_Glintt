@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { AuthService } from './auth.service';
 import { IAuthResponsePayloadSign } from 'src/app/_share/models/iAuthResponsePayload';
 import { Router, Routes } from '@angular/router';
 import { DataStorageService } from '../_share/services/data-storage.service';
+import { IModal } from '../_share/models/IModal';
 
 
 @Component({
@@ -13,13 +14,14 @@ import { DataStorageService } from '../_share/services/data-storage.service';
 })
 export class AuthComponent implements OnInit {
   isLoginMode = true;
-  isLodingSpinner = false;
-  authenticationForm!: UntypedFormGroup;
-  displayStyle = { displayBlock: "none", displayStyle: '' };
+  isLodingSpinner: boolean | any  = false;
+  authenticationForm!: FormGroup<{email:FormControl, password: FormControl}>;
+  // displayStyle = { displayBlock: "none", displayStyle: '' };
   localModal: { status: string, statusText: string, name: string } | any = {};
+  modalService!: IModal;
 
 
-  constructor(private fb: UntypedFormBuilder, private authService: AuthService, private router: Router, private dataStorage : DataStorageService) {
+  constructor(private fb: UntypedFormBuilder, private authService: AuthService, private router: Router, private dataStorage: DataStorageService) {
     this.authenticationForm = fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.min(8)]],
@@ -41,24 +43,30 @@ export class AuthComponent implements OnInit {
         {
           next: (data: IAuthResponsePayloadSign) => {
             this.isLodingSpinner = false;
-            console.log('Response Data: ',data)
-            this.localModal.name = 'All Right!!! ';
-            this.localModal['status'] = 'Welcome';
-            this.localModal['statusText'] = 'You are Login';
-            this.displayStyle.displayStyle = 'alert-success';
-            this.openModal();
-            this.router.navigateByUrl('/recipes');
+            this.modalService['message'] = 'You are Login';
+            this.modalService['kind'] = 'sucess';
+            this.modalService['statusText'] = 'Welcome: ' + data.email;
             this.dataStorage.fetchRecipesWithAuthAndInterceptor().subscribe(); // carregando o Fetch,
+            //console.log('Response Data: ', data)
+            // this.localModal.name = 'All Right!!! ';
+            // this.localModal['status'] = 'Welcome';
+            // this.localModal['statusText'] = 'You are Login';
+            // this.displayStyle.displayStyle = 'alert-success';
+            // this.openModal();
+          //  this.router.navigateByUrl('/recipes'); O redirecinamento será feito junto com AuthService
 
           },
           error: (e: any) => {
             this.isLodingSpinner = false;
-           //o erro vem pelo Subscribe
-           // console.log('error do e: ', e);
-            this.localModal.name = 'Ops... Some thing Wrong :';
-            this.localModal['status'] = e + '401'
-            this.displayStyle.displayStyle = 'alert-danger';
-            this.openModal();
+            this.modalService['message'] = 'Some thing Wrong';
+            this.modalService['kind'] = 'error';
+            this.modalService['statusText'] = e;
+            //o erro vem pelo Subscribe
+            // console.log('error do e: ', e);
+            // this.localModal.name = 'Ops... Some thing Wrong :';
+            // this.localModal['status'] = e + '401'
+            // this.displayStyle.displayStyle = 'alert-danger';
+            // this.openModal();
 
           },
           complete: () => { console.info("fim do Observable") },
@@ -71,26 +79,33 @@ export class AuthComponent implements OnInit {
         {
           next: (data: IAuthResponsePayloadSign) => {
             this.isLodingSpinner = false;
-            console.log(data)
-            this.localModal.name = 'All Right!!! ';
-            this.localModal['status'] = '201';
-            this.localModal['statusText'] = 'You create a new user, congratulation';
-            this.displayStyle.displayStyle = 'alert-success';
-            this.openModal();
-            this.router.navigateByUrl('/recipes');
+            this.modalService['message'] = 'All Right';
+            this.modalService['kind'] = 'sucess';
+            this.modalService['statusText'] = 'You create a new user, congratulation: ' + data.email;
+            // console.log(data)
+            // this.localModal.name = 'All Right!!! ';
+            // this.localModal['status'] = '201';
+            // this.localModal['statusText'] = 'You create a new user, congratulation';
+            // this.displayStyle.displayStyle = 'alert-success';
+            // this.openModal();
+           // this.router.navigateByUrl('/recipes'); O redirecinamento será feito junto com AuthService
 
 
           },
           error: (e: any) => {
-            this.isLodingSpinner = false;
-            // console.error(e?.error.error['message']);
             this.errorFireBaseSignUp(e?.error.error['message']);
-            console.log('error do e: ', e);
-            this.localModal.statusText = e;
-            this.localModal.name = 'Ops... Some thing Wrong :';
-            this.localModal['status'] = e?.name + ' ' + e?.status;
-            this.displayStyle.displayStyle = 'alert-danger';
-            this.openModal();
+            this.isLodingSpinner = false;
+            this.modalService['message'] = 'Some thing Wrong';
+            this.modalService['kind'] = 'error';
+            this.modalService['statusText'] = e;
+
+            //console.log('error do e: ', e);
+            // this.localModal.statusText = e;
+            // this.localModal.name = 'Ops... Some thing Wrong :';
+            // this.localModal['status'] = e?.name + ' ' + e?.status;
+            // this.displayStyle.displayStyle = 'alert-danger';
+            // this.openModal();
+            // console.error(e?.error.error['message']);
           },
           complete: () => { console.info("fim do Observable") },
         }
@@ -99,27 +114,28 @@ export class AuthComponent implements OnInit {
 
   }
 
-  openModal() {
-    this.displayStyle.displayBlock = "block";
-    this.authenticationForm.reset();
+  // openModal() {
+  //   this.displayStyle.displayBlock = "block";
+  //   this.authenticationForm.reset();
 
-  }
+  // }
   closeModal() {
-    this.displayStyle.displayBlock = "none";
-    this.displayStyle.displayStyle = "";
+    // this.displayStyle.displayBlock = "none";
+    // this.displayStyle.displayStyle = "";
+    this.isLodingSpinner = null; // a var tem q resetada para null, para termos o efeito esperado.
     this.authenticationForm.reset()
   }
 
   errorFireBaseSignUp(error: string) {
     switch (error) {
       case 'EMAIL_EXISTS':
-       this.localModal.statusText = 'The email address is already in use by another account.';
+        this.localModal.statusText = 'The email address is already in use by another account.';
         break;
       case 'OPERATION_NOT_ALLOWED':
-       this.localModal.statusText = 'Password sign-in is disabled for this project.';
+        this.localModal.statusText = 'Password sign-in is disabled for this project.';
         break;
       case 'TOO_MANY_ATTEMPTS_TRY_LATER':
-       this.localModal.statusText = 'There is no user record corresponding to this identifier. The user may have been deleted.';
+        this.localModal.statusText = 'There is no user record corresponding to this identifier. The user may have been deleted.';
         break;
 
       default:
@@ -127,7 +143,7 @@ export class AuthComponent implements OnInit {
         break;
     }
 
-   }
+  }
 
 
 

@@ -17,6 +17,7 @@ import { ModalComponent } from './modal/modal.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule
-  ]
+  ],
+  exports: [SpinnersComponent, ModalComponent]
 })
 export class ShareModule { }
