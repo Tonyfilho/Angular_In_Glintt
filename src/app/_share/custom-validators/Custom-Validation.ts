@@ -1,4 +1,4 @@
-import { IngredientsModel } from './../../../assets/models/ingredients.model';
+import { IngredientsModel } from '../models/ingredients.model';
 import { ShoppingListService } from './../../shopping-list/shopping-list.service';
 import { AbstractControl, ValidationErrors } from "@angular/forms";
 import { of } from 'rxjs';

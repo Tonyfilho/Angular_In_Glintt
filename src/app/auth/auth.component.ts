@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { AuthService } from './auth.service';
-import { IAuthResponsePayloadSign } from 'src/assets/models/iAuthResponsePayload';
+import { IAuthResponsePayloadSign } from 'src/app/_share/models/iAuthResponsePayload';
 import { Router, Routes } from '@angular/router';
 import { DataStorageService } from '../_share/services/data-storage.service';
 

@@ -1,8 +1,8 @@
 import { ShoppingListService } from './../shopping-list/shopping-list.service';
 import { EventEmitter, Injectable, OnDestroy, } from '@angular/core';
 import { Observable, of, Subject, Subscription } from 'rxjs';
-import { IngredientsModel } from 'src/assets/models/ingredients.model';
-import { RecipesModel } from 'src/assets/models/recipes.model';
+import { IngredientsModel } from 'src/app/_share/models/ingredients.model';
+import { RecipesModel } from 'src/app/_share/models/recipes.model';
 
 @Injectable({
   providedIn: 'root'

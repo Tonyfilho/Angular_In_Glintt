@@ -2,7 +2,7 @@ import { CustomValidation } from './../../_share/custom-validators/Custom-Valida
 import { ShoppingListService } from './../shopping-list.service';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { IngredientsModel } from 'src/assets/models/ingredients.model';
+import { IngredientsModel } from 'src/app/_share/models/ingredients.model';
 
 @Component({
   selector: 'app-shopping-edit',
@@ -31,7 +31,7 @@ export class ShoppingEditComponent implements OnInit {
      /*  this.myFormBuilder.get("ingred_name")?.patchValue(localFields?.ingred_name);
       this.myFormBuilder.get("amount")?.patchValue(localFields?.amount);
       this.myFormBuilder.get("id")?.patchValue(localFields?.ingred_id); */
-      
+
     /** Ou Passo Setar todo Objeto  */
      this.myFormBuilder.setValue({
       ingred_name: localFields.ingred_name,

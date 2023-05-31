@@ -1,4 +1,4 @@
-import { IngredientsModel } from 'src/assets/models/ingredients.model';
+import { IngredientsModel } from 'src/app/_share/models/ingredients.model';
 
 export class RecipesModel {
   public id?: number;

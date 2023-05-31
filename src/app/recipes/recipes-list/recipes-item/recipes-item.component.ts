@@ -1,5 +1,5 @@
 import { RecipesService } from './../../recipes.service';
-import { RecipesModel } from './../../../../assets/models/recipes.model';
+import { RecipesModel } from '../../../_share/models/recipes.model';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({

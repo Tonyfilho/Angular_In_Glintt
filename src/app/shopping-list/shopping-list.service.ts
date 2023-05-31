@@ -1,6 +1,6 @@
 import { Observable,  Subject, } from 'rxjs';
 import { EventEmitter, Injectable } from '@angular/core';
-import { IngredientsModel } from 'src/assets/models/ingredients.model';
+import { IngredientsModel } from 'src/app/_share/models/ingredients.model';
 
 @Injectable({
   providedIn: 'root'

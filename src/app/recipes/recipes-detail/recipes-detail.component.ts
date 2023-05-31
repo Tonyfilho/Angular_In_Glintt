@@ -1,7 +1,7 @@
 import { Observable, Subscription } from 'rxjs';
 import { RecipesService } from './../recipes.service';
 
-import { RecipesModel } from './../../../assets/models/recipes.model';
+import { RecipesModel } from '../../_share/models/recipes.model';
 import { Component,  OnInit,  OnDestroy } from '@angular/core';
 import { ActivatedRoute,  Params,  } from '@angular/router';
 

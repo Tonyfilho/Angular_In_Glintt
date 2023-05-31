@@ -2,7 +2,7 @@ import { Router } from '@angular/router';
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Subject, catchError, tap, throwError } from "rxjs";
-import { IAuthResponsePayloadSign } from "src/assets/models/iAuthResponsePayload";
+import { IAuthResponsePayloadSign } from "src/app/_share/models/iAuthResponsePayload";
 import { UserTokenModel } from "./userLoginModel";
 
 

@@ -2,24 +2,26 @@ import { ShoppingListModule } from './shopping-list/shopping-list.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { ShareModule } from './_share/share.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RecipesModule } from './recipes/recipes.module';
 import { HeaderButtonsComponent } from './header/header-buttons/header-buttons.component';
-import { AuthComponent } from './auth/auth.component';
-import { SpinnersComponent } from './_share/spinners/spinners.component';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
+import { AuthModule } from './auth/auth.module';
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     HeaderButtonsComponent,
-    AuthComponent,
-    SpinnersComponent,
+
+
 
 
 
@@ -31,6 +33,8 @@ import { AuthInterceptorService } from './auth/auth-interceptor.service';
     ReactiveFormsModule,
     RecipesModule,
     ShoppingListModule,
+    AuthModule,
+    ShareModule,
     HttpClientModule
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}],

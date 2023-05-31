@@ -1,8 +1,8 @@
 import { CustomValidation } from './../../_share/custom-validators/Custom-Validation';
 import { Observable, of } from 'rxjs';
-import { IngredientsModel } from './../../../assets/models/ingredients.model';
+import { IngredientsModel } from '../../_share/models/ingredients.model';
 import { ActivatedRoute, Params } from '@angular/router';
-import { RecipesModel } from './../../../assets/models/recipes.model';
+import { RecipesModel } from '../../_share/models/recipes.model';
 import { RecipesService } from './../recipes.service';
 import { UntypedFormGroup, UntypedFormBuilder, UntypedFormArray, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';

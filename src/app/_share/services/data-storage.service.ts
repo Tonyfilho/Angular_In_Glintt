@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, Subscription, exhaustMap, map, of, take, tap } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 import { RecipesService } from 'src/app/recipes/recipes.service';
-import { RecipesModel } from 'src/assets/models/recipes.model';
+import { RecipesModel } from 'src/app/_share/models/recipes.model';
 
 
 @Injectable({ providedIn: 'root' })

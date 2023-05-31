@@ -1,4 +1,4 @@
-import { RecipesModel } from './../../../assets/models/recipes.model';
+import { RecipesModel } from '../../_share/models/recipes.model';
 import { RecipesService } from './../recipes.service';
 import { ActivatedRoute, Params } from '@angular/router';
 
