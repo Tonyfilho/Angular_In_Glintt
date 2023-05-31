@@ -8,7 +8,7 @@ import { IModal } from '../models/IModal';
   styleUrls: ['./modal.component.css']
 })
 export class ModalComponent {
-  @Input() modal: IModal;
+  @Input() modal: IModal = {message:'', kind:'',statusText:''};// Angular15 Todas as var tem q ser inicializadas ja criação.
     /**Podemo emitir um evento void, para somente fechar um botão, com isto não precisa ter propriedade quando for passado
    * pois será passado somente um SINAL de evento no DOM. Muito boa esta abordagem, fv olhe no component authComponent.html
    */
@@ -17,7 +17,7 @@ export class ModalComponent {
 
 
   constructor() {
-  this.modal = {message:'', kind:'',statusText:''};
+    this.changeModal();
   }
 
 

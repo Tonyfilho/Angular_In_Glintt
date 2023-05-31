@@ -69,6 +69,7 @@ export class AuthService {
     const localUserStorage: { email: string; id: string; _token: string; _tokenExpirationDate: string; } = JSON.parse(localStorage.getItem('userData') as string);
     //console.log('no autologin: ', JSON.parse(localStorage.getItem('userData') as string))
     if (!localUserStorage) {
+      this.router.navigate(['/recipes']);
       return;
     }
     const localUserLogin = new UserTokenModel(localUserStorage.email, localUserStorage.id, localUserStorage._token, new Date(localUserStorage._tokenExpirationDate));
@@ -79,7 +80,6 @@ export class AuthService {
        */
       const expirationDuration = new Date(localUserStorage._tokenExpirationDate).getTime() - new Date().getTime();
       this.autoLogoutWithLocalStorage(expirationDuration);
-      this.router.navigate(['/body']);
     }
 
   }

@@ -14,11 +14,12 @@ import { IModal } from '../_share/models/IModal';
 })
 export class AuthComponent implements OnInit {
   isLoginMode = true;
-  isLodingSpinner: boolean | any  = false;
+  isLoadModal : boolean | any = false;
+  isLodingSpinner: boolean   = false;
   authenticationForm!: FormGroup<{email:FormControl, password: FormControl}>;
   // displayStyle = { displayBlock: "none", displayStyle: '' };
   localModal: { status: string, statusText: string, name: string } | any = {};
-  modalService!: IModal;
+  modalService: IModal = {message:'', kind:'',statusText:''}
 
 
   constructor(private fb: UntypedFormBuilder, private authService: AuthService, private router: Router, private dataStorage: DataStorageService) {
@@ -26,6 +27,7 @@ export class AuthComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.min(8)]],
     })
+
   }
 
   ngOnInit(): void {
@@ -47,7 +49,8 @@ export class AuthComponent implements OnInit {
             this.modalService['kind'] = 'sucess';
             this.modalService['statusText'] = 'Welcome: ' + data.email;
             this.dataStorage.fetchRecipesWithAuthAndInterceptor().subscribe(); // carregando o Fetch,
-            //console.log('Response Data: ', data)
+           console.log('Response Data sucess: ', data);
+           this.isLoadModal = true;
             // this.localModal.name = 'All Right!!! ';
             // this.localModal['status'] = 'Welcome';
             // this.localModal['statusText'] = 'You are Login';
@@ -61,8 +64,9 @@ export class AuthComponent implements OnInit {
             this.modalService['message'] = 'Some thing Wrong';
             this.modalService['kind'] = 'error';
             this.modalService['statusText'] = e;
+            console.log('error do e: ', e);
+            this.isLoadModal = true;
             //o erro vem pelo Subscribe
-            // console.log('error do e: ', e);
             // this.localModal.name = 'Ops... Some thing Wrong :';
             // this.localModal['status'] = e + '401'
             // this.displayStyle.displayStyle = 'alert-danger';
@@ -82,6 +86,7 @@ export class AuthComponent implements OnInit {
             this.modalService['message'] = 'All Right';
             this.modalService['kind'] = 'sucess';
             this.modalService['statusText'] = 'You create a new user, congratulation: ' + data.email;
+            this.isLoadModal = true;
             // console.log(data)
             // this.localModal.name = 'All Right!!! ';
             // this.localModal['status'] = '201';
@@ -98,6 +103,7 @@ export class AuthComponent implements OnInit {
             this.modalService['message'] = 'Some thing Wrong';
             this.modalService['kind'] = 'error';
             this.modalService['statusText'] = e;
+            this.isLoadModal = true;
 
             //console.log('error do e: ', e);
             // this.localModal.statusText = e;
@@ -122,7 +128,7 @@ export class AuthComponent implements OnInit {
   closeModal() {
     // this.displayStyle.displayBlock = "none";
     // this.displayStyle.displayStyle = "";
-    this.isLodingSpinner = null; // a var tem q resetada para null, para termos o efeito esperado.
+    this.isLoadModal  = null; // a var tem q resetada para null, para termos o efeito esperado.
     this.authenticationForm.reset()
   }
 
