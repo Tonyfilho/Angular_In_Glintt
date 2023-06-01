@@ -62,7 +62,6 @@ export class AuthComponent implements OnInit {
           },
           complete: () => { console.info("fim do Observable");
           this.dataStorage.fetchRecipesWithAuthAndInterceptor().subscribe(); // carregando o Fetch,
-
         },
         }
       );
