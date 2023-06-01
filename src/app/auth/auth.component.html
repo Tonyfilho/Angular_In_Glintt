@@ -1,10 +1,11 @@
 
 
 <div class="container">
+  <!-- ---------------------------MODAL SERVICE------------------------------------------- -->
   <app-modal [modal]="modalService"  (close)="closeModal()" *ngIf="isLoadModal"></app-modal>
   <div class="row">
     <div class="container col-6 col-md-offset-3">
-      <!-- carregando o spinner -->
+      <!-------------------------carregando o spinner------------- -->
       <div *ngIf="isLodingSpinner" style="text-align: center;">
         <app-spinners></app-spinners>
       </div>

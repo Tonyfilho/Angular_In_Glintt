@@ -50,14 +50,6 @@ export class AuthComponent implements OnInit {
             this.modalService['statusText'] = 'Welcome: ' + data.email;
             this.isLodingSpinner = false;
             this.isLoadModal = true;
-            this.router.navigateByUrl('/recipes');
-          //
-            // this.localModal.name = 'All Right!!! ';
-            // this.localModal['status'] = 'Welcome';
-            // this.localModal['statusText'] = 'You are Login';
-            // this.displayStyle.displayStyle = 'alert-success';
-            // this.openModal();
-
           },
           error: (e: any) => {
             this.modalService['message'] = 'Some thing Wrong';
@@ -66,11 +58,6 @@ export class AuthComponent implements OnInit {
             console.log('error do e: ', e);
             this.isLodingSpinner = false;
             this.isLoadModal = true;
-            //o erro vem pelo Subscribe
-            // this.localModal.name = 'Ops... Some thing Wrong :';
-            // this.localModal['status'] = e + '401'
-            // this.displayStyle.displayStyle = 'alert-danger';
-            // this.openModal();
 
           },
           complete: () => { console.info("fim do Observable");
@@ -129,10 +116,11 @@ export class AuthComponent implements OnInit {
 
   // }
   closeModal() {
-    // this.displayStyle.displayBlock = "none";
-    // this.displayStyle.displayStyle = "";
+    // this.displayStyle.displayBlock = "none"; // padrão de modal basico
+    // this.displayStyle.displayStyle = ""; // padrão de modal basico
     this.isLoadModal  = null; // a var tem q resetada para null, para termos o efeito esperado.
     this.authenticationForm.reset()
+    this.router.navigateByUrl('/recipes'); // tive q passar para  aqui, porque não carregava o Modal
   }
 
   errorFireBaseSignUp(error: string) {
