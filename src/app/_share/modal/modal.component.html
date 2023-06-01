@@ -1,8 +1,8 @@
 <div class="backdrop" (click)="closeModal()"></div>
-<div class="alertbox">
+<div class="alertbox" [ngStyle]="{ background:  modal['kind'] ==='error'  ? 'linear-gradient(68.15deg, #ec8d81 14.62%, #eb0738 85.61%)': 'linear-gradient(68.15deg, #81a5ec 14.62%, #436892 85.61%)'}">
   <span class="message">{{ modal['message'] }}</span>
   <p class="statusText">{{ modal['statusText'] }}</p>
-  <div class="alert-box-actions" [ngStyle]="{background: this.changeBackGroudColor}">
+  <div class="alert-box-actions" >
     <button class="btn btn-primary" (click)="closeModal()">Close</button>
   </div>
 </div>

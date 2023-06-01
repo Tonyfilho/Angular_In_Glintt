@@ -44,27 +44,27 @@ export class AuthComponent implements OnInit {
       this.authService.signInUser(this.authenticationForm.get('email')?.value, this.authenticationForm.get('password')?.value).subscribe(
         {
           next: (data: IAuthResponsePayloadSign) => {
-            this.isLodingSpinner = false;
-            this.modalService['message'] = 'You are Login';
+            console.log('Response Data sucess: ', data);
             this.modalService['kind'] = 'sucess';
+            this.modalService['message'] = 'You are Login';
             this.modalService['statusText'] = 'Welcome: ' + data.email;
-            this.dataStorage.fetchRecipesWithAuthAndInterceptor().subscribe(); // carregando o Fetch,
-           console.log('Response Data sucess: ', data);
-           this.isLoadModal = true;
+            this.isLodingSpinner = false;
+            this.isLoadModal = true;
+            this.router.navigateByUrl('/recipes');
+          //
             // this.localModal.name = 'All Right!!! ';
             // this.localModal['status'] = 'Welcome';
             // this.localModal['statusText'] = 'You are Login';
             // this.displayStyle.displayStyle = 'alert-success';
             // this.openModal();
-          //  this.router.navigateByUrl('/recipes'); O redirecinamento será feito junto com AuthService
 
           },
           error: (e: any) => {
-            this.isLodingSpinner = false;
             this.modalService['message'] = 'Some thing Wrong';
             this.modalService['kind'] = 'error';
             this.modalService['statusText'] = e;
             console.log('error do e: ', e);
+            this.isLodingSpinner = false;
             this.isLoadModal = true;
             //o erro vem pelo Subscribe
             // this.localModal.name = 'Ops... Some thing Wrong :';
@@ -73,7 +73,10 @@ export class AuthComponent implements OnInit {
             // this.openModal();
 
           },
-          complete: () => { console.info("fim do Observable") },
+          complete: () => { console.info("fim do Observable");
+          this.dataStorage.fetchRecipesWithAuthAndInterceptor().subscribe(); // carregando o Fetch,
+
+        },
         }
       );
 
@@ -99,10 +102,10 @@ export class AuthComponent implements OnInit {
           },
           error: (e: any) => {
             this.errorFireBaseSignUp(e?.error.error['message']);
-            this.isLodingSpinner = false;
             this.modalService['message'] = 'Some thing Wrong';
             this.modalService['kind'] = 'error';
             this.modalService['statusText'] = e;
+            this.isLodingSpinner = false;
             this.isLoadModal = true;
 
             //console.log('error do e: ', e);

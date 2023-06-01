@@ -1,7 +1,7 @@
-<div class="modal"  *ngIf="isLoadModal">
-  <app-modal [modal]="modalService"  (close)="closeModal()"></app-modal>
-</div>
+
+
 <div class="container">
+  <app-modal [modal]="modalService"  (close)="closeModal()" *ngIf="isLoadModal"></app-modal>
   <div class="row">
     <div class="container col-6 col-md-offset-3">
       <!-- carregando o spinner -->

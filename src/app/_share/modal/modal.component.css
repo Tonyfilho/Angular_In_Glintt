@@ -11,14 +11,12 @@
 }
 
 .alertbox {
-  position: fixed;
+  margin:10vw auto 7.5vh auto;
+  position: sticky;
   top: 25vh;
-  margin: 7.5vw auto 7.5vh auto;
   width: 35vw;
-  height: 25vh;
   padding: 16px;
   z-index: 100;
-  background: linear-gradient(68.15deg, #ec8d81 14.62%, #eb0738 85.61%);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
 
 }
